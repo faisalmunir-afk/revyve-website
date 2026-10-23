@@ -1,0 +1,1037 @@
+/* ---------------------------------------------------------------------------
+   Revyve - home
+   Geometry from the dealt blueprints; colour, type and ornament from the
+   house rules above them.
+
+   No gradients. No shadows at rest. No thin rules outside [data-ui].
+   No monospace. Square corners everywhere. One button shape.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* The monument: the footer wordmark. Far apart from --t-display. */
+  --t-monument: clamp(3.5rem, 17vw, 15rem);
+  --section-gap: clamp(7.5rem, 11vw, 15rem);
+}
+
+/* =========================================================================
+   The split stage
+   ========================================================================= */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: var(--gutter);
+  align-items: start;
+  padding-inline: var(--gutter);
+  /* Both halves start on the same line. */
+  padding-block-start: clamp(1rem, 2.4vw, 1.75rem);
+}
+
+/* The reading half: the hero, then the argument, both in column one. */
+.split > .hero {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+.split > .days {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}
+
+/* The fixed half stays put beside both of them. */
+.split__fixed {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  position: sticky;
+  top: clamp(1rem, 2.4vw, 1.75rem);
+  height: calc(100svh - clamp(2rem, 4.8vw, 3.5rem));
+  min-width: 0;
+  display: flex;
+  align-self: start;
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  /* On a phone the claim comes straight after the hero, before the argument,
+     so the page's live thing is seen rather than scrolled past. */
+  .split > .hero {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .split__fixed {
+    grid-column: 1;
+    grid-row: 2;
+    position: static;
+    height: auto;
+  }
+  .split > .days {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+/* =========================================================================
+   Hero - the sheet
+   ========================================================================= */
+
+.hero {
+  background: var(--surface);
+  padding: clamp(1.5rem, 3.2vw, 2.75rem);
+  min-height: calc(100svh - 5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__links {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  font-size: var(--t-small);
+  margin-bottom: clamp(3rem, 9vw, 7rem);
+}
+.hero__links a {
+  text-decoration: none;
+  color: var(--muted);
+}
+.hero__links a:hover {
+  color: var(--ink);
+}
+
+/* The name is the page's title and its one monument on the first screen. */
+.hero__name {
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+}
+
+/* The claim, set as a statement paragraph: 36px or less on desktop, 24px or
+   less on a phone, so it never reads as a four-line headline. */
+.hero__claim {
+  margin: 0 0 1.5rem;
+  font-size: var(--t-lead);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.hero__lede {
+  margin: 0 0 2.25rem;
+  max-width: 42ch;
+  color: var(--ink);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.hero__aside {
+  margin: 0;
+  font-size: var(--t-small);
+}
+.hero__aside a {
+  color: var(--muted);
+}
+.hero__aside a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+  }
+}
+
+/* =========================================================================
+   The claim stage - a real interface fragment
+   App-screen conventions live inside [data-ui] and nowhere else.
+   ========================================================================= */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.stage__picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex: 0 0 auto;
+}
+
+.stage__pick {
+  appearance: none;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0.85rem 0.75rem;
+  font: inherit;
+  font-size: var(--t-small);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+.stage__pick:hover {
+  color: var(--ink);
+  background: rgb(255 255 255 / 0.04);
+}
+.stage__pick.is-on {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+  background: rgb(255 255 255 / 0.06);
+}
+.stage__pickPayer {
+  color: var(--muted);
+}
+.stage__pick.is-on .stage__pickPayer {
+  color: var(--ink);
+}
+
+.stage__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: clamp(1rem, 2.2vw, 1.75rem);
+}
+
+.stage__record + .stage__record {
+  margin-top: 2.5rem;
+}
+
+.stage__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+.stage__id {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.stage__age {
+  margin: 0.4rem 0 1.1rem;
+  max-width: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.stage__ageNum {
+  font-size: clamp(2.25rem, 4.4vw, 3.25rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+.stage__ageWord {
+  font-size: var(--t-small);
+  color: var(--muted);
+  max-width: 24ch;
+}
+
+.stage__facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 0 0 0.9rem;
+}
+.stage__facts dt {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+.stage__facts dd {
+  margin: 0.1rem 0 0;
+  font-weight: 500;
+}
+
+.stage__meaning {
+  margin: 0 0 1.6rem;
+  font-size: var(--t-small);
+  color: var(--muted);
+  max-width: 44ch;
+}
+
+.stage__sub {
+  font-size: var(--t-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: var(--muted);
+  margin: 0 0 0.7rem;
+}
+
+.stage__log {
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+.stage__log li {
+  display: grid;
+  grid-template-columns: 1.25rem 4.2rem 1fr;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.5rem 0;
+}
+.stage__log li + li {
+  border-top: 1px solid rgb(255 255 255 / 0.07); /* taste-skill-ignore: inside [data-ui]; a claim log is a real table of records and quiet row separators are the product's own convention */
+}
+.stage__tick {
+  color: var(--accent);
+  margin-top: 0.3rem;
+}
+.stage__pending {
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.stage__day {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+.stage__what {
+  font-size: var(--t-small);
+  line-height: 1.4;
+}
+.stage__by {
+  color: var(--muted);
+}
+.stage__evidence {
+  display: block;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+.stage__log .is-open .stage__what {
+  color: var(--accent);
+}
+
+.stage__next p {
+  font-size: var(--t-small);
+  margin: 0 0 0.6rem;
+  max-width: 46ch;
+}
+.stage__gate {
+  color: var(--muted);
+}
+.stage__gate.is-held {
+  color: var(--ink);
+  background: rgb(159 199 184 / 0.12);
+  padding: 0.6rem 0.75rem;
+}
+
+.stage__open {
+  margin: 1.2rem 0 0;
+}
+
+.stage__bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 0.9rem clamp(1rem, 2.2vw, 1.75rem);
+  font-size: var(--t-small);
+  font-weight: 500;
+}
+
+/* =========================================================================
+   The first hundred days - itinerary on a slip
+   ========================================================================= */
+
+.days__title {
+  margin: 0 0 1.25rem;
+  max-width: 12ch;
+}
+
+.days__lede {
+  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+  max-width: 34ch;
+}
+
+.slip {
+  background: var(--surface);
+  padding: clamp(1.25rem, 2.8vw, 2.25rem);
+  /* The receipt's torn foot: a filled zigzag, not a rule. */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 14px),
+    97.5% 100%,
+    95% calc(100% - 14px),
+    92.5% 100%,
+    90% calc(100% - 14px),
+    87.5% 100%,
+    85% calc(100% - 14px),
+    82.5% 100%,
+    80% calc(100% - 14px),
+    77.5% 100%,
+    75% calc(100% - 14px),
+    72.5% 100%,
+    70% calc(100% - 14px),
+    67.5% 100%,
+    65% calc(100% - 14px),
+    62.5% 100%,
+    60% calc(100% - 14px),
+    57.5% 100%,
+    55% calc(100% - 14px),
+    52.5% 100%,
+    50% calc(100% - 14px),
+    47.5% 100%,
+    45% calc(100% - 14px),
+    42.5% 100%,
+    40% calc(100% - 14px),
+    37.5% 100%,
+    35% calc(100% - 14px),
+    32.5% 100%,
+    30% calc(100% - 14px),
+    27.5% 100%,
+    25% calc(100% - 14px),
+    22.5% 100%,
+    20% calc(100% - 14px),
+    17.5% 100%,
+    15% calc(100% - 14px),
+    12.5% 100%,
+    10% calc(100% - 14px),
+    7.5% 100%,
+    5% calc(100% - 14px),
+    2.5% 100%,
+    0 calc(100% - 14px)
+  );
+  padding-bottom: calc(clamp(1.25rem, 2.8vw, 2.25rem) + 18px);
+}
+
+.slip__stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.slip__stage + .slip__stage {
+  margin-top: clamp(1.75rem, 3.4vw, 2.75rem);
+}
+
+.slip__name {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 0.5rem;
+  font-size: var(--t-body);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+.slip__nameText {
+  flex: 0 0 auto;
+}
+/* A leader of round dots, as the blueprint asks: filled shapes, not a rule. */
+.slip__leader {
+  flex: 1 1 auto;
+  height: 4px;
+  min-width: 1.5rem;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='4'><circle cx='2' cy='2' r='1.6' fill='%238e948d'/></svg>");
+  background-repeat: repeat-x;
+  background-position: left center;
+  transform: translateY(-0.2em);
+}
+.slip__when {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: var(--t-small);
+}
+
+.slip__body {
+  margin: 0;
+  max-width: 52ch;
+}
+
+.slip__total {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 1rem 1.1rem;
+  max-width: none;
+  font-weight: 500;
+}
+
+.days__evidence {
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+}
+.days__accountLegacy {
+  width: 100%;
+  height: clamp(320px, 42vw, 560px);
+  object-position: 50% 12%;
+}
+.days__evidence figcaption {
+  margin-top: 0.75rem;
+  max-width: 48ch;
+}
+
+/* =========================================================================
+   Revyve AI - input half, output half (breaks the split, full width)
+   ========================================================================= */
+
+.io {
+  margin-top: var(--section-gap);
+}
+
+.io__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.io__in,
+.io__out {
+  min-height: 90svh;
+  padding: clamp(1.5rem, 3.4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.io__in {
+  background: #0e1312; /* the darkest tone: one step below the ground */
+  color: var(--ink);
+}
+
+.io__out {
+  background: var(--paper);
+  color: var(--paper-ink);
+}
+
+.io__inner {
+  padding-top: clamp(1rem, 6vh, 4rem);
+}
+
+.io__label {
+  font-size: var(--t-small);
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.io__label--paper {
+  color: var(--paper-muted);
+}
+
+.io__raw {
+  font-family: inherit;
+  font-size: var(--t-small);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0 0 1.25rem;
+  max-width: 40ch;
+  color: var(--ink);
+}
+
+.io__note {
+  max-width: 34ch;
+}
+
+.io__frag {
+  max-width: 520px;
+  background: var(--paper-surface);
+  color: var(--paper-ink);
+  padding: clamp(0.9rem, 1.8vw, 1.4rem);
+  max-height: 58svh;
+  overflow-y: auto;
+}
+/* The fragment inherits the product's own conventions, in the light field. */
+.io__frag .stage__id,
+.io__frag .stage__facts dd,
+.io__frag .stage__what,
+.io__frag .stage__next p {
+  color: var(--paper-ink);
+}
+.io__frag .stage__head,
+.io__frag .stage__payer,
+.io__frag .stage__ageWord,
+.io__frag .stage__facts dt,
+.io__frag .stage__meaning,
+.io__frag .stage__sub,
+.io__frag .stage__day,
+.io__frag .stage__by,
+.io__frag .stage__evidence,
+.io__frag .stage__gate,
+.io__frag .note {
+  color: var(--paper-muted);
+}
+.io__frag .stage__ageNum {
+  color: #2f5c4c;
+}
+.io__frag .stage__tick {
+  color: #2f5c4c;
+}
+.io__frag .stage__log li + li {
+  border-top-color: rgb(22 28 26 / 0.12);
+}
+.io__frag .stage__gate.is-held {
+  background: rgb(47 92 76 / 0.12);
+  color: var(--paper-ink);
+}
+.io__frag .stage__log .is-open .stage__what {
+  color: #2f5c4c;
+}
+
+.io__edgeWord {
+  margin: 2rem 0 0;
+  max-width: none;
+  font-size: var(--t-head);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.io__edgeWord--paper {
+  color: var(--paper-ink);
+  text-align: right;
+}
+
+.io__prose {
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.io__lede {
+  font-size: var(--t-lead);
+  line-height: 1.3;
+  max-width: 24ch;
+  margin: 0;
+}
+
+.io__three p {
+  margin: 0 0 1.35rem;
+  max-width: 54ch;
+}
+
+.io__close {
+  grid-column: 1 / -1;
+  max-width: 60ch;
+  margin: clamp(1rem, 2.5vw, 2rem) 0 0;
+}
+
+@media (max-width: 900px) {
+  .io__fields {
+    grid-template-columns: 1fr;
+  }
+  .io__in,
+  .io__out {
+    min-height: 62svh;
+  }
+  .io__edgeWord--paper {
+    text-align: left;
+  }
+  .io__prose {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================================
+   Close - a plain sentence, one action
+   ========================================================================= */
+
+.close {
+  padding-inline: var(--gutter);
+  padding-block: clamp(6rem, 18vh, 11rem) clamp(6rem, 16vh, 10rem);
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.close__say {
+  align-self: center;
+}
+
+.close__line {
+  font-size: var(--t-lead);
+  max-width: 34ch;
+  margin: 0 0 1.5rem;
+}
+
+.close__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  flex-wrap: wrap;
+}
+
+.close__rest {
+  margin: 0;
+}
+.close__photo {
+  width: 100%;
+  height: clamp(260px, 36vw, 480px);
+  object-position: 50% 58%;
+}
+.close__rest figcaption {
+  margin-top: 0.75rem;
+  max-width: 44ch;
+}
+
+@media (max-width: 900px) {
+  .close {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================================
+   Common questions - answers as reading text
+   ========================================================================= */
+
+.qs {
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.qs__title {
+  margin: 0;
+  max-width: 8ch;
+}
+
+.qs__text {
+  columns: 2;
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.qs__item {
+  break-inside: avoid;
+  margin: 0 0 1.25rem;
+  max-width: 42ch;
+}
+
+.qs__q {
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .qs {
+    grid-template-columns: 1fr;
+  }
+  .qs__text {
+    columns: 1;
+  }
+}
+
+/* =========================================================================
+   Footer - the name across the last photograph
+   ========================================================================= */
+
+.ftr {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 2rem) var(--gutter);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ftr__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  filter: grayscale(1) brightness(0.42) contrast(1.05);
+}
+
+.ftr__top {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  flex-wrap: wrap;
+}
+
+.ftr__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: var(--t-small);
+}
+.ftr__nav a {
+  text-decoration: none;
+  color: var(--ink);
+}
+.ftr__nav a:hover {
+  text-decoration: underline;
+}
+
+.ftr__routes {
+  max-width: 42ch;
+}
+.ftr__routes p {
+  font-size: var(--t-small);
+  margin: 0 0 0.9rem;
+}
+.ftr__mail a {
+  font-size: var(--t-body);
+}
+
+.ftr__bottom {
+  margin-top: clamp(3rem, 10vh, 7rem);
+}
+
+.ftr__wordmark {
+  margin: 0;
+  max-width: none;
+  font-size: var(--t-monument);
+  line-height: 0.78;
+  letter-spacing: -0.045em;
+  transform-origin: left bottom;
+  color: var(--ink);
+}
+
+.ftr__legal {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.ftr__legal span {
+  max-width: 52ch;
+}
+
+@media (max-width: 900px) {
+  .ftr {
+    min-height: 88svh;
+  }
+}
+
+/* Evidence beside the Revyve AI prose: the record card the section argues for. */
+.io__evidence {
+  grid-column: 1 / -1;
+  margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+}
+.io__card {
+  width: 100%;
+  height: clamp(220px, 28vw, 380px);
+  object-position: 62% 28%;
+}
+.io__evidence figcaption {
+  margin-top: 0.75rem;
+  max-width: 48ch;
+}
+
+/* The account's frame: the picture drifts inside it, the frame stays put. */
+.days__frame {
+  overflow: hidden;
+  height: clamp(320px, 42vw, 560px);
+}
+.days__frame .days__account {
+  height: 112%;
+  object-position: 50% 12%;
+}
+
+/* ---- The signature move: the claim ages as the argument scrolls past ----
+   Actions that have not happened yet are held back rather than removed, so
+   the panel never changes height and nothing jumps. */
+.stage__log li {
+  transition:
+    opacity 520ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.stage__log li.is-later {
+  opacity: 0.18;
+  transform: translateY(5px);
+}
+.stage__log li.is-here {
+  opacity: 1;
+  transform: none;
+}
+.stage__ageNum {
+  transition: color 420ms ease;
+}
+
+/* With reduced motion the whole record is shown at once and nothing dims. */
+@media (prefers-reduced-motion: reduce) {
+  .stage__log li.is-later {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The actor of each action, on its own line under what happened. */
+.stage__by {
+  display: block;
+  color: var(--muted);
+}
+
+/* The no-script record is a plain list, not a fixed-height panel. */
+.stage--all {
+  height: auto;
+}
+
+/* ---- Phone corrections ---- */
+@media (max-width: 900px) {
+  /* Stacked, the claim is read in full rather than scrolled inside a panel:
+     a sliced log reads as broken content, not as an interface. */
+  .stage {
+    height: auto;
+  }
+  .stage__body {
+    max-height: none;
+    overflow-y: visible;
+  }
+  .stage__pick {
+    justify-content: flex-start;
+  }
+}
+
+/* The monument's descenders need room before the legal line. */
+.ftr__wordmark {
+  margin-bottom: 0.12em;
+}
+
+/* ---- The log, tightened so the whole record fits the fixed half ----
+   "Next step, prepared" is what the record builds to; it must be on screen,
+   not below the panel's own scroll. */
+.stage__when {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.stage__by {
+  display: block;
+  color: var(--muted);
+  font-size: var(--t-small);
+  line-height: 1.25;
+}
+.stage__log li {
+  padding: 0.42rem 0;
+  grid-template-columns: 1.25rem 5.2rem 1fr;
+}
+.stage__meaning {
+  margin-bottom: 1.1rem;
+}
+.stage__log {
+  margin-bottom: 1.1rem;
+}
+
+/* The receiving office, cropped out of its archival mount card to the
+   photograph that was pasted on it. */
+.days__office {
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+}
+.days__crop {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: var(--surface);
+}
+.days__crop img {
+  position: absolute;
+  width: 246%;
+  max-width: none;
+  height: auto;
+  left: -132%;
+  top: -15.4%;
+}
+.days__office figcaption {
+  margin-top: 0.75rem;
+  max-width: 48ch;
+}
+
+/* ---- The output half must show the whole record ----
+   A record sliced by a scroll box reads as broken content rather than as an
+   interface. The field grows to its content instead. */
+.io__frag {
+  max-height: none;
+  overflow: visible;
+}
+.io__in,
+.io__out {
+  min-height: 86svh;
+  height: auto;
+}
+/* The raw remittance is the left field's subject: give it real presence. */
+.io__raw {
+  font-size: var(--t-body);
+  line-height: 1.75;
+  max-width: 34ch;
+}
+
+/* Re-assert the stacked field height: the generic rule above would otherwise
+   leave a tall void under the short raw remittance at tablet width. */
+@media (max-width: 900px) {
+  .io__in,
+  .io__out {
+    min-height: 0;
+    padding-block: clamp(2.5rem, 9vw, 4.5rem);
+  }
+}
+
+/* ---- Round-two fixes ----
+   The questions section's heading column carried nothing under the heading;
+   the 1910 forecast of this same street closes it. */
+.qs__side {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.qs__fig {
+  margin: 0;
+}
+.qs__photo {
+  width: 100%;
+  height: auto;
+}
+.qs__fig figcaption {
+  margin-top: 0.7rem;
+  max-width: 34ch;
+}
+
+/* The input half's void pooled under its short remittance. Centring the
+   block splits it above and below, and the output field closes the far
+   side of the pair. */
+.io__inner {
+  margin-block: auto;
+  padding-top: 0;
+}
+
+/* Picture credits: full contrast, links kept, one step under body size. */
+.credits {
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 100%;
+  margin: 0.5rem 0 0;
+}
+.credits a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+}
+.credits a:hover {
+  text-decoration-color: var(--ink);
+}
+.ftr__legal {
+  display: block;
+}

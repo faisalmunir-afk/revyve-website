@@ -1,0 +1,25 @@
+/* The neutral foundation shared by every version of the site.
+   No colour, no type, no look: those belong to a version's own stylesheet. */
+@import "tailwindcss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}

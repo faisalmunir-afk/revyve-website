@@ -1,0 +1,3772 @@
+/* ---------------------------------------------------------------------------
+   Revyve — V3 tokens
+
+   Idea: Revyve = revive. The company restarts cash flow that had stopped.
+   So the hero carries one volumetric ribbon of light: a current returning to
+   a system that had gone dark. That ribbon is the only loud thing on the
+   page; everything around it stays quiet.
+
+   Colour is the brand's own violet on a deep indigo, with one cool ice
+   highlight so the ribbon has somewhere to go and the page is not a
+   monochrome wash.
+
+   Type is a high-contrast display serif against a plain grotesque: two
+   families, clearly distinct, neither of them the neutral sans this kind of
+   page usually defaults to.
+
+   Scoped under .v3 so v1 and v2 can never reach it.
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Sentient";
+  src: url("/fonts/v3/Sentient-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sentient";
+  src: url("/fonts/v3/Sentient-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/v3/Switzer-300.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/v3/Switzer-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/v3/Switzer-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Switzer";
+  src: url("/fonts/v3/Switzer-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+.v3 {
+  /* Six values, no more. */
+  --abyss: #07041a; /* the ground the current runs through */
+  --deep: #150c38; /* one step up, for any raised surface */
+  --violet: #6420d4; /* the brand, on the action */
+  --lilac: #b689f8; /* the brand's light */
+  --ice: #dce6ff; /* the cool edge of the ribbon, and the text */
+  --muted: #8d85ac;
+
+  --display: "Sentient", ui-serif, Georgia, serif;
+  --text: "Switzer", ui-sans-serif, system-ui, sans-serif;
+
+  /* A scale with real jumps in it, not nine near-equal steps. */
+  --t-sm: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --t-body: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  --t-lead: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem);
+  --t-display: clamp(2.5rem, 0.3rem + 4.9vw, 4.6rem);
+
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --max: 1500px;
+
+  background: var(--abyss);
+  color: var(--ice);
+  font-family: var(--text);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+.v3 *,
+.v3 *::before,
+.v3 *::after {
+  box-sizing: border-box;
+}
+
+.v3 h1,
+.v3 h2,
+.v3 h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+}
+
+.v3 p {
+  margin: 0;
+}
+
+.v3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.v3 ::selection {
+  background: var(--violet);
+  color: #fff;
+}
+
+.v3 :focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.v3 .skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--violet);
+  color: #fff;
+  padding: 0.75rem 1rem;
+}
+.v3 .skip:focus {
+  left: 0;
+}
+
+.v3 .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3 *,
+  .v3 *::before,
+  .v3 *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   V3 — navigation and hero. Scoped under .v3.
+--------------------------------------------------------------------------- */
+
+/* =========================================================================
+   Navigation — edge to edge, no container
+
+   No pill, no glass, no radius. The wordmark, the links and the one action
+   sit directly on the page and the content scrolls under them. A soft scrim
+   fades down from the top edge so the links stay legible without ever
+   showing a bar; it takes the tone of whatever section is behind it.
+   ========================================================================= */
+
+.v3 .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  padding-inline: var(--gutter);
+  --nav-ink: rgb(240 244 255 / 0.92);
+  --nav-ink-strong: #ffffff;
+  --nav-line: rgb(255 255 255 / 0.22);
+  --nav-halo: 0 1px 2px rgb(7 4 26 / 0.7), 0 2px 14px rgb(7 4 26 / 0.75);
+  pointer-events: none;
+}
+.v3 .nav > * {
+  pointer-events: auto;
+}
+
+/* Legibility over a light band: a blurred scrim that fades out downward,
+   so it reads as the page softening under the links rather than as a bar.
+   It carries no edge, no radius and no border, and over the dark hero it
+   is not drawn at all. */
+.v3 .nav::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(100% + clamp(0.75rem, 2vw, 1.75rem));
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  background: linear-gradient(
+    to bottom,
+    rgb(245 244 251 / 0.74) 0%,
+    rgb(245 244 251 / 0.42) 58%,
+    rgb(245 244 251 / 0) 100%
+  );
+  /* Fades the blur itself out, so there is no line where it stops. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
+}
+
+.v3 .nav--light::before {
+  opacity: 1;
+}
+
+.v3 .nav__inner {
+  position: relative;
+  width: 100%;
+  padding: clamp(1.1rem, 2vw, 1.65rem) 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 3rem);
+}
+.v3 .nav__inner > * {
+  min-width: 0;
+}
+
+.v3 .nav__brand {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.v3 .nav__mark {
+  width: clamp(102px, 9vw, 128px);
+  height: auto;
+  filter: drop-shadow(0 2px 10px rgb(7 4 26 / 0.65));
+  transition: filter 300ms ease;
+}
+
+.v3 .nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2.25rem);
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.v3 .nav__link {
+  font-size: var(--t-sm);
+  color: var(--nav-ink);
+  white-space: nowrap;
+  padding-block: 0.3rem;
+  text-shadow: var(--nav-halo);
+  transition: color 180ms ease;
+}
+.v3 .nav__link:hover {
+  color: var(--nav-ink-strong);
+}
+
+.v3 .nav__end {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* The one action keeps its shape; the bar around it is what goes. */
+.v3 .nav__action {
+  font-size: var(--t-sm);
+  font-weight: 500;
+  color: #fff;
+  background: var(--violet);
+  padding: 0.72rem 1.4rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background-color 200ms ease, box-shadow 240ms ease;
+}
+.v3 .nav__action:hover {
+  background: #7429e8;
+  box-shadow: 0 8px 24px rgb(100 32 212 / 0.45);
+}
+
+.v3 .nav__toggle {
+  display: none;
+  font: inherit;
+  font-size: var(--t-sm);
+  color: var(--nav-ink-strong);
+  background: transparent;
+  border: 1px solid var(--nav-line);
+  border-radius: 999px;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  transition: color 300ms ease, border-color 300ms ease;
+}
+
+.v3 .nav__menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem 0 1rem;
+  background: var(--abyss);
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.v3 .nav__menuLink {
+  padding: 0.85rem 0;
+  font-size: var(--t-body);
+  color: rgb(234 240 255 / 0.85);
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+.v3 .nav__menuLink:last-child {
+  border-bottom: 0;
+}
+
+/* Over a light band the bar has no panel to hide behind, so the ink flips.
+   The wordmark is drawn white-outlined, so it is knocked to solid dark. */
+.v3 .nav--light {
+  --nav-ink: rgb(20 13 45 / 0.88);
+  --nav-ink-strong: #140d2d;
+  --nav-line: rgb(20 13 45 / 0.25);
+  /* The scrim carries legibility now. A white halo on near-white ground
+     only showed up as a pale patch behind every link. */
+  --nav-halo: none;
+}
+.v3 .nav--light .nav__mark {
+  filter: brightness(0) saturate(0);
+}
+
+@media (max-width: 940px) {
+  .v3 .nav__links {
+    display: none;
+  }
+  .v3 .nav__toggle {
+    display: inline-block;
+  }
+  .v3 .nav__end {
+    margin-inline-start: auto;
+  }
+}
+@media (max-width: 520px) {
+  .v3 .nav__action {
+    display: none;
+  }
+}
+
+/* =========================================================================
+   Hero
+   ========================================================================= */
+
+.v3 .hero {
+  position: relative;
+  /* Its own ground. It no longer has a drawn streak as a floor, and in
+     the stacked layout it sits inside a paper section, so without this
+     the no-script and reduced-motion hero would read as a grey wash. */
+  background: var(--abyss);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  isolation: isolate;
+}
+
+/* The field darkens toward the baseline so the sentence sits on solid
+   ground instead of fighting the light. */
+.v3 .hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to top,
+      var(--abyss) 4%,
+      rgb(7 4 26 / 0.86) 26%,
+      rgb(7 4 26 / 0.3) 56%,
+      transparent 78%
+    ),
+    radial-gradient(
+      120% 80% at 50% 38%,
+      transparent 0%,
+      rgb(7 4 26 / 0.38) 70%,
+      rgb(7 4 26 / 0.62) 100%
+    );
+}
+
+.v3 .hero__inner {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  padding: clamp(6.5rem, 12vh, 8.5rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  display: grid;
+  justify-items: center;
+}
+
+/* The sentence. Set large, in one face, with no word picked out. */
+.v3 .hero__title {
+  font-size: var(--t-display);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  max-width: min(19ch, 100%);
+  text-wrap: balance;
+  margin-bottom: clamp(1.25rem, 2.4vw, 1.9rem);
+}
+
+.v3 .hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: end;
+}
+
+.v3 .hero__say {
+  display: grid;
+  gap: clamp(1.25rem, 2.4vw, 1.9rem);
+  justify-items: center;
+  text-align: center;
+  max-width: min(58rem, 100%);
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+  .v3 .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 3rem);
+  }
+}
+
+.v3 .hero__lede {
+  font-size: clamp(1.0625rem, 0.92rem + 0.6vw, 1.3125rem);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.74);
+  max-width: min(46ch, 100%);
+}
+
+.v3 .hero__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.85rem, 2vw, 1.5rem);
+  flex-wrap: wrap;
+}
+
+.v3 .hero__go {
+  display: inline-flex;
+  align-items: center;
+  height: 54px;
+  padding-inline: 1.75rem;
+  background: var(--violet);
+  color: #fff;
+  font-size: var(--t-body);
+  font-weight: 500;
+  border-radius: 2px;
+  transition: background-color 200ms ease, transform 160ms ease;
+}
+.v3 .hero__go:hover {
+  background: #7429e8;
+}
+.v3 .hero__go:active {
+  transform: translateY(1px);
+}
+
+.v3 .hero__alt {
+  display: inline-flex;
+  align-items: center;
+  height: 54px;
+  padding-inline: 1.5rem;
+  font-size: var(--t-body);
+  color: var(--ice);
+  border: 1px solid rgb(220 230 255 / 0.24);
+  border-radius: 2px;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.v3 .hero__alt:hover {
+  border-color: rgb(220 230 255 / 0.5);
+  background: rgb(220 230 255 / 0.05);
+}
+
+.v3 .hero__more {
+  font-size: var(--t-sm);
+}
+.v3 .hero__more a {
+  color: var(--muted);
+  border-bottom: 1px solid rgb(141 133 172 / 0.45);
+  padding-bottom: 2px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .hero__more a:hover {
+  color: var(--ice);
+  border-bottom-color: var(--lilac);
+}
+
+/* One orchestrated arrival: the sentence, then the rest. Nothing else on
+   the page animates by itself. */
+@media (prefers-reduced-motion: no-preference) {
+  .v3 .hero__title {
+    animation: v3Up 1000ms cubic-bezier(0.16, 0.8, 0.3, 1) 220ms both;
+  }
+  .v3 .hero__say {
+    animation: v3Up 1000ms cubic-bezier(0.16, 0.8, 0.3, 1) 380ms both;
+  }
+}
+
+@keyframes v3Up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .v3 .hero {
+    min-height: 100svh;
+  }
+  .v3 .hero__title {
+    max-width: min(13ch, 100%);
+  }
+  .v3 .hero__go,
+  .v3 .hero__alt {
+    height: 50px;
+  }
+}
+
+/* =========================================================================
+   The mark at hero scale
+
+   Separate faces, one confirmed stroke: the headline's "businesses" and
+   its "run better", in the company's own mark. No figures, no data.
+   ========================================================================= */
+
+.v3 .hero__mark {
+  width: auto;
+  height: clamp(170px, 27svh, 310px);
+  max-width: 100%;
+  justify-self: end;
+  /* base.css caps svg at 100%; this one is allowed its own size. */
+  margin-block-end: clamp(-1rem, -2vw, -2.5rem);
+  filter: drop-shadow(0 30px 70px rgb(45 17 102 / 0.55));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .v3 .hero__mark {
+    animation: v3Mark 1400ms cubic-bezier(0.16, 0.8, 0.3, 1) 420ms both;
+  }
+}
+
+@keyframes v3Mark {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .v3 .hero__mark {
+    justify-self: start;
+    max-width: min(76%, 380px);
+    margin-block-end: 0;
+  }
+}
+
+
+/* =========================================================================
+   The first hundred days — the page's one light band
+
+   Set on paper rather than on the dark, so the page has a rhythm instead of
+   one unbroken field. Everything inside it is re-toned: the ink, the span,
+   the nodes and the mark itself.
+   ========================================================================= */
+
+.v3 .days {
+  /* Local tokens. Nothing outside this section sees them. */
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  --paper-rule: rgb(20 13 45 / 0.12);
+
+  position: relative;
+  padding-block: 0 clamp(5rem, 11vw, 9.5rem);
+  background: var(--paper);
+  color: var(--paper-ink);
+  overflow: clip;
+  isolation: isolate;
+}
+.v3 .days:not(.days--pinned) .days__half--say {
+  padding-top: clamp(4rem, 9vw, 6rem);
+}
+
+/* Pinned, the section starts with the hero, so it has no padding of its
+   own and no paper showing round the edges. */
+.v3 .days--pinned {
+  padding-block: 0;
+  background: var(--abyss);
+}
+
+/* The hero as the base layer. In flow it is simply the first section;
+   pinned, it fills the frame and the halves close over it. */
+.v3 .days__hero {
+  position: relative;
+  /* The section is paper-inked; the hero is not. */
+  color: var(--ice);
+}
+.v3 .days--pinned .days__hero {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.v3 .days--pinned .days__hero .hero {
+  min-height: 100%;
+  height: 100%;
+}
+/* The scroll drives a blur and a scale on these; tell the compositor. */
+.v3 .days--pinned .hero__inner,
+.v3 .days--pinned .days__half {
+  will-change: transform, filter, opacity;
+}
+.v3 .days--pinned .hero__inner {
+  transform-origin: center 40%;
+}
+
+.v3 .days__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- The pinned frame --------------------------------------------------
+   The track is as tall as the stages; the frame inside it sticks for the
+   length of that track, so the section holds the screen while the stages
+   change. Everything here is scoped to --pinned, which only the client
+   adds, so with no script the section is an ordinary stacked list. */
+.v3 .days__track {
+  position: relative;
+}
+
+.v3 .days--pinned .days__track {
+  height: calc((var(--count) + 3) * 100svh);
+}
+
+.v3 .days__steps {
+  display: none;
+}
+
+/* One sentinel per stage, equal shares of the track. Nothing is drawn;
+   they exist so the observer can report which stage holds the middle. */
+.v3 .days--pinned .days__steps {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  grid-template-rows: repeat(calc(var(--count) + 3), 1fr);
+  pointer-events: none;
+}
+
+/* Half and half, edge to edge. The halves start below the bar so the nav
+   always has paper under it and keeps its dark ink across the section. */
+.v3 .days__frame {
+  display: grid;
+}
+
+.v3 .days--pinned .days__frame {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100svh;
+  padding-top: clamp(5rem, 10vh, 7rem);
+  /* The paper half is the label; the brand half is the work. */
+  grid-template-columns: 3fr 7fr;
+}
+
+/* Paper under the brand half for the close. Hidden until then, or it
+   would sit over the hero; the close timeline shows it. Earlier in the
+   DOM than the halves and at the same level, so they paint over it. */
+.v3 .days__fill {
+  display: none;
+}
+.v3 .days--pinned .days__fill {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--paper);
+  visibility: hidden;
+}
+
+/* The judgement over everything, centred in the frame, no ground of its
+   own: the paper is the fill and the paper half beneath. */
+.v3 .days--pinned .days__close {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Unseen until the close timeline brings it up. */
+  opacity: 0;
+  display: grid;
+  place-items: center;
+  padding-top: clamp(5rem, 10vh, 7rem);
+  pointer-events: none;
+}
+.v3 .days--pinned .judge--embed {
+  background: none;
+  padding-block: 0;
+  width: 100%;
+}
+
+/* Off to their sides until the scroll draws them in. The inline transform
+   GSAP writes takes over from here. */
+.v3 .days--pinned .days__half {
+  position: relative;
+  z-index: 1;
+}
+.v3 .days--pinned .days__half--say {
+  transform: translateX(-100%);
+  /* Its own paper: it no longer sits on a paper section, it sits over
+     the hero. */
+  background: var(--paper);
+}
+.v3 .days--pinned .days__half--work {
+  transform: translateX(100%);
+}
+
+.v3 .days__cap {
+  display: none;
+}
+
+/* Sticks for the length of the whole section and contributes no height of
+   its own, so the strip the bar sits on is always paper. */
+.v3 .days--pinned .days__cap {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  /* Above the screen until the halves are in; the curtain brings it down. */
+  transform: translateY(-100%);
+  height: clamp(5rem, 10vh, 7rem);
+  margin-bottom: calc(-1 * clamp(5rem, 10vh, 7rem));
+  background: var(--paper);
+}
+
+.v3 .days__slot {
+  display: contents;
+}
+/* Pinned, the slot is the grid item and the half fills it. */
+.v3 .days--pinned .days__slot {
+  display: grid;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.v3 .days__half {
+  min-width: 0;
+  /* The gutter belongs to the half at every width; the pinned layout
+     widens it, it never introduces it. */
+  padding-inline: var(--gutter);
+}
+
+.v3 .days--pinned .days__half {
+  display: grid;
+  align-content: center;
+  padding-inline: clamp(1.5rem, 5vw, 5.5rem);
+  padding-block: clamp(2rem, 5vh, 4rem);
+}
+.v3 .days--pinned .days__half--say {
+  padding-inline: var(--gutter) clamp(1.25rem, 3vw, 2.5rem);
+}
+.v3 .days--pinned .days__half--work {
+  padding-inline: clamp(2rem, 5vw, 5.5rem) var(--gutter);
+}
+
+/* The work sits on the brand. */
+.v3 .days--pinned .days__half--work {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      90% 60% at 24% 28%,
+      rgb(100 32 212 / 0.5) 0%,
+      transparent 70%
+    ),
+    linear-gradient(160deg, #2a0f63 0%, #190e40 52%, #0f0829 100%);
+  color: var(--ice);
+}
+
+.v3 .days__aside {
+  display: grid;
+  justify-items: start;
+  gap: 0.9rem;
+  max-width: 34rem;
+}
+
+.v3 .days__title {
+  font-size: clamp(2.25rem, 1rem + 4.4vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  max-width: 11ch;
+  color: var(--paper-ink);
+}
+/* The same display size as the hero sentence and the stage title
+   opposite, so the two halves and the hero they close over share one
+   scale. At 30% it stands three lines tall. */
+.v3 .days--pinned .days__title {
+  font-size: var(--t-display);
+  line-height: 1.06;
+  max-width: 9ch;
+}
+
+.v3 .days__when {
+  font-size: var(--t-sm);
+  color: var(--paper-muted);
+}
+
+.v3 .days__lede {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--paper-ink-2);
+  max-width: min(30ch, 100%);
+}
+.v3 .days--pinned .days__lede {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  max-width: min(30ch, 100%);
+}
+
+/* The mark lays another face as each stage takes the frame. */
+.v3 .days__mark {
+  height: clamp(72px, 7.5vw, 112px);
+  width: auto;
+  max-width: none;
+  margin-top: clamp(1rem, 2.5vw, 1.9rem);
+  /* The faces are tuned for a dark ground; on paper they are brought down
+     so the light end of the ramp does not wash out. */
+  filter: brightness(0.84) saturate(1.18);
+}
+
+/* Four marks of where you are in the hundred days. */
+.v3 .days__ticks {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.v3 .days__tick {
+  width: clamp(22px, 2.4vw, 34px);
+  height: 3px;
+  border-radius: 2px;
+  background: rgb(20 13 45 / 0.13);
+  transition: background 480ms ease;
+}
+
+.v3 .days__tick[data-on="true"] {
+  background: #5a1ccc;
+}
+
+/* ---- The stage in the frame -------------------------------------------
+   Unpinned this is a plain stacked list on paper. Pinned, the stages are
+   laid on one another over the brand and only the live one is shown. The
+   type is set to answer the heading opposite, not to whisper at it. */
+.v3 .days__stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(2.5rem, 8vw, 3.5rem);
+}
+
+.v3 .days--pinned .days__mark {
+  height: clamp(60px, 6vw, 88px);
+}
+
+/* The stages share one grid cell, so the stack is exactly as tall as its
+   tallest stage and centres honestly; absolute positioning gave it no
+   height and let the longest stage run off the bottom of short screens. */
+.v3 .days--pinned .days__stack {
+  display: grid;
+}
+
+.v3 .days--pinned .days__stage {
+  grid-area: 1 / 1;
+  /* Words on the left, the drawing on the right. The words are one
+     block, so the space between a title and its paragraph is the same
+     on every stage whatever the drawing's height. */
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  align-items: center;
+  max-width: none;
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(22px);
+  pointer-events: none;
+  transition:
+    opacity 560ms linear,
+    filter 560ms linear,
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v3 .days--pinned .days__stage.is-on {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+  pointer-events: auto;
+}
+
+.v3 .days__stage {
+  display: grid;
+  justify-items: start;
+  gap: 1.1rem;
+  max-width: 46ch;
+}
+
+
+.v3 .days__name {
+  font-family: var(--text);
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--paper-ink);
+  max-width: 16ch;
+}
+
+.v3 .days__text {
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: var(--paper-ink-2);
+}
+
+/* On the brand the stage carries the weight of the heading opposite it. */
+.v3 .days--pinned .days__icon {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: center;
+  width: clamp(220px, 24vw, 360px);
+  color: var(--lilac);
+}
+.v3 .days__words {
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+  min-width: 0;
+}
+
+.v3 .days--pinned .days__name {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: var(--t-display);
+  letter-spacing: -0.022em;
+  line-height: 1.06;
+  color: var(--ice);
+  /* Every stage title holds two lines, however wide the screen: the
+     measure sits between the longest fragment and the shortest whole
+     title, so each breaks after its second word. Measured at the display
+     size: "Keep what" 7.7ch, "repeatable." 8ch, "Map the work." 10.5ch. */
+  max-width: 9ch;
+}
+
+.v3 .days--pinned .days__text {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.76);
+  max-width: 40ch;
+  /* The light cut: at this size the regular reads heavy on the dark. */
+  font-weight: 300;
+}
+
+/* ---- The drawings --------------------------------------------------------
+   Flat, in the hand of the Revyve AI diagrams. Unarmed they render
+   finished. Armed, every piece starts unseen and is laid on its own beat
+   when its stage takes the frame; leaving rewinds it. */
+.v3 .days__draw {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  color: var(--lilac);
+  overflow: visible;
+}
+/* The ground under the drawing: a faint tint and two rings, so the
+   animation has a place of its own on the panel. */
+.v3 .days__art {
+  position: relative;
+  min-width: 0;
+  /* The stage justifies its items to the start; the art must fill its
+     column or the drawing shrinks to its own min-content width. */
+  width: 100%;
+  justify-self: stretch;
+}
+.v3 .days--pinned .days__art::before,
+.v3 .days--pinned .days__art::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.v3 .days--pinned .days__art::before {
+  width: 118%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgb(100 32 212 / 0.28) 0%,
+    rgb(100 32 212 / 0.1) 42%,
+    transparent 68%
+  );
+}
+.v3 .days--pinned .days__art::after {
+  width: 92%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(182 137 248 / 0.16);
+  box-shadow: 0 0 0 clamp(28px, 3vw, 44px) rgb(182 137 248 / 0.05) inset,
+    0 0 0 1px rgb(182 137 248 / 0.07);
+  outline: 1px solid rgb(182 137 248 / 0.08);
+  outline-offset: clamp(28px, 3vw, 44px);
+}
+.v3 .days--pinned .days__draw {
+  position: relative;
+  z-index: 1;
+}
+
+.v3 .sd__label {
+  font-family: var(--text);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.v3 .sd--armed [data-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.v3 .sd--armed [data-stay] {
+  opacity: 0;
+}
+.v3 .sd--armed [data-pop] {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  scale: 0.4;
+}
+.v3 .days__stage.is-on .sd--armed [data-draw] {
+  animation: sdDraw 900ms cubic-bezier(0.32, 0.72, 0.3, 1) var(--d, 0ms) forwards;
+}
+.v3 .days__stage.is-on .sd--armed [data-stay] {
+  animation: sdIn 380ms ease var(--d, 0ms) forwards;
+}
+.v3 .days__stage.is-on .sd--armed [data-pop] {
+  animation: sdPop 460ms cubic-bezier(0.2, 1.3, 0.4, 1) var(--d, 0ms) forwards;
+}
+.v3 .days__stage.is-on .sd--armed [data-ring] {
+  animation:
+    sdPop 460ms cubic-bezier(0.2, 1.3, 0.4, 1) var(--d, 0ms) forwards,
+    sdRing 2200ms ease-in-out calc(var(--d, 0ms) + 600ms) infinite;
+}
+
+@keyframes sdDraw { to { stroke-dashoffset: 0; } }
+@keyframes sdIn { to { opacity: 1; } }
+@keyframes sdPop { to { opacity: 1; scale: 1; } }
+@keyframes sdRing {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Short screens: the brand half keeps its title size and gives up a step
+   of body size and mark size, so the longest stage still clears the
+   frame. */
+@media (max-height: 800px) and (min-width: 901px) {
+  .v3 .days--pinned .days__text {
+    font-size: var(--t-body);
+    max-width: 48ch;
+  }
+  .v3 .days--pinned .days__stage {
+    gap: 0.8rem;
+  }
+}
+
+/* Nothing to pin against in one column: the section falls back to the
+   stacked list on paper, every stage shown, every mark drawn. */
+@media (max-width: 900px) {
+  .v3 .days--pinned .days__track,
+  .v3 .days--pinned .days__frame {
+    height: auto;
+    position: static;
+    display: block;
+    padding-top: 0;
+  }
+  .v3 .days--pinned .days__hero {
+    position: relative;
+    inset: auto;
+  }
+  .v3 .days--pinned .days__half--say,
+  .v3 .days--pinned .days__half--work {
+    transform: none;
+  }
+  .v3 .days--pinned {
+    padding-block: 0 clamp(5rem, 11vw, 9.5rem);
+    background: var(--paper);
+  }
+  .v3 .days--pinned .days__half--say {
+    padding-top: clamp(4rem, 9vw, 6rem);
+  }
+  .v3 .days--pinned .days__steps,
+  .v3 .days--pinned .days__cap {
+    display: none;
+  }
+  .v3 .days--pinned .days__half {
+    display: block;
+    padding-block: 0;
+    padding-inline: var(--gutter);
+    background: none;
+    color: inherit;
+  }
+  .v3 .days__half--work {
+    margin-top: clamp(2.5rem, 8vw, 3.5rem);
+  }
+  .v3 .days--pinned .days__stack {
+    display: grid;
+    max-width: none;
+  }
+  .v3 .days--pinned .days__stage {
+    grid-area: auto;
+    grid-template-columns: minmax(0, 1fr);
+    opacity: 1;
+    filter: none;
+    transform: none;
+    pointer-events: auto;
+  }
+  .v3 .days__art {
+    max-width: 460px;
+  }
+  .v3 .days--pinned .days__name {
+    font-family: var(--text);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+    line-height: 1.2;
+    color: var(--paper-ink);
+  }
+  .v3 .days--pinned .days__text {
+    font-size: var(--t-body);
+    color: var(--paper-ink-2);
+    max-width: none;
+  }
+  .v3 .days__title {
+    max-width: 14ch;
+  }
+  .v3 .days__lede {
+    max-width: min(46ch, 100%);
+  }
+  .v3 .days__mark {
+    height: 84px;
+  }
+  .v3 .days__stage {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   The judgement
+
+   The line that used to close the hundred days, given its own band so it
+   arrives after the stages rather than under them. It types itself in out
+   of a blur, and the three things the hundred days are judged by are set
+   in the brand's ink.
+   ========================================================================= */
+
+.v3 .judge {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(5rem, 15vh, 11rem);
+}
+
+.v3 .judge__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.v3 .judge__line {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 1rem + 3.1vw, 4rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+  margin-inline: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Words stay whole so none of them breaks across a line mid-letter. */
+.v3 .judge__w {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* The three things it is judged by. */
+.v3 .judge__mark {
+  color: #5a1ccc;
+  background: linear-gradient(
+    to top,
+    rgb(182 137 248 / 0.34) 0 0.3em,
+    transparent 0.3em
+  );
+}
+
+/* Typed, the swipe rides each letter instead of the whole word, or it
+   would sit there as an empty bar waiting for the text to arrive. */
+/* Typed, the swipe and the ink ride each letter instead of the whole
+   word: a word can be part marked, and nothing waits as an empty bar for
+   the text to arrive. */
+.v3 .judge__c--mark {
+  color: #5a1ccc;
+  background: linear-gradient(
+    to top,
+    rgb(182 137 248 / 0.34) 0 0.3em,
+    transparent 0.3em
+  );
+}
+
+.v3 .judge__c {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(0.14em);
+  transition:
+    opacity 420ms ease,
+    filter 420ms ease,
+    transform 420ms cubic-bezier(0.16, 0.8, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 16ms);
+}
+
+.v3 .judge--on .judge__c {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+/* Untyping is never watched: when the line is taken off, every letter
+   goes at once, so a reversed scroll has nothing left to overlap. */
+.v3 .judge--embed:not(.judge--on) .judge__c {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v3 .judge__c {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .v3 .judge__line {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   Revyve AI
+
+   The section is built as a stratum, because that is what the copy says it
+   is: the software a business already runs sits above, one plane of light
+   runs beneath. The three capabilities are columns of type, not cards.
+   ========================================================================= */
+
+.v3 .rai {
+  position: relative;
+  padding-block: clamp(5rem, 11vw, 9.5rem);
+  overflow: clip;
+}
+
+.v3 .rai__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- Heading ------------------------------------------------------------
+   Centred: the claim, then what it rests on. Set beside each other the
+   heading swamped the paragraph and left it floating in the right half. */
+.v3 .rai__head {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+
+.v3 .rai__title {
+  /* Sized against the viewport so the sentence holds two lines at every
+     width from tablet up, and balanced so the two come out even. The size
+     yields before the line count does. */
+  font-size: clamp(1.75rem, 4.55vw, 3.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.v3 .rai__name {
+  font-size: var(--t-sm);
+  color: var(--muted);
+}
+
+.v3 .rai__lede {
+  font-size: var(--t-body);
+  line-height: 1.62;
+  color: rgb(220 230 255 / 0.72);
+  max-width: min(68ch, 100%);
+  text-wrap: pretty;
+}
+
+/* ---- The three plates --------------------------------------------------
+   One drawing per claim, each made from its own sentence. The shapes do
+   not simply alternate: the third is a layer, so it lies under its words
+   rather than beside them, and the argument lands by changing shape. */
+.v3 .rai__plates {
+  display: grid;
+  gap: clamp(3.5rem, 9vw, 7.5rem);
+  margin-top: clamp(1rem, 3vw, 2.5rem);
+}
+
+.v3 .rai__plate {
+  display: grid;
+  gap: clamp(1.75rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.v3 .rai__plate--right {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+.v3 .rai__plate--left {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+.v3 .rai__plate--left .rai__say {
+  grid-column: 2;
+  grid-row: 1;
+}
+.v3 .rai__plate--left .rai__draw {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* The layer runs the full width, beneath its own words. */
+.v3 .rai__plate--under {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+.v3 .rai__plate--under .rai__say {
+  max-width: 54ch;
+}
+.v3 .rai__plate--under .rai__draw {
+  /* Out past the gutter on both sides: it is under more than you see. */
+  margin-inline: calc(-1 * var(--gutter));
+}
+
+.v3 .rai__say {
+  min-width: 0;
+  display: grid;
+  gap: 0.85rem;
+  justify-items: start;
+  align-content: center;
+}
+
+/* A short lit rule instead of a box: the layer's light, cut to length. */
+.v3 .rai__tick {
+  width: 44px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--lilac), rgb(100 32 212 / 0.2));
+}
+
+.v3 .rai__pointName {
+  font-family: var(--text);
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ice);
+  max-width: 20ch;
+}
+
+.v3 .rai__plate--under .rai__pointName {
+  max-width: 24ch;
+}
+
+.v3 .rai__pointText {
+  font-size: var(--t-body);
+  line-height: 1.62;
+  color: rgb(220 230 255 / 0.66);
+  max-width: 48ch;
+}
+
+.v3 .rai__draw {
+  min-width: 0;
+}
+
+.v3 .rai__dg {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  color: var(--lilac);
+  overflow: visible;
+}
+
+/* ---- The drawing ------------------------------------------------------
+   Every plate draws itself as the reader scrolls it up the screen, and
+   undraws if they scroll back: the wheel is the pencil. The structure comes
+   first, because it was already there, then the way through it.
+
+   Scoped to --armed, which only the client adds, so with no script all of
+   this is simply drawn. Browsers without scroll-driven animations get the
+   same sequence fired once on arrival instead. */
+.v3 .rai--armed .dg__block,
+.v3 .rai--armed .dg__task,
+.v3 .rai--armed .dg__model,
+.v3 .rai--armed .dg__stand {
+  opacity: 0;
+}
+.v3 .rai--armed .dg__tap,
+.v3 .rai--armed .dg__gateMark {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  scale: 0.3;
+}
+.v3 .rai--armed .dg__thread,
+.v3 .rai--armed .dg__route,
+.v3 .rai--armed .dg__gate {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.v3 .rai--armed .dg__bar {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.v3 .rai--armed .rai__say > * {
+  opacity: 0;
+  translate: 0 16px;
+}
+
+/* -- Run off the scroll ------------------------------------------------
+   The plate is the timeline. `cover 0%` is its top edge arriving at the
+   bottom of the screen, `cover 100%` its bottom edge leaving the top. The
+   drawing lands between roughly a third in and the middle, so it is
+   complete by the time the plate sits where it is read. */
+@supports (animation-timeline: view()) {
+  .v3 .rai--armed .rai__plate {
+    view-timeline-name: --plate;
+    view-timeline-axis: block;
+    animation: viewFade 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover 0% cover 100%;
+  }
+  .v3 .rai--armed .rai__head {
+    view-timeline-name: --raihead;
+    animation: viewFade 1ms linear both;
+    animation-timeline: --raihead;
+    animation-range: cover 0% cover 100%;
+  }
+
+  .v3 .rai--armed .rai__plate .rai__say > * {
+    animation: dgSay 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover 10% cover 26%;
+  }
+  .v3 .rai--armed .rai__plate .rai__say > :nth-child(2) {
+    animation-range: cover 13% cover 29%;
+  }
+  .v3 .rai--armed .rai__plate .rai__say > :nth-child(3) {
+    animation-range: cover 16% cover 32%;
+  }
+
+  /* Plate one: the systems, then the thread through them, then the taps. */
+  .v3 .rai--armed .dg__block {
+    animation: dgIn 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(12% + var(--i) * 1.4%)
+      cover calc(22% + var(--i) * 1.4%);
+  }
+  .v3 .rai--armed .dg__thread {
+    animation: dgDraw 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover 24% cover 54%;
+  }
+  .v3 .rai--armed .dg__tap {
+    animation: dgPop 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(28% + var(--i) * 3.4%)
+      cover calc(34% + var(--i) * 3.4%);
+  }
+
+  /* Plate two: the tasks, the gate, the routes, then the models they reach. */
+  .v3 .rai--armed .dg__task {
+    animation: dgIn 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(12% + var(--i) * 1.8%)
+      cover calc(20% + var(--i) * 1.8%);
+  }
+  .v3 .rai--armed .dg__gate {
+    animation: dgDraw 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover 20% cover 30%;
+  }
+  .v3 .rai--armed .dg__route {
+    animation: dgDraw 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(26% + var(--i) * 2.4%)
+      cover calc(40% + var(--i) * 2.4%);
+  }
+  .v3 .rai--armed .dg__model {
+    animation: dgIn 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(38% + var(--i) * 3%)
+      cover calc(46% + var(--i) * 3%);
+  }
+
+  /* Plate three: the layer lights, then the four stand on it, then the gates. */
+  .v3 .rai--armed .dg__bar {
+    animation: dgBar 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover 14% cover 40%;
+  }
+  .v3 .rai--armed .dg__stand {
+    animation: dgIn 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(30% + var(--i) * 3.5%)
+      cover calc(40% + var(--i) * 3.5%);
+  }
+  .v3 .rai--armed .dg__gateMark {
+    animation: dgPop 1ms linear both;
+    animation-timeline: --plate;
+    animation-range: cover calc(36% + var(--i) * 3%)
+      cover calc(44% + var(--i) * 3%);
+  }
+}
+
+/* -- Fired once on arrival, where the scroll cannot drive it ------------ */
+@supports not (animation-timeline: view()) {
+  .v3 .rai--armed .rai__plate.is-in .dg__block {
+    animation: dgIn 560ms cubic-bezier(0.16, 0.8, 0.3, 1)
+      calc(var(--i) * 48ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__thread {
+    animation: dgDraw 1500ms cubic-bezier(0.38, 0.6, 0.25, 1) 480ms forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__tap {
+    animation: dgPop 420ms cubic-bezier(0.2, 1.3, 0.4, 1)
+      calc(760ms + var(--i) * 140ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__task {
+    animation: dgIn 500ms cubic-bezier(0.16, 0.8, 0.3, 1)
+      calc(var(--i) * 70ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__gate {
+    animation: dgDraw 620ms ease 320ms forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__route {
+    animation: dgDraw 820ms cubic-bezier(0.34, 0.66, 0.26, 1)
+      calc(440ms + var(--i) * 90ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__model {
+    animation: dgIn 620ms cubic-bezier(0.2, 1.1, 0.4, 1)
+      calc(900ms + var(--i) * 120ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__bar {
+    animation: dgBar 1000ms cubic-bezier(0.22, 0.75, 0.2, 1) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__stand {
+    animation: dgIn 620ms cubic-bezier(0.16, 0.8, 0.3, 1)
+      calc(620ms + var(--i) * 110ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .dg__gateMark {
+    animation: dgPop 420ms cubic-bezier(0.2, 1.3, 0.4, 1)
+      calc(780ms + var(--i) * 110ms) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .rai__say > * {
+    animation: dgSay 640ms cubic-bezier(0.16, 0.8, 0.3, 1) forwards;
+  }
+  .v3 .rai--armed .rai__plate.is-in .rai__say > :nth-child(2) {
+    animation-delay: 90ms;
+  }
+  .v3 .rai--armed .rai__plate.is-in .rai__say > :nth-child(3) {
+    animation-delay: 170ms;
+  }
+}
+
+@keyframes dgIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dgDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dgPop {
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes dgBar {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes dgSay {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---- The close ---------------------------------------------------------- */
+.v3 .rai__close {
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+}
+
+.v3 .rai__closeText {
+  max-width: 44ch;
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 0.95rem + 1.25vw, 2rem);
+  line-height: 1.26;
+  letter-spacing: -0.015em;
+  color: var(--ice);
+}
+
+.v3 .rai__link {
+  font-size: var(--t-body);
+  font-weight: 500;
+  color: var(--lilac);
+  border-bottom: 1px solid rgb(182 137 248 / 0.4);
+  padding-bottom: 3px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .rai__link:hover {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
+}
+
+@media (max-width: 960px) {
+  .v3 .rai__title {
+    max-width: 100%;
+  }
+  /* Stacked, every plate reads words first then its drawing. */
+  .v3 .rai__plate--right,
+  .v3 .rai__plate--left {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  .v3 .rai__plate--left .rai__say,
+  .v3 .rai__plate--left .rai__draw {
+    grid-column: 1;
+  }
+  .v3 .rai__plate--left .rai__say {
+    grid-row: 1;
+  }
+  .v3 .rai__plate--left .rai__draw {
+    grid-row: 2;
+  }
+  .v3 .rai__plate--under .rai__draw {
+    margin-inline: 0;
+  }
+  .v3 .rai__pointName,
+  .v3 .rai__pointText {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   The four routes
+
+   Four doors on paper, two large and two small, because two of the four
+   audiences are what the page exists for. The big pair answer the hand:
+   hover one and it widens, the other narrows, and in the room that opens
+   the mark draws itself large and lands with a bounce. The small pair sit
+   plain beneath. Nothing is boxed into four equal cards.
+   ========================================================================= */
+
+.v3 .doors {
+  --paper: #f5f4fb;
+  --paper-2: #ebe7fa;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(5rem, 11vw, 9.5rem);
+}
+
+.v3 .doors__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.v3 .doors__door {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  justify-items: start;
+  align-content: start;
+}
+
+/* ---- The big pair ------------------------------------------------------- */
+.v3 .doors__pair {
+  display: flex;
+  gap: clamp(1.25rem, 2.6vw, 2.25rem);
+}
+
+.v3 .doors__door--main {
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+
+  flex: 1 1 0;
+  gap: clamp(1rem, 1.6vw, 1.4rem);
+  /* The body takes the slack, so the action sits at the foot of both
+     doors whatever the title does. */
+  grid-template-rows: auto auto 1fr auto;
+  padding: clamp(2rem, 3.6vw, 3.25rem);
+  /* Fixed, not min: the row must never grow when one door narrows and
+     its text rewraps. The corner marks fold away to make the room. */
+  height: clamp(28rem, 6rem + 29vw, 34rem);
+  background: var(--paper-2);
+  border-radius: 4px;
+  overflow: clip;
+  isolation: isolate;
+  /* The width springs a little past its mark and settles. */
+  transition: flex-grow 760ms var(--ease-spring);
+}
+
+/* The lit face, underneath, faded up on hover. A gradient cannot be
+   transitioned, so it is painted in full and its opacity is what moves. */
+.v3 .doors__door--main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #7a35ea 0%, #6420d4 48%, #4a16a8 100%);
+  opacity: 0;
+  transition: opacity 560ms ease;
+}
+
+/* Hover one: it widens, the other gives way, both corner marks fold so
+   the row holds its height, and the hovered door lights. Keyboard focus
+   inside a door counts as hovering it. The :has() argument is wrapped in
+   :where() so it carries no specificity: otherwise the "all give way" rule
+   outranks the "this one widens" rule and both doors end up narrow. */
+@media (hover: hover) {
+  .v3 .doors__pair:has(:where(.doors__door--main:is(:hover, :focus-within))) .doors__door--main {
+    flex-grow: 0.62;
+  }
+  .v3 .doors__pair .doors__door--main:is(:hover, :focus-within) {
+    flex-grow: 1.38;
+  }
+  .v3 .doors__pair:has(:where(.doors__door--main:is(:hover, :focus-within))) .doors__door--main .doors__mark {
+    height: 0;
+    margin-bottom: 0;
+    opacity: 0;
+  }
+
+  .v3 .doors__door--main:is(:hover, :focus-within)::before {
+    opacity: 1;
+  }
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__title {
+    color: #fff;
+  }
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__body {
+    color: rgb(220 230 255 / 0.84);
+  }
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__go {
+    background: #fff;
+    color: var(--violet);
+  }
+}
+
+/* The mark drawn large into the room the hover opens: strokes run on,
+   then the whole thing lands with a bounce. Each stroke starts a beat
+   after the one before. */
+.v3 .doors__big {
+  position: absolute;
+  right: clamp(1.75rem, 3.6vw, 3.25rem);
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(150px, 18vw, 250px);
+  height: auto;
+  max-width: none;
+  color: var(--ice);
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.72;
+  transform-origin: center;
+  transition:
+    opacity 260ms ease,
+    scale 760ms cubic-bezier(0.34, 1.58, 0.64, 1);
+}
+.v3 .doors__big g {
+  stroke-width: 1.15;
+}
+.v3 .doors__big .dm__line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 820ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.v3 .doors__big .dm__line:nth-of-type(2) {
+  transition-delay: 110ms;
+}
+.v3 .doors__big .dm__line:nth-of-type(3) {
+  transition-delay: 220ms;
+}
+.v3 .doors__big .dm__line:nth-of-type(4) {
+  transition-delay: 330ms;
+}
+.v3 .doors__big .dm__fill {
+  opacity: 0;
+  transition: opacity 360ms ease;
+}
+
+@media (hover: hover) {
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__big {
+    opacity: 1;
+    scale: 1;
+  }
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__big .dm__line {
+    stroke-dashoffset: 0;
+  }
+  .v3 .doors__door--main:is(:hover, :focus-within) .doors__big .dm__fill {
+    opacity: 1;
+    transition-delay: 560ms;
+  }
+}
+
+/* ---- The quieter pair --------------------------------------------------- */
+.v3 .doors__rest {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.6vw, 2.25rem);
+  margin-top: clamp(2rem, 5vw, 4.5rem);
+}
+
+.v3 .doors__door--side {
+  gap: 0.8rem;
+  padding-block: clamp(1rem, 2vw, 1.5rem);
+  padding-inline: clamp(0.25rem, 1vw, 0.75rem);
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: start;
+}
+.v3 .doors__door--side .doors__mark {
+  grid-row: 1 / span 3;
+}
+.v3 .doors__door--side .doors__title,
+.v3 .doors__door--side .doors__body,
+.v3 .doors__door--side .doors__go {
+  grid-column: 2;
+}
+
+/* ---- Shared ------------------------------------------------------------- */
+.v3 .doors__mark {
+  color: var(--violet);
+  max-width: none;
+}
+.v3 .doors__door--main .doors__mark {
+  --m: clamp(56px, 6vw, 84px);
+  width: var(--m);
+  /* Explicit, so it can fold to nothing and the words above it rise. */
+  height: var(--m);
+  margin-bottom: clamp(0.5rem, 2vw, 1.5rem);
+  transition:
+    height 640ms var(--ease-soft),
+    margin-bottom 640ms var(--ease-soft),
+    opacity 220ms ease;
+}
+.v3 .doors__door--side .doors__mark {
+  width: clamp(36px, 3.4vw, 48px);
+  height: auto;
+  margin-top: 0.2rem;
+}
+
+.v3 .doors__title {
+  color: var(--paper-ink);
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  transition: color 420ms ease;
+}
+.v3 .doors__door--main .doors__title {
+  /* Sized so the longer of the two titles holds one line at rest. */
+  font-size: clamp(2rem, 1.1rem + 2.5vw, 3.25rem);
+  max-width: 100%;
+}
+.v3 .doors__door--side .doors__title {
+  font-family: var(--text);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem);
+  letter-spacing: -0.015em;
+}
+
+.v3 .doors__body {
+  color: var(--paper-ink-2);
+  line-height: 1.55;
+  transition: color 420ms ease;
+}
+.v3 .doors__door--main .doors__body {
+  font-size: var(--t-lead);
+  max-width: 26ch;
+  align-self: start;
+}
+.v3 .doors__door--side .doors__body {
+  font-size: var(--t-body);
+  max-width: 52ch;
+}
+
+/* The action. Its pseudo-element covers the whole door, so the door is
+   the link but its accessible name stays its label. */
+.v3 .doors__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 500;
+  color: var(--violet);
+  transition: color 180ms ease;
+}
+.v3 .doors__go::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.v3 .doors__door--main .doors__go {
+  align-self: end;
+  height: 54px;
+  padding-inline: 1.6rem;
+  background: var(--violet);
+  color: #fff;
+  font-size: var(--t-body);
+  border-radius: 2px;
+  transition: background-color 420ms ease, color 420ms ease;
+}
+.v3 .doors__door--side .doors__go {
+  font-size: var(--t-body);
+  border-bottom: 1px solid rgb(100 32 212 / 0.35);
+  padding-bottom: 2px;
+}
+.v3 .doors__door--side:hover .doors__go {
+  color: #4a16a8;
+  border-bottom-color: #4a16a8;
+}
+
+.v3 .doors__arrow {
+  display: inline-block;
+  transition: translate 200ms cubic-bezier(0.16, 0.8, 0.3, 1);
+}
+.v3 .doors__door:hover .doors__arrow {
+  translate: 4px 0;
+}
+
+.v3 .doors__go:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+
+/* ---- Arrival, off the scroll -------------------------------------------
+   Each door rises as it comes up the screen and its corner mark draws.
+   The hidden state lives inside the @supports block, so a browser that
+   cannot run this simply shows the doors; so does reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .doors__door {
+      view-timeline-name: --door;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --door;
+      animation-range: cover 0% cover 100%;
+    }
+    .v3 .doors__mark .dm__line {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: doorDraw 1ms linear both;
+      animation-timeline: --door;
+      animation-range: cover 10% cover 48%;
+    }
+    .v3 .doors__mark .dm__fill {
+      opacity: 0;
+      animation: doorFill 1ms linear both;
+      animation-timeline: --door;
+      animation-range: cover 40% cover 56%;
+    }
+  }
+}
+
+/* The one arrival and departure every section shares: out of a blur as
+   it comes up the screen, back into one as it leaves at the top. Run off
+   the element's own view timeline over its whole crossing, so it is the
+   scroll that moves it, linearly, in both directions. */
+@keyframes viewFade {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    translate: 0 26px;
+  }
+  18% {
+    opacity: 1;
+    filter: blur(0);
+    translate: 0 0;
+  }
+  74% {
+    opacity: 1;
+    filter: blur(0);
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    translate: 0 -16px;
+  }
+}
+@keyframes doorDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes doorFill {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Below this the two big doors no longer hold their titles on one line
+   side by side, so they stack. */
+@media (max-width: 860px) {
+  .v3 .doors__pair {
+    flex-direction: column;
+  }
+  .v3 .doors__door--main {
+    height: auto;
+  }
+  .v3 .doors__door--main .doors__title {
+    max-width: 100%;
+  }
+  .v3 .doors__big {
+    display: none;
+  }
+  .v3 .doors__rest {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 1.5rem;
+  }
+  .v3 .doors__door--side {
+    padding-inline: 0;
+  }
+}
+
+/* =========================================================================
+   Common questions
+
+   Back on the dark after the paper of the doors. The heading holds the
+   left; the five questions run down the right as an accordion, each a
+   button with its answer folding open beneath. A short lit rule marks
+   each one as it arrives — the same mark the Revyve AI points carry.
+   ========================================================================= */
+
+.v3 .faq {
+  position: relative;
+  background: var(--abyss);
+  color: var(--ice);
+  padding-block: clamp(5rem, 11vw, 9.5rem);
+}
+
+.v3 .faq__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: start;
+}
+
+.v3 .faq__title {
+  font-size: clamp(2.25rem, 1rem + 4vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.022em;
+  max-width: 9ch;
+  /* Holds while the questions pass; releases with the section. */
+  position: sticky;
+  top: clamp(6.5rem, 17vh, 10.5rem);
+}
+
+.v3 .faq__list {
+  margin: 0;
+  display: grid;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+}
+
+.v3 .faq__item {
+  position: relative;
+  padding-top: 1.1rem;
+}
+
+/* The lit rule. */
+.v3 .faq__item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--lilac), rgb(100 32 212 / 0.2));
+  transform-origin: left center;
+}
+
+.v3 .faq__q {
+  margin: 0;
+}
+
+/* The question is the control: the whole row, edge to edge. */
+.v3 .faq__toggle {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: clamp(0.9rem, 1.6vw, 1.3rem) 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  text-align: left;
+  cursor: pointer;
+  color: var(--ice);
+  font: inherit;
+  transition: color 200ms ease;
+}
+.v3 .faq__toggle:hover {
+  color: var(--lilac);
+}
+.v3 .faq__toggle:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.v3 .faq__qText {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.375rem);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+/* A plus that turns into a cross. */
+.v3 .faq__plus {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  margin-top: 0.45em;
+  flex: 0 0 auto;
+}
+.v3 .faq__plus span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 1.6px;
+  background: currentColor;
+  border-radius: 2px;
+  translate: -50% -50%;
+  transition: rotate 520ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.v3 .faq__plus span:last-child {
+  rotate: 90deg;
+}
+.v3 .faq__item.is-open .faq__plus span:first-child {
+  rotate: 135deg;
+}
+.v3 .faq__item.is-open .faq__plus span:last-child {
+  rotate: 225deg;
+}
+
+/* The fold: a grid row from nothing to its content, which is the one
+   way to move to an unknown height smoothly without measuring it. Until
+   the client is in charge every panel is open. */
+.v3 .faq__panel {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.v3 .faq__fold {
+  min-height: 0;
+  overflow: hidden;
+}
+.v3 .faq--armed .faq__item:not(.is-open) .faq__panel {
+  grid-template-rows: 0fr;
+}
+
+.v3 .faq__a {
+  margin: 0;
+  padding-bottom: clamp(1.25rem, 2.4vw, 1.9rem);
+  font-size: var(--t-body);
+  line-height: 1.64;
+  color: rgb(220 230 255 / 0.7);
+  max-width: 58ch;
+  text-wrap: pretty;
+  transition: opacity 360ms ease, translate 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.v3 .faq--armed .faq__item:not(.is-open) .faq__a {
+  opacity: 0;
+  translate: 0 -8px;
+}
+
+.v3 .faq__link {
+  color: var(--lilac);
+  border-bottom: 1px solid rgb(182 137 248 / 0.4);
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .faq__link:hover {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
+}
+.v3 .faq__link:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 3px;
+}
+
+/* ---- Arrival, off the scroll -------------------------------------------
+   Each question rises as it comes up the screen and its rule draws. The
+   hidden state lives inside the @supports block, so a browser that cannot
+   run this simply shows the list; so does reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .faq__item {
+      view-timeline-name: --q;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --q;
+      animation-range: cover 0% cover 100%;
+    }
+    .v3 .faq__item::before {
+      transform: scaleX(0);
+      animation: faqRule 1ms linear both;
+      animation-timeline: --q;
+      animation-range: cover 8% cover 50%;
+    }
+  }
+}
+
+@keyframes faqRule {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .v3 .faq__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 3rem);
+  }
+  .v3 .faq__title {
+    position: static;
+    max-width: 14ch;
+  }
+  .v3 .faq__qText,
+  .v3 .faq__a {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   The footer
+
+   Its own band: a step up from the abyss, with one plane of light along
+   its top edge — the layer from Revyve AI, as the floor the page stands
+   on. Compact: wordmark, address and legal line down the left; the nine
+   routes in three short columns on the right; the finished mark on the
+   base.
+   ========================================================================= */
+
+.v3 .foot {
+  position: relative;
+  background: linear-gradient(to bottom, #110a2e 0%, #0b0622 100%);
+  color: var(--ice);
+  padding-block: clamp(2.75rem, 5.5vw, 4.25rem) clamp(1.75rem, 3.5vw, 2.5rem);
+  overflow: clip;
+}
+
+/* The plane along the top edge, and the light it throws. */
+.v3 .foot__edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    rgb(100 32 212 / 0) 0%,
+    var(--violet) 12%,
+    var(--lilac) 46%,
+    var(--ice) 76%,
+    rgb(220 230 255 / 0) 100%
+  );
+  transform-origin: left center;
+}
+.v3 .foot__edge::after {
+  content: "";
+  position: absolute;
+  inset: -14px 0;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(100 32 212 / 0.55) 26%,
+    rgb(182 137 248 / 0.45) 58%,
+    transparent 100%
+  );
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.v3 .foot__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  grid-template-rows: auto auto;
+  column-gap: clamp(2.5rem, 6vw, 6rem);
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+/* Wordmark, address, legal — one column, in that order. */
+.v3 .foot__say {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: grid;
+  justify-items: start;
+  gap: clamp(1.1rem, 2vw, 1.6rem);
+}
+
+.v3 .foot__brand {
+  display: inline-flex;
+  margin-bottom: clamp(0.25rem, 1vw, 0.75rem);
+}
+.v3 .foot__wordmark {
+  width: clamp(102px, 9vw, 128px);
+  height: auto;
+  max-width: none;
+}
+.v3 .foot__brand:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 4px;
+}
+
+/* The one thing a footer is for. */
+.v3 .foot__mail {
+  font-family: var(--display);
+  font-weight: 300;
+  /* Sized to hold one line in its column at every width the columns
+     exist; it never breaks inside the address. */
+  font-size: clamp(1.4rem, 0.55rem + 2.3vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ice);
+  white-space: nowrap;
+  border-bottom: 1px solid rgb(220 230 255 / 0.22);
+  padding-bottom: 0.14em;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.v3 .foot__mail:hover {
+  color: var(--lilac);
+  border-bottom-color: var(--lilac);
+}
+.v3 .foot__mail:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 4px;
+}
+
+.v3 .foot__legal {
+  font-size: var(--t-sm);
+  color: var(--muted);
+}
+
+/* Nine routes, three short columns. */
+.v3 .foot__nav {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+.v3 .foot__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  column-gap: clamp(1.75rem, 3.2vw, 3rem);
+  row-gap: 0.7rem;
+}
+
+.v3 .foot__link {
+  font-size: var(--t-body);
+  color: rgb(220 230 255 / 0.74);
+  transition: color 180ms ease;
+}
+.v3 .foot__link:hover {
+  color: var(--lilac);
+}
+.v3 .foot__link:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 3px;
+}
+
+/* The finished mark, on the base. */
+.v3 .foot__mark {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  align-self: end;
+  width: clamp(56px, 5.2vw, 76px);
+  height: auto;
+  max-width: none;
+  color: var(--ice);
+}
+
+/* ---- Arrival, off the scroll -------------------------------------------
+   The plane lights across the top as the footer comes up, then the faces
+   are laid one after another, the same order the hundred days laid them.
+   The hidden state lives inside the @supports block, so a browser that
+   cannot run this simply shows the footer; so does reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .foot {
+      view-timeline-name: --foot;
+    }
+    .v3 .foot__edge {
+      transform: scaleX(0);
+      animation: footEdge 1ms linear both;
+      animation-timeline: --foot;
+      animation-range: cover 0% cover 30%;
+    }
+    .v3 .foot__mark .mark__face {
+      opacity: 0;
+      animation: footFace 1ms linear both;
+      animation-timeline: --foot;
+    }
+.v3 .foot__mark .mark__face:nth-child(2) {
+  animation-range: cover 10% cover 24%;
+}
+.v3 .foot__mark .mark__face:nth-child(3) {
+  animation-range: cover 13% cover 27%;
+}
+.v3 .foot__mark .mark__face:nth-child(4) {
+  animation-range: cover 16% cover 30%;
+}
+.v3 .foot__mark .mark__face:nth-child(5) {
+  animation-range: cover 19% cover 33%;
+}
+.v3 .foot__mark .mark__face:nth-child(6) {
+  animation-range: cover 22% cover 36%;
+}
+.v3 .foot__mark .mark__face:nth-child(7) {
+  animation-range: cover 25% cover 39%;
+}
+.v3 .foot__mark .mark__face:nth-child(8) {
+  animation-range: cover 28% cover 42%;
+}
+.v3 .foot__mark .mark__face:nth-child(9) {
+  animation-range: cover 31% cover 45%;
+}
+.v3 .foot__mark .mark__face:nth-child(10) {
+  animation-range: cover 34% cover 48%;
+}
+.v3 .foot__mark .mark__face:nth-child(11) {
+  animation-range: cover 37% cover 51%;
+}
+  }
+}
+
+@keyframes footEdge {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes footFace {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .v3 .foot__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto;
+  }
+  .v3 .foot__say {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .v3 .foot__mail {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .v3 .foot__nav {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+  }
+  .v3 .foot__mark {
+    grid-column: 2;
+    grid-row: 2;
+    width: 64px;
+  }
+}
+
+@media (max-width: 520px) {
+  .v3 .foot__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 1.25rem;
+  }
+}
+
+/* =========================================================================
+   About
+
+   Built to be read. One claim and the facts beside it; five essays down a
+   measured column with their headings holding the margin; the dictionary
+   entry set large on paper as the page's one typographic moment; the
+   founders' background; read next.
+   ========================================================================= */
+
+.v3 .about {
+  background: var(--abyss);
+  color: var(--ice);
+}
+
+.v3 .about__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- The claim and the glance ------------------------------------------- */
+
+
+
+
+
+.v3 .about__link {
+  color: var(--lilac);
+  border-bottom: 1px solid rgb(182 137 248 / 0.4);
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .about__link:hover {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
+}
+
+/* ---- The essays ---------------------------------------------------------- */
+
+.v3 .about__sec-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.v3 .about__h2--static {
+  position: static !important;
+}
+
+.v3 .about__h2 {
+  font-size: clamp(1.75rem, 1rem + 2.4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  max-width: 12ch;
+  /* Holds the margin while its essay passes. */
+  position: sticky;
+  top: clamp(6.5rem, 17vh, 10.5rem);
+}
+
+
+.v3 .about__sup {
+  font-size: 0.6em;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 0.15em;
+}
+.v3 .about__sup a {
+  color: var(--lilac);
+  font-weight: 500;
+}
+
+/* ---- The entry ------------------------------------------------------------
+   Revyve's own definition of its name, on paper, set as a dictionary sets
+   one. The footnote sits beneath it, where the original keeps it. */
+.v3 .about__entry {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(5rem, 12vw, 9rem);
+}
+
+.v3 .about__headword {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6em 1em;
+  margin-bottom: clamp(1rem, 2.4vw, 1.75rem);
+}
+.v3 .about__word {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(3rem, 1.5rem + 6vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--paper-ink);
+}
+.v3 .about__ipa {
+  font-size: var(--t-lead);
+  color: var(--paper-muted);
+}
+.v3 .about__pos {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: var(--t-lead);
+  color: var(--paper-ink-2);
+}
+
+.v3 .about__sense {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
+  text-wrap: pretty;
+  color: var(--paper-ink);
+}
+
+.v3 .about__notes {
+  margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+  padding: clamp(1.25rem, 2vw, 1.75rem) 0 0;
+  border-top: 1px solid rgb(20 13 45 / 0.14);
+  list-style: none;
+  font-size: var(--t-sm);
+  line-height: 1.6;
+  color: var(--paper-ink-2);
+  max-width: 64ch;
+}
+.v3 .about__noteNum {
+  color: #5a1ccc;
+  font-weight: 500;
+}
+
+/* ---- The background -------------------------------------------------------- */
+.v3 .about__bg {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.v3 .about__bgTitle {
+  text-align: center;
+  max-width: none;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* The marquee: the strip runs right to left and loops without a seam,
+   because the list is laid twice and the track moves exactly one list's
+   width. Fades at both edges so the logos come and go rather than cut. */
+.v3 .about__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.v3 .about__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.v3 .about__marquee:hover .about__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3 .about__track {
+    animation: none;
+  }
+}
+
+.v3 .about__logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0 clamp(3rem, 6vw, 5.5rem);
+  padding-right: clamp(3rem, 6vw, 5.5rem);
+}
+
+.v3 .about__logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: none;
+  /* Dark artwork on transparent, brought to ice for the dark ground. */
+  filter: brightness(0) invert(1);
+  opacity: 0.72;
+}
+/* The one tall mark (Mount Sinai, 46×64) keeps its proportion at a
+   readable size rather than being squashed to the row height. */
+.v3 .about__logo img[height="64"] {
+  height: 56px;
+}
+.v3 .about__logo--solid img {
+  /* A filled tile with the mark knocked out: never inverted. */
+  filter: none;
+  opacity: 0.9;
+}
+
+/* ---- Read next ------------------------------------------------------------ */
+.v3 .about__next {
+  padding-block: 0 clamp(5rem, 11vw, 9rem);
+}
+.v3 .about__next .about__inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid rgb(220 230 255 / 0.12);
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.v3 .about__mark {
+  width: 48px;
+  height: auto;
+  max-width: none;
+  color: var(--ice);
+}
+.v3 .about__nextText {
+  font-size: var(--t-body);
+  line-height: 1.6;
+  color: rgb(220 230 255 / 0.7);
+  max-width: 64ch;
+}
+
+@media (max-width: 900px) {
+  .v3 .about__sec-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .v3 .about__h2 {
+    position: static;
+    max-width: 18ch;
+  }
+  .v3 .about__next .about__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v3 .about__mark {
+    width: 40px;
+  }
+}
+
+/* =========================================================================
+   About — the plates
+
+   Each essay is a plate: the words one side, a drawing made from that
+   essay the other, sides alternating, the drawing drawing on as the plate
+   comes up the screen. Paper opens the page (the glance) and closes it
+   (the entry); the plates run dark between.
+   ========================================================================= */
+
+.v3 .aboutb__top {
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(3rem, 6vw, 5rem);
+}
+
+.v3 .aboutb__title {
+  font-size: clamp(2.5rem, 1rem + 4.8vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.024em;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+/* ---- The glance, on paper ----------------------------------------------- */
+.v3 .aboutb__glance {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+.v3 .aboutb__facts {
+  margin: 0;
+  display: grid;
+  /* Read down each column, then across: two rows, filled column-first. */
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 3rem);
+}
+
+.v3 .aboutb__fact {
+  display: grid;
+  gap: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgb(20 13 45 / 0.16);
+  min-width: 0;
+}
+.v3 .aboutb__fact dt {
+  font-size: var(--t-sm);
+  color: var(--paper-muted);
+}
+.v3 .aboutb__fact dd {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: var(--paper-ink);
+  overflow-wrap: anywhere;
+}
+
+.v3 .aboutb__link {
+  color: #5a1ccc;
+  border-bottom: 1px solid rgb(100 32 212 / 0.35);
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .aboutb__link:hover {
+  color: var(--violet);
+  border-bottom-color: var(--violet);
+}
+
+/* ---- The plates ----------------------------------------------------------- */
+.v3 .aboutb__plates {
+  display: grid;
+  gap: clamp(4rem, 10vw, 8rem);
+  padding-block: clamp(5rem, 11vw, 8.5rem);
+}
+
+.v3 .aboutb__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+.v3 .aboutb__plate--left .aboutb__say {
+  grid-column: 2;
+  grid-row: 1;
+}
+.v3 .aboutb__plate--left .aboutb__art {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.v3 .aboutb__say {
+  min-width: 0;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.v3 .aboutb__h2 {
+  font-size: clamp(1.875rem, 1rem + 2.8vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.v3 .aboutb__prose {
+  display: grid;
+  gap: 1.1em;
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.62;
+  color: rgb(220 230 255 / 0.78);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+/* The drawing on its own ground, as the hundred days has it. */
+.v3 .aboutb__art {
+  position: relative;
+  min-width: 0;
+}
+.v3 .aboutb__art::before,
+.v3 .aboutb__art::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.v3 .aboutb__art::before {
+  width: 112%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(100 32 212 / 0.26) 0%, rgb(100 32 212 / 0.09) 42%, transparent 68%);
+}
+.v3 .aboutb__art::after {
+  width: 88%;
+  aspect-ratio: 1;
+  border: 1px solid rgb(182 137 248 / 0.14);
+  outline: 1px solid rgb(182 137 248 / 0.07);
+  outline-offset: clamp(24px, 2.6vw, 40px);
+}
+.v3 .aboutb__draw {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  color: var(--lilac);
+  overflow: visible;
+}
+
+/* The drawing draws on as its plate comes up the screen, off the plate's
+   own view timeline; the hidden state is inside @supports so a browser
+   without it simply shows the drawing. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .aboutb__plate {
+      view-timeline-name: --abplate;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --abplate;
+      animation-range: cover 0% cover 100%;
+    }
+    .v3 .aboutb__plate .sd--armed [data-draw] {
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --abplate;
+      animation-range: cover calc(14% + var(--d, 0ms) / 100ms * 1%) cover calc(40% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .aboutb__plate .sd--armed [data-stay] {
+      animation: sdIn 1ms linear both;
+      animation-timeline: --abplate;
+      animation-range: cover calc(12% + var(--d, 0ms) / 100ms * 1%) cover calc(22% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .aboutb__plate .sd--armed [data-pop] {
+      animation: sdPop 1ms linear both;
+      animation-timeline: --abplate;
+      animation-range: cover calc(14% + var(--d, 0ms) / 100ms * 1%) cover calc(26% + var(--d, 0ms) / 100ms * 1%);
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .v3 .aboutb__facts {
+    grid-template-rows: repeat(4, auto);
+  }
+  .v3 .aboutb__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .v3 .aboutb__plate--left .aboutb__say,
+  .v3 .aboutb__plate--left .aboutb__art {
+    grid-column: 1;
+  }
+  .v3 .aboutb__plate--left .aboutb__say {
+    grid-row: 1;
+  }
+  .v3 .aboutb__plate--left .aboutb__art {
+    grid-row: 2;
+  }
+  .v3 .aboutb__art {
+    max-width: 520px;
+  }
+  .v3 .aboutb__prose {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   Revyve AI — the product page
+
+   The claim and what it rests on; the architecture as the copy lays it
+   out, systems → Revyve AI → what does the work; what the system does,
+   beside the layer drawing; the first work it is doing, as one trace on
+   paper; read next.
+   ========================================================================= */
+
+.v3 .rp {
+  background: var(--abyss);
+  color: var(--ice);
+}
+.v3 .rp__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- The claim ------------------------------------------------------------ */
+.v3 .rp__hero {
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(4rem, 8vw, 6rem);
+}
+.v3 .rp__heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+.v3 .rp__title {
+  font-size: clamp(2.5rem, 1rem + 4.6vw, 4.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+  text-wrap: balance;
+  /* Holds while the two paragraphs pass. */
+  position: sticky;
+  top: clamp(6.5rem, 17vh, 10.5rem);
+}
+.v3 .rp__heroSay {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  padding-top: 0.6rem;
+}
+.v3 .rp__lead {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+.v3 .rp__claim {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--ice);
+  max-width: 24ch;
+  margin-top: 0.5rem;
+}
+.v3 .rp__go {
+  margin-top: 0.75rem;
+}
+
+/* ---- The architecture ----------------------------------------------------- */
+.v3 .rp__arch {
+  padding-block: clamp(3rem, 7vw, 6rem);
+}
+.v3 .rp__archGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 0.9fr) auto minmax(0, 1fr);
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: center;
+}
+.v3 .rp__colH {
+  font-family: var(--text);
+  font-weight: 500;
+  font-size: var(--t-sm);
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.v3 .rp__chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.v3 .rp__chip {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgb(182 137 248 / 0.22);
+  background: #130b33;
+  border-radius: 8px;
+  font-size: var(--t-body);
+  line-height: 1.35;
+  color: rgb(220 230 255 / 0.88);
+}
+.v3 .rp__chipIco {
+  width: 22px;
+  height: 22px;
+  max-width: none;
+  color: var(--lilac);
+  overflow: visible;
+}
+.v3 .rp__link {
+  color: var(--lilac);
+  width: clamp(36px, 4vw, 56px);
+}
+.v3 .rp__link svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+.v3 .rp__core {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.4vw, 2rem);
+  border-radius: 12px;
+  background: linear-gradient(160deg, #2a0f63 0%, #190e40 60%, #0f0829 100%);
+  border: 1px solid rgb(182 137 248 / 0.3);
+}
+.v3 .rp__coreMark {
+  width: 56px;
+  height: auto;
+  max-width: none;
+  color: var(--ice);
+  margin-bottom: 0.4rem;
+}
+.v3 .rp__coreName {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.4vw, 2.1rem);
+  letter-spacing: -0.015em;
+  color: var(--ice);
+}
+.v3 .rp__coreDetail {
+  font-size: var(--t-sm);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.7);
+  max-width: 24ch;
+}
+.v3 .rp__outcome {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 1rem + 1.3vw, 2rem);
+  letter-spacing: -0.015em;
+  color: var(--ice);
+}
+
+/* The arrows draw as the architecture comes up the screen. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .rp__arch {
+      view-timeline-name: --arch;
+    }
+    .v3 .rp__link [data-draw] {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --arch;
+      animation-range: cover 22% cover 46%;
+    }
+  }
+}
+
+/* ---- One system ---------------------------------------------------------- */
+.v3 .rp__system {
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+.v3 .rp__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+.v3 .rp__h2 {
+  font-size: clamp(2rem, 1rem + 3.2vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.v3 .rp__headLead {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.76);
+  max-width: 40ch;
+}
+
+.v3 .rp__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+
+.v3 .rp__card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  align-content: start;
+  gap: clamp(0.75rem, 1.4vw, 1rem);
+  padding: clamp(1.75rem, 3.2vw, 2.75rem);
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1b0f47 0%, #120a33 55%, #0c0726 100%);
+  border: 1px solid rgb(182 137 248 / 0.16);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 320ms ease, translate 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* A soft light in the drawing's corner, so each card has a lit place. */
+.v3 .rp__card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(100 32 212 / 0.28) 0%, transparent 68%);
+  z-index: -1;
+  pointer-events: none;
+}
+.v3 .rp__card:hover {
+  border-color: rgb(182 137 248 / 0.36);
+  translate: 0 -3px;
+}
+
+.v3 .rp__cardArt {
+  margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
+  padding: clamp(0.75rem, 1.6vw, 1.25rem);
+  border-radius: 10px;
+  background: rgb(7 4 26 / 0.45);
+  border: 1px solid rgb(182 137 248 / 0.1);
+}
+.v3 .rp__cardDraw {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Capped, so the drawing and its labels stay at about one and a half
+     times their drawn size however wide the card gets. */
+  max-width: 420px;
+  margin-inline: auto;
+  color: var(--lilac);
+  overflow: visible;
+}
+
+.v3 .rp__cardName {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  color: var(--ice);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.v3 .rp__cardText {
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.62;
+  color: rgb(220 230 255 / 0.72);
+  max-width: 52ch;
+}
+
+/* Each card fades in and its drawing draws on, off the card's own view
+   timeline; the hidden state sits inside @supports, so a browser without
+   it simply shows the cards finished. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .rp__card {
+      view-timeline-name: --card;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --card;
+      animation-range: cover 0% cover 100%;
+    }
+    .v3 .rp__card .sd--armed [data-draw] {
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --card;
+      animation-range: cover calc(10% + var(--d, 0ms) / 100ms * 1.2%) cover calc(30% + var(--d, 0ms) / 100ms * 1.2%);
+    }
+    .v3 .rp__card .sd--armed [data-stay] {
+      animation: sdIn 1ms linear both;
+      animation-timeline: --card;
+      animation-range: cover calc(8% + var(--d, 0ms) / 100ms * 1.2%) cover calc(18% + var(--d, 0ms) / 100ms * 1.2%);
+    }
+    .v3 .rp__card .sd--armed [data-pop] {
+      animation: sdPop 1ms linear both;
+      animation-timeline: --card;
+      animation-range: cover calc(10% + var(--d, 0ms) / 100ms * 1.2%) cover calc(20% + var(--d, 0ms) / 100ms * 1.2%);
+    }
+  }
+}
+
+.v3 .rp__note {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.25rem, 2vw, 1.75rem);
+  border-top: 1px solid rgb(220 230 255 / 0.12);
+  font-size: var(--t-sm);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 68ch;
+}
+
+/* ---- Revenue cycle, on paper ---------------------------------------------- */
+.v3 .rp__rcm {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+.v3 .rp__rcm .rp__headLead {
+  color: var(--paper-ink-2);
+}
+
+/* The four steps as one trace: nodes on a line, each drawing on in turn. */
+.v3 .rp__flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.v3 .rp__flow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 2px;
+  background: linear-gradient(to right, rgb(100 32 212 / 0.2), var(--violet) 60%, #5a1ccc);
+  transform-origin: left center;
+}
+.v3 .rp__step {
+  position: relative;
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 2rem;
+}
+.v3 .rp__stepNode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--violet);
+  box-shadow: 0 0 0 4px rgb(100 32 212 / 0.14);
+}
+.v3 .rp__stepLabel {
+  font-size: var(--t-sm);
+  color: #5a1ccc;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.v3 .rp__stepDetail {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--paper-ink);
+  max-width: 18ch;
+}
+.v3 .rp__close {
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+.v3 .rp__closing {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 28ch;
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .rp__flow {
+      view-timeline-name: --flow;
+    }
+    .v3 .rp__flow::before {
+      transform: scaleX(0);
+      animation: dgBar 1ms linear both;
+      animation-timeline: --flow;
+      animation-range: cover 0% cover 60%;
+    }
+    .v3 .rp__step {
+      opacity: 0;
+      translate: 0 14px;
+      animation: dgSay 1ms linear both;
+      animation-timeline: --flow;
+      animation-range: cover calc(8% + var(--i) * 12%) cover calc(28% + var(--i) * 12%);
+    }
+  }
+}
+
+.v3 .rp__next {
+  background: var(--abyss);
+  padding-top: clamp(4rem, 8vw, 6rem);
+}
+
+@media (max-width: 960px) {
+  .v3 .rp__heroGrid,
+  .v3 .rp__head,
+  .v3 .rp__cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .v3 .rp__title {
+    position: static;
+  }
+  .v3 .rp__archGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .v3 .rp__link {
+    width: 28px;
+    justify-self: center;
+    rotate: 90deg;
+  }
+  .v3 .rp__flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+    padding-left: 1.75rem;
+  }
+  .v3 .rp__flow::before {
+    left: 7px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    background: linear-gradient(to bottom, rgb(100 32 212 / 0.2), var(--violet) 60%, #5a1ccc);
+    transform-origin: top center;
+  }
+  .v3 .rp__step {
+    padding-top: 0;
+    padding-left: 0.5rem;
+  }
+  .v3 .rp__stepNode {
+    left: -1.75rem;
+    top: 2px;
+  }
+  .v3 .rp__lead,
+  .v3 .rp__cardText,
+  .v3 .rp__headLead {
+    max-width: 100%;
+  }
+}
+
+/* =========================================================================
+   For practices
+
+   The promise and its picture; the five reasons as a grid of tiles with
+   the heading as the sixth; how to start on paper; the questions, as the
+   home page's accordion.
+   ========================================================================= */
+
+.v3 .fp {
+  background: var(--abyss);
+  color: var(--ice);
+}
+.v3 .fp__inner {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- The promise ---------------------------------------------------------- */
+.v3 .fp__hero {
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(4rem, 9vw, 7rem);
+}
+.v3 .fp__heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+.v3 .fp__say {
+  display: grid;
+  gap: clamp(1.25rem, 2.4vw, 1.75rem);
+  justify-items: start;
+}
+.v3 .fp__title {
+  font-size: clamp(2.5rem, 1rem + 4.4vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+}
+.v3 .fp__titleLine {
+  display: block;
+  text-wrap: balance;
+}
+.v3 .fp__lead {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+.v3 .fp__go {
+  margin-top: 0.4rem;
+}
+
+/* The hero drawing is on screen at load, so it draws on a clock, not off
+   the scroll. */
+@media (prefers-reduced-motion: no-preference) {
+  .v3 .fp__heroDraw [data-draw] {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: sdDraw 900ms cubic-bezier(0.32, 0.72, 0.3, 1) calc(var(--d, 0ms) + 300ms) forwards;
+  }
+  .v3 .fp__heroDraw [data-stay] {
+    opacity: 0;
+    animation: sdIn 380ms ease calc(var(--d, 0ms) + 300ms) forwards;
+  }
+  .v3 .fp__heroDraw [data-pop] {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    scale: 0.4;
+    animation: sdPop 460ms cubic-bezier(0.2, 1.3, 0.4, 1) calc(var(--d, 0ms) + 300ms) forwards;
+  }
+}
+
+/* ---- The five reasons ---------------------------------------------------- */
+.v3 .fp__why {
+  padding-block: clamp(3rem, 7vw, 6rem) clamp(5rem, 11vw, 9rem);
+}
+.v3 .fp__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+.v3 .fp__lead-tile {
+  display: grid;
+  align-content: end;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(0.25rem, 1vw, 0.75rem);
+}
+.v3 .fp__h2 {
+  font-size: clamp(2rem, 1rem + 3vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  max-width: 11ch;
+  text-wrap: balance;
+}
+.v3 .fp__tile {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  padding: clamp(1.5rem, 2.8vw, 2.25rem);
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1b0f47 0%, #120a33 55%, #0c0726 100%);
+  border: 1px solid rgb(182 137 248 / 0.16);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 320ms ease, translate 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.v3 .fp__tile::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(100 32 212 / 0.24) 0%, transparent 68%);
+  z-index: -1;
+  pointer-events: none;
+}
+.v3 .fp__tile:hover {
+  border-color: rgb(182 137 248 / 0.36);
+  translate: 0 -3px;
+}
+.v3 .fp__mark {
+  width: 56px;
+  height: 56px;
+  max-width: none;
+  margin-bottom: 0.6rem;
+  overflow: visible;
+}
+.v3 .fp__tileTitle {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 1rem + 0.9vw, 1.75rem);
+  line-height: 1.14;
+  letter-spacing: -0.016em;
+  color: var(--ice);
+  text-wrap: balance;
+}
+.v3 .fp__tileBody {
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgb(220 230 255 / 0.72);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .fp__tile,
+    .v3 .fp__lead-tile {
+      view-timeline-name: --fptile;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --fptile;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+/* ---- How to start, on paper ---------------------------------------------- */
+.v3 .fp__start {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+.v3 .fp__startGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+.v3 .fp__startSay {
+  display: grid;
+  gap: clamp(1.1rem, 2vw, 1.5rem);
+  justify-items: start;
+}
+.v3 .fp__startBody {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--paper-ink-2);
+  max-width: 42ch;
+}
+.v3 .fp__note {
+  font-size: var(--t-sm);
+  color: var(--paper-muted);
+}
+/* The drawing on a dark plate, so its strokes keep their light on paper. */
+.v3 .fp__startArt {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #2a0f63 0%, #190e40 52%, #0f0829 100%);
+}
+.v3 .fp__startDraw {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  color: var(--lilac);
+  overflow: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .fp__startArt {
+      view-timeline-name: --fpstart;
+    }
+    .v3 .fp__startArt .sd--armed [data-draw] {
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --fpstart;
+      animation-range: cover calc(12% + var(--d, 0ms) / 100ms * 1.1%) cover calc(30% + var(--d, 0ms) / 100ms * 1.1%);
+    }
+    .v3 .fp__startArt .sd--armed [data-stay] {
+      animation: sdIn 1ms linear both;
+      animation-timeline: --fpstart;
+      animation-range: cover calc(10% + var(--d, 0ms) / 100ms * 1.1%) cover calc(20% + var(--d, 0ms) / 100ms * 1.1%);
+    }
+    .v3 .fp__startArt .sd--armed [data-pop] {
+      animation: sdPop 1ms linear both;
+      animation-timeline: --fpstart;
+      animation-range: cover calc(12% + var(--d, 0ms) / 100ms * 1.1%) cover calc(22% + var(--d, 0ms) / 100ms * 1.1%);
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .v3 .fp__heroGrid,
+  .v3 .fp__startGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 3rem);
+  }
+  .v3 .fp__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .v3 .fp__lead-tile {
+    grid-column: 1 / -1;
+  }
+  .v3 .fp__lead,
+  .v3 .fp__startBody {
+    max-width: 100%;
+  }
+}
+@media (max-width: 620px) {
+  .v3 .fp__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- The living field ---------------------------------------------------
+   Two drifting mesh gradients in the brand's violets. They sit furthest
+   back, behind the veil, and replace the drawn streak once mounted. */
+.v3 .hero__field {
+  position: absolute;
+  top: -30%;
+  left: -19%;
+  width: 124%;
+  height: 132%;
+  z-index: -3;
+  pointer-events: none;
+  opacity: 0;
+  animation: v3Field 1200ms ease 120ms forwards;
+}
+
+.v3 .hero__mesh {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.v3 .hero__mesh--grain {
+  opacity: 0.2;
+}
+
+@keyframes v3Field {
+  to { opacity: 1; }
+}

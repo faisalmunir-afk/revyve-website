@@ -1,0 +1,278 @@
+/* Hero. Scoped under .v2. */
+
+.v2 .hero {
+  position: relative;
+  min-height: calc(100svh - 72px);
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+
+/* The ground the column stands on: one wide, very soft band. */
+.v2 .hero__horizon {
+  position: absolute;
+  left: 50%;
+  bottom: -46%;
+  translate: -50% 0;
+  width: 150%;
+  aspect-ratio: 2.4 / 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(100 32 212 / 0.26) 0%,
+    rgb(58 18 132 / 0.12) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.v2 .hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 3.5rem) var(--gutter) clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.v2 .hero__say {
+  min-width: 0;
+  max-width: 44rem;
+}
+
+.v2 .hero__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  letter-spacing: -0.005em;
+  padding: 0.45rem 0.95rem 0.45rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: rgb(18 13 46 / 0.5);
+  margin-bottom: clamp(1.25rem, 2.4vw, 1.9rem);
+  animation: rvFade 700ms ease both;
+}
+
+.v2 .hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lilac);
+  box-shadow: 0 0 0 3px rgb(182 137 248 / 0.18);
+  flex: 0 0 auto;
+}
+
+.v2 .hero__headline {
+  font-size: var(--t-display);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  max-width: 20ch;
+  animation: rvRise 820ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: 60ms;
+}
+
+.v2 .hero__lede {
+  margin-top: clamp(1.1rem, 2vw, 1.6rem);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 46ch;
+  animation: rvRise 820ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: 150ms;
+}
+
+.v2 .hero__actions {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  animation: rvRise 820ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: 240ms;
+}
+
+.v2 .hero__primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 54px;
+  padding-inline: 1.6rem;
+  border-radius: 999px;
+  background: var(--violet);
+  color: var(--on-violet);
+  font-size: var(--t-base);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border: 1px solid rgb(182 137 248 / 0.45);
+  box-shadow: 0 10px 40px rgb(100 32 212 / 0.42);
+  transition: background-color 200ms ease, box-shadow 280ms ease,
+    transform 180ms ease;
+}
+.v2 .hero__primary:hover {
+  background: var(--violet-mid);
+  box-shadow: 0 14px 52px rgb(112 40 232 / 0.62);
+}
+.v2 .hero__primary:active {
+  transform: translateY(1px);
+}
+
+.v2 .hero__arrow {
+  transition: transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.v2 .hero__primary:hover .hero__arrow {
+  transform: translateX(3px);
+}
+
+.v2 .hero__secondary {
+  display: inline-flex;
+  align-items: center;
+  height: 54px;
+  padding-inline: 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  font-size: var(--t-base);
+  letter-spacing: -0.01em;
+  background: rgb(18 13 46 / 0.4);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.v2 .hero__secondary:hover {
+  border-color: rgb(182 137 248 / 0.45);
+  background: rgb(26 19 64 / 0.6);
+}
+
+.v2 .hero__aside {
+  margin-top: clamp(1.25rem, 2vw, 1.75rem);
+  font-size: var(--t-sm);
+  animation: rvRise 820ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: 320ms;
+}
+
+.v2 .hero__asideLink {
+  color: var(--muted);
+  border-bottom: 1px solid rgb(142 134 184 / 0.35);
+  padding-bottom: 2px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v2 .hero__asideLink:hover {
+  color: var(--ink);
+  border-bottom-color: var(--lilac);
+}
+
+.v2 .hero__stage {
+  position: relative;
+  min-width: 0;
+  height: min(78svh, 760px);
+  animation: rvFade 1200ms ease both;
+  animation-delay: 180ms;
+}
+
+@keyframes rvRise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rvFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2 .hero__kicker,
+  .v2 .hero__headline,
+  .v2 .hero__lede,
+  .v2 .hero__actions,
+  .v2 .hero__aside,
+  .v2 .hero__stage {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1040px) {
+  .v2 .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1rem, 4vw, 2.5rem);
+  }
+  .v2 .hero__say {
+    max-width: 38rem;
+  }
+  .v2 .hero__headline {
+    max-width: 18ch;
+  }
+  .v2 .hero__stage {
+    height: auto;
+    order: -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .v2 .hero {
+    min-height: 0;
+  }
+  .v2 .hero__primary,
+  .v2 .hero__secondary {
+    height: 50px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---- Containment ---------------------------------------------------------
+   Nothing may exceed its column. ch-based measures are generous on a phone,
+   so every max-width is capped at the container as well. */
+.v2 .hero__inner > * {
+  min-width: 0;
+}
+
+.v2 .hero__kicker {
+  max-width: 100%;
+}
+
+.v2 .hero__headline {
+  max-width: min(20ch, 100%);
+}
+
+.v2 .hero__lede {
+  max-width: min(46ch, 100%);
+}
+
+@media (max-width: 560px) {
+  .v2 .hero__kicker {
+    font-size: var(--t-xs);
+    padding: 0.4rem 0.75rem 0.4rem 0.6rem;
+    line-height: 1.35;
+  }
+  .v2 .hero__inner {
+    padding-top: clamp(1rem, 4vw, 2rem);
+  }
+}
+
+/* The reading column itself must also respect the viewport. */
+.v2 .hero__say {
+  max-width: min(44rem, 100%);
+}
+@media (max-width: 1040px) {
+  .v2 .hero__say {
+    max-width: min(38rem, 100%);
+  }
+}

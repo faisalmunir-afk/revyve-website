@@ -1,0 +1,275 @@
+/* ---------------------------------------------------------------------------
+   The first hundred days.
+
+   The Backbone continues as a vertical rail. Stages dock onto it, the rail
+   fills with light as the reader descends, and each chevron marker ignites
+   when its stage arrives.
+--------------------------------------------------------------------------- */
+
+.v2 .hd {
+  position: relative;
+  padding-block: clamp(5rem, 11vw, 10rem);
+  overflow: clip;
+}
+
+/* A single soft wash behind the rail so the section is not flat black. */
+.v2 .hd::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  translate: -50% 0;
+  width: min(1100px, 120%);
+  aspect-ratio: 1 / 1.1;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(100 32 212 / 0.14) 0%,
+    rgb(58 18 132 / 0.06) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.v2 .hd__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---- Header -------------------------------------------------------------- */
+.v2 .hd__head {
+  max-width: min(46rem, 100%);
+  margin-bottom: clamp(3rem, 6vw, 5.5rem);
+}
+
+.v2 .hd__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 100%;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  padding: 0.45rem 0.95rem 0.45rem 0.7rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: rgb(18 13 46 / 0.5);
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.v2 .hd__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lilac);
+  box-shadow: 0 0 0 3px rgb(182 137 248 / 0.18);
+  flex: 0 0 auto;
+}
+
+.v2 .hd__heading {
+  font-size: clamp(2rem, 0.9rem + 3.4vw, 3.5rem);
+  letter-spacing: -0.035em;
+  max-width: min(18ch, 100%);
+}
+
+.v2 .hd__lede {
+  margin-top: clamp(0.9rem, 1.6vw, 1.4rem);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: min(52ch, 100%);
+}
+
+/* ---- The rail ------------------------------------------------------------ */
+.v2 .hd__rail {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The spine itself: a dim track with a bright fill that follows the scroll. */
+.v2 .hd__line {
+  position: absolute;
+  left: 17px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: rgb(182 137 248 / 0.16);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.v2 .hd__lineFill {
+  display: block;
+  width: 100%;
+  height: var(--fill, 100%);
+  background: linear-gradient(
+    to bottom,
+    var(--lilac) 0%,
+    var(--violet-mid) 55%,
+    var(--violet) 100%
+  );
+  box-shadow: 0 0 14px rgb(112 40 232 / 0.75);
+  transition: height 220ms linear;
+}
+
+.v2 .hd__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 0.85fr) minmax(0, 1.25fr);
+  align-items: start;
+  gap: clamp(1rem, 2.6vw, 2.75rem);
+  padding-block: clamp(1.75rem, 3.4vw, 2.9rem);
+}
+
+.v2 .hd__stage + .v2 .hd__stage,
+.v2 .hd__stage + .hd__stage {
+  border-top: 1px solid var(--hairline);
+}
+
+/* ---- The marker: the mark's own check ------------------------------------ */
+.v2 .hd__marker {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--bg-2);
+  border: 1px solid rgb(182 137 248 / 0.22);
+  color: rgb(182 137 248 / 0.52);
+  transition: color 420ms ease, border-color 420ms ease,
+    background-color 420ms ease, box-shadow 520ms ease, transform 420ms ease;
+}
+
+.v2 .hd__stage.is-on .hd__marker {
+  color: var(--on-violet);
+  background: var(--violet);
+  border-color: rgb(213 189 251 / 0.65);
+  box-shadow: 0 0 0 5px rgb(100 32 212 / 0.16),
+    0 0 26px rgb(112 40 232 / 0.65);
+}
+
+/* ---- Stage text ---------------------------------------------------------- */
+.v2 .hd__who {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.v2 .hd__index {
+  font-size: var(--t-xs);
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  transition: color 420ms ease;
+}
+.v2 .hd__stage.is-on .hd__index {
+  color: var(--lilac);
+}
+
+.v2 .hd__title {
+  font-size: clamp(1.2rem, 0.95rem + 0.85vw, 1.75rem);
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: var(--ink);
+  max-width: min(16ch, 100%);
+}
+
+.v2 .hd__text {
+  grid-column: 3;
+  min-width: 0;
+  font-size: var(--t-base);
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: min(56ch, 100%);
+}
+
+/* The stage lifts as it arrives. Armed by script only. */
+@media (prefers-reduced-motion: no-preference) {
+  .v2 .hd__who,
+  .v2 .hd__text {
+    opacity: 0.62;
+    transform: translateY(8px);
+    transition: opacity 560ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 560ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .v2 .hd__stage.is-on .hd__who,
+  .v2 .hd__stage.is-on .hd__text {
+    opacity: 1;
+    transform: none;
+  }
+  .v2 .hd__stage.is-on .hd__text {
+    transition-delay: 70ms;
+  }
+}
+
+/* ---- The closing judgement ----------------------------------------------- */
+.v2 .hd__close {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  margin-left: calc(36px + clamp(1rem, 2.6vw, 2.75rem));
+  padding: clamp(1.25rem, 2.4vw, 1.9rem) clamp(1.25rem, 2.6vw, 2.25rem);
+  border-left: 2px solid var(--violet);
+  background: linear-gradient(
+    to right,
+    rgb(100 32 212 / 0.14),
+    rgb(100 32 212 / 0)
+  );
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: min(62ch, 100%);
+}
+
+/* ---- Narrow -------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .v2 .hd__stage {
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 1rem 1.1rem;
+  }
+  .v2 .hd__who {
+    grid-column: 2;
+  }
+  .v2 .hd__text {
+    grid-column: 2;
+    margin-top: 0.4rem;
+  }
+  .v2 .hd__title {
+    max-width: 100%;
+  }
+  .v2 .hd__close {
+    margin-left: 0;
+  }
+}
+
+/* ---- The marker now carries the stage's own mark ---- */
+.v2 .hd__marker {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: linear-gradient(145deg, rgb(100 32 212 / 0.2), rgb(58 18 132 / 0.08));
+}
+.v2 .hd__stage {
+  grid-template-columns: 44px minmax(0, 0.85fr) minmax(0, 1.25fr);
+}
+.v2 .hd__line {
+  left: 21px;
+}
+.v2 .hd__close {
+  margin-left: calc(44px + clamp(1rem, 2.6vw, 2.75rem));
+}
+@media (max-width: 900px) {
+  .v2 .hd__stage {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+  .v2 .hd__close {
+    margin-left: 0;
+  }
+}

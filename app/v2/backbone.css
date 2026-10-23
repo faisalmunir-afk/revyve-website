@@ -1,0 +1,160 @@
+/* The Backbone. Scoped under .v2. */
+
+.v2 .bb {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.v2 .bb__svg {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 430px);
+  height: auto;
+  max-height: min(76svh, 740px);
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+  overflow: visible;
+}
+
+/* The light the structure sits in. Three layers, no hard edge. */
+.v2 .bb__glowFar,
+.v2 .bb__glowWide,
+.v2 .bb__glowCore {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1400ms ease;
+}
+
+.v2 .bb__glowFar {
+  width: 155%;
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgb(58 18 132 / 0.38) 0%,
+    rgb(58 18 132 / 0.13) 42%,
+    transparent 68%
+  );
+}
+
+.v2 .bb__glowWide {
+  width: 96%;
+  aspect-ratio: 1 / 1.25;
+  background: radial-gradient(
+    ellipse,
+    rgb(100 32 212 / 0.36) 0%,
+    rgb(100 32 212 / 0.11) 50%,
+    transparent 72%
+  );
+}
+
+.v2 .bb__glowCore {
+  width: 48%;
+  aspect-ratio: 1 / 2.1;
+  background: radial-gradient(
+    ellipse,
+    rgb(112 40 232 / 0.52) 0%,
+    rgb(112 40 232 / 0.17) 48%,
+    transparent 74%
+  );
+}
+
+.v2 .bb--lit .bb__glowFar {
+  opacity: 1;
+}
+.v2 .bb--lit .bb__glowWide {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+.v2 .bb--lit .bb__glowCore {
+  opacity: 1;
+  transition-delay: 240ms;
+}
+
+.v2 .bb__vertebra {
+  transform-origin: 50% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .v2 .bb--lit .bb__vertebra {
+    animation: bbRise 760ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .v2 .bb__core {
+    animation: bbBreathe 5.5s ease-in-out infinite;
+  }
+  .v2 .bb__pulse {
+    animation: bbClimb 7s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+  }
+}
+
+@keyframes bbRise {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scaleX(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bbBreathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* One signal climbing the spine: a claim being confirmed, line by line. */
+@keyframes bbClimb {
+  0% {
+    transform: translateY(880px);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1040px) {
+  .v2 .bb {
+    min-height: 320px;
+  }
+  .v2 .bb__svg {
+    width: min(70%, 340px);
+    max-height: 46svh;
+  }
+}
+
+/* On a phone the column introduces the page, it does not fill it: the
+   headline must still be in reach without scrolling far. */
+@media (max-width: 700px) {
+  .v2 .bb {
+    min-height: 240px;
+  }
+  .v2 .bb__svg {
+    width: min(54%, 210px);
+    max-height: 34svh;
+  }
+}
