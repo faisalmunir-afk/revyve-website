@@ -4335,3 +4335,151 @@
     min-height: 0;
   }
 }
+
+/* =========================================================================
+   Hero heading: text effects, under preview
+
+   Live light is the heading's style for now. The switcher in HeroFx.tsx
+   (development only, ?fx in the URL) sets data-fx on the hero to compare
+   it with the others, "plain" being the heading with no effect. Once one
+   is settled it becomes the heading's own style and the rest goes.
+
+   True blend modes cannot reach the light field here: the scroll timeline
+   puts a filter and a scale on .hero__inner from the first frame, which
+   isolates the heading from everything behind it. So these either let the
+   real field show through the letters (glass, outline) or carry the same
+   moving light inside them (live, sheen, tint).
+   ========================================================================= */
+
+@property --fx-a {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 20%;
+}
+@property --fx-b {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 80%;
+}
+@property --fx-tint {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #dce6ff;
+}
+
+/* Live light, the heading's style for now: the field's own violets drift
+   through the letters. Pure CSS, so it holds with no script; with motion
+   reduced it stays still. */
+.v3 .hero:not([data-fx]) .hero__title,
+.v3 .hero[data-fx="live"] .hero__title {
+  color: transparent;
+  background:
+    radial-gradient(38% 80% at var(--fx-a) 35%, #ffffff 0%, rgb(255 255 255 / 0) 70%),
+    radial-gradient(44% 90% at var(--fx-b) 70%, #a575ff 0%, rgb(165 117 255 / 0) 72%),
+    linear-gradient(#cdbdf6, #cdbdf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Glass: a thin fill and a fine bright edge; the real field moves behind
+   the letters and shows through them. */
+.v3 .hero[data-fx="glass"] .hero__title {
+  color: rgb(220 230 255 / 0.3);
+  -webkit-text-stroke: 1px rgb(220 230 255 / 0.78);
+}
+
+/* Outline: hollow letters, the field inside them. */
+.v3 .hero[data-fx="outline"] .hero__title {
+  color: transparent;
+  -webkit-text-stroke: 1.25px rgb(220 230 255 / 0.92);
+}
+
+/* Sheen: solid letters, and now and then a band of light crosses them. */
+.v3 .hero[data-fx="sheen"] .hero__title {
+  color: transparent;
+  background: linear-gradient(
+    105deg,
+    var(--ice) 0%,
+    var(--ice) 42%,
+    #ffffff 47%,
+    #c4a6ff 50%,
+    #ffffff 53%,
+    var(--ice) 58%,
+    var(--ice) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Tint: the letters slowly take on the light's colour and give it back. */
+.v3 .hero[data-fx="tint"] .hero__title {
+  color: var(--fx-tint);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .v3 .hero:not([data-fx]) .hero__title,
+  .v3 .hero[data-fx="live"] .hero__title {
+    animation:
+      v3Up 1000ms cubic-bezier(0.16, 0.8, 0.3, 1) 220ms both,
+      fxDrift 16s ease-in-out infinite alternate;
+  }
+  .v3 .hero[data-fx="sheen"] .hero__title {
+    animation:
+      v3Up 1000ms cubic-bezier(0.16, 0.8, 0.3, 1) 220ms both,
+      fxSheen 7s cubic-bezier(0.45, 0, 0.25, 1) 1400ms infinite;
+  }
+  .v3 .hero[data-fx="tint"] .hero__title {
+    animation:
+      v3Up 1000ms cubic-bezier(0.16, 0.8, 0.3, 1) 220ms both,
+      fxTint 9s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes fxDrift {
+  0% { --fx-a: 12%; --fx-b: 85%; }
+  50% { --fx-a: 58%; --fx-b: 30%; }
+  100% { --fx-a: 92%; --fx-b: 8%; }
+}
+@keyframes fxSheen {
+  0% { background-position: 100% 0; }
+  32%, 100% { background-position: 0% 0; }
+}
+@keyframes fxTint {
+  0% { --fx-tint: #dce6ff; }
+  100% { --fx-tint: #c3a8ff; }
+}
+
+/* The switcher itself (development only). */
+.v3 .fxbar {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 200;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 12px;
+  background: rgb(7 4 26 / 0.88);
+  border: 1px solid rgb(182 137 248 / 0.3);
+  font-size: 13px;
+}
+.v3 .fxbar__btn {
+  appearance: none;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 11px;
+  background: transparent;
+  color: var(--ice);
+  font: inherit;
+  cursor: pointer;
+}
+.v3 .fxbar__btn:hover {
+  background: rgb(182 137 248 / 0.14);
+}
+.v3 .fxbar__btn[aria-pressed="true"] {
+  background: var(--violet);
+  color: #fff;
+}

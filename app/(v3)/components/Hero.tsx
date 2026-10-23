@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HOME } from "../../content/home";
 import HeroField from "./HeroField";
+import HeroFx from "./HeroFx";
 
 /**
  * The hero.
@@ -40,6 +41,9 @@ export default function Hero() {
           </p>
         </div>
       </div>
+
+      {/* Development only: previews text effects on the heading (?fx). */}
+      <HeroFx />
     </section>
   );
 }

@@ -41,20 +41,20 @@ export default function HeroField({ className }: { className?: string }) {
       <MeshGradient
         className="hero__mesh"
         colors={BASE}
-        speed={0.18}
+        speed={0.24}
         distortion={0.82}
         swirl={0.45}
-        grainMixer={0.28}
-        grainOverlay={0.12}
+        grainMixer={0.05}
+        grainOverlay={0.02}
       />
       <MeshGradient
         className="hero__mesh hero__mesh--grain"
         colors={GRAIN}
-        speed={0.12}
+        speed={0.16}
         distortion={0.7}
         swirl={0.9}
-        grainMixer={0.55}
-        grainOverlay={0.3}
+        grainMixer={0.12}
+        grainOverlay={0.04}
       />
     </div>
   );
