@@ -8,7 +8,8 @@ copy is reused verbatim; only the design changed.
 Not built yet: `/team/`, `/press/`, `/press/why-we-built-revyve/`, `/privacy/`.
 
 The two earlier versions are kept for reference at `/v1/` and `/v2/`. Old `/v3/...`
-links redirect to the root (see `vercel.json`).
+links redirect to the same page at the root. They are static pages with a meta
+refresh, in `app/v3/[[...slug]]/`, so they work on any host with no config.
 
 All copy lives in `app/content/`, transcribed verbatim from revyveholdings.com.
 
