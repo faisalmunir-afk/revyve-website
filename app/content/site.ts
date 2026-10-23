@@ -129,4 +129,6 @@ export const TEAM_BACKGROUND: {
     w: 46,
     h: 64,
   },
+  /* Not on the live page: added at the client's request, October 2026. */
+  { src: "/brand/plug-and-play.png", alt: "Plug and Play", w: 206, h: 40 },
 ];

@@ -2747,6 +2747,11 @@
 .v3 .about__logo img[height="64"] {
   height: 56px;
 }
+/* Plug and Play is a dense, heavy wordmark: set a little shorter so it
+   carries the same weight as the others in the row. */
+.v3 .about__logo img[src$="plug-and-play.png"] {
+  height: 26px;
+}
 .v3 .about__logo--solid img {
   /* A filled tile with the mark knocked out: never inverted. */
   filter: none;
@@ -3968,4 +3973,365 @@
 
 @keyframes v3Field {
   to { opacity: 1; }
+}
+
+/* =========================================================================
+   Drawings, finished, wherever they cannot be animated
+
+   The armed drawings start hidden and are revealed by an animation. Where
+   that animation never runs (motion reduced, or a browser without scroll
+   timelines for the scroll-scrubbed ones) they are shown finished.
+   ========================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .v3 .sd--armed [data-draw] {
+    stroke-dashoffset: 0;
+  }
+  .v3 .sd--armed [data-stay],
+  .v3 .sd--armed [data-pop] {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@supports not (animation-timeline: view()) {
+  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure) .sd--armed [data-draw] {
+    stroke-dashoffset: 0;
+  }
+  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure) .sd--armed :is([data-stay], [data-pop]) {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+/* =========================================================================
+   Team, Press, the letter and Privacy. Built on the For practices,
+   Revyve AI and About pieces, plus these.
+   ========================================================================= */
+
+/* ---- Team ------------------------------------------------------------------ */
+.v3 .tm__heroStack {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+/* One sentence a line: no measure cap, so the first sentence holds its
+   line wherever the width allows. */
+.v3 .tm__title {
+  font-size: clamp(2.25rem, 0.9rem + 3.6vw, 4.25rem);
+  max-width: none;
+}
+.v3 .tm__lead {
+  max-width: 52ch;
+  text-wrap: balance;
+}
+.v3 .tm__art {
+  width: min(100%, 640px);
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+.v3 .tm__founders {
+  padding-block: clamp(1rem, 3vw, 2.5rem) 0;
+}
+/* The four founders: plain cards. A name, the role under it, a rule, the
+   bio. No art, no glow; a quiet fill and an edge that warms on hover. */
+.v3 .tm__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+.v3 .tm__card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-content: start;
+  gap: clamp(1.5rem, 2.6vw, 2rem);
+  padding: clamp(1.75rem, 3.4vw, 2.75rem);
+  border-radius: 14px;
+  background: rgb(220 230 255 / 0.025);
+  border: 1px solid rgb(220 230 255 / 0.09);
+  transition: border-color 320ms ease, background-color 320ms ease;
+}
+.v3 .tm__card:hover {
+  border-color: rgb(182 137 248 / 0.32);
+  background-color: rgb(182 137 248 / 0.045);
+}
+.v3 .tm__head {
+  display: grid;
+  gap: 0.6rem;
+  padding-bottom: clamp(1.25rem, 2.2vw, 1.75rem);
+  border-bottom: 1px solid rgb(220 230 255 / 0.1);
+}
+.v3 .tm__name {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 1rem + 1.6vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ice);
+}
+.v3 .tm__role {
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: var(--lilac);
+  text-wrap: balance;
+}
+.v3 .tm__body {
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgb(220 230 255 / 0.72);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .tm__card {
+      view-timeline-name: --tmcard;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --tmcard;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@media (max-width: 760px) {
+  .v3 .tm__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Press ----------------------------------------------------------------- */
+.v3 .pr__hero {
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(2.5rem, 5vw, 4rem);
+}
+.v3 .pr__title {
+  font-size: clamp(4rem, 1.5rem + 10vw, 10.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.v3 .pr__letters {
+  padding-block: 0 clamp(5rem, 11vw, 9rem);
+}
+.v3 .pr__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+.v3 .pr__item {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #1b0f47 0%, #120a33 55%, #0c0726 100%);
+  border: 1px solid rgb(182 137 248 / 0.16);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 320ms ease, translate 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.v3 .pr__item:hover {
+  border-color: rgb(182 137 248 / 0.4);
+  translate: 0 -3px;
+}
+.v3 .pr__item:focus-visible {
+  outline: 2px solid var(--lilac);
+  outline-offset: 4px;
+}
+.v3 .pr__say {
+  display: grid;
+  gap: clamp(0.9rem, 1.8vw, 1.25rem);
+  justify-items: start;
+}
+.v3 .pr__date {
+  font-size: var(--t-sm);
+  font-weight: 500;
+  color: var(--lilac);
+  font-variant-numeric: tabular-nums;
+}
+.v3 .pr__name {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(2rem, 1rem + 3vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  color: var(--ice);
+  text-wrap: balance;
+}
+.v3 .pr__excerpt {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.78);
+  max-width: 34ch;
+  text-wrap: pretty;
+}
+.v3 .pr__go {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgb(182 137 248 / 0.4);
+  color: var(--lilac);
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    translate 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.v3 .pr__item:hover .pr__go,
+.v3 .pr__item:focus-visible .pr__go {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: var(--ice);
+  translate: 6px 0;
+}
+.v3 .pr__arrow {
+  width: 20px;
+  height: 20px;
+  max-width: none;
+}
+.v3 .pr__cover {
+  min-width: 0;
+  padding: clamp(1rem, 2.4vw, 2rem);
+  border-radius: 12px;
+  background: rgb(7 4 26 / 0.45);
+  border: 1px solid rgb(182 137 248 / 0.1);
+}
+
+/* ---- The letter -------------------------------------------------------------- */
+.v3 .lt__hero {
+  padding-block: clamp(8rem, 18vh, 11rem) clamp(3.5rem, 7vw, 5.5rem);
+}
+.v3 .lt__heroInner {
+  display: grid;
+  gap: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+.v3 .lt__meta {
+  font-size: var(--t-sm);
+  color: rgb(220 230 255 / 0.66);
+  font-variant-numeric: tabular-nums;
+}
+.v3 .lt__back {
+  color: var(--lilac);
+  border-bottom: 1px solid rgb(182 137 248 / 0.4);
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.v3 .lt__back:hover {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
+}
+.v3 .lt__title {
+  font-size: clamp(2.25rem, 1rem + 3.4vw, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.024em;
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
+/* The letter itself, on paper, in one reading column. */
+.v3 .lt__sheet {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.v3 .lt__column {
+  width: min(100% - 2 * var(--gutter), 42rem);
+  margin-inline: auto;
+}
+.v3 .lt__lead {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--paper-ink);
+  text-wrap: pretty;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.v3 .lt__p {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.7;
+  color: var(--paper-ink-2);
+  text-wrap: pretty;
+}
+.v3 .lt__block + .lt__block {
+  margin-top: 1.4em;
+}
+.v3 .lt__link {
+  color: #5a1ccc;
+  border-bottom: 1px solid rgb(90 28 204 / 0.35);
+  padding-bottom: 1px;
+  transition: border-color 180ms ease;
+}
+.v3 .lt__link:hover {
+  border-bottom-color: #5a1ccc;
+}
+/* The gap, on a dark plate wider than the column. */
+.v3 .lt__figure {
+  position: relative;
+  left: 50%;
+  translate: -50% 0;
+  width: min(100vw - 2 * var(--gutter), 60rem);
+  margin-block: clamp(2.5rem, 5vw, 3.75rem);
+  margin-inline: 0;
+  padding: clamp(1.25rem, 3.4vw, 3rem);
+  border-radius: 16px;
+  background: linear-gradient(160deg, #2a0f63 0%, #190e40 52%, #0f0829 100%);
+}
+.v3 .lt__draw {
+  max-width: 760px;
+  margin-inline: auto;
+}
+.v3 .lt__next {
+  padding-top: clamp(4rem, 8vw, 6rem);
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .lt__figure {
+      view-timeline-name: --ltfig;
+    }
+    .v3 .lt__figure .sd--armed [data-draw] {
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --ltfig;
+      animation-range: cover calc(10% + var(--d, 0ms) / 100ms * 1%) cover calc(28% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .lt__figure .sd--armed [data-stay] {
+      animation: sdIn 1ms linear both;
+      animation-timeline: --ltfig;
+      animation-range: cover calc(8% + var(--d, 0ms) / 100ms * 1%) cover calc(18% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .lt__figure .sd--armed [data-pop] {
+      animation: sdPop 1ms linear both;
+      animation-timeline: --ltfig;
+      animation-range: cover calc(10% + var(--d, 0ms) / 100ms * 1%) cover calc(20% + var(--d, 0ms) / 100ms * 1%);
+    }
+  }
+}
+
+/* ---- Privacy ----------------------------------------------------------------- */
+.v3 .pv__hero {
+  min-height: min(100svh, 60rem);
+  display: grid;
+  align-items: center;
+}
+.v3 .pv__body {
+  max-width: 46ch;
+}
+
+@media (max-width: 960px) {
+  .v3 .pr__item {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v3 .pv__hero {
+    min-height: 0;
+  }
 }

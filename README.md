@@ -3,9 +3,10 @@
 A rebuild of `revyveholdings.com` with a new visual identity. Every word of Revyve's
 copy is reused verbatim; only the design changed.
 
-**The site is V3**, in `app/(v3)/`, served at the root. Built: `/`, `/about/`,
-`/revyve-ai/`, `/for-practices/`, `/sell-your-firm/`, `/careers/`, `/contact/`.
-Not built yet: `/team/`, `/press/`, `/press/why-we-built-revyve/`, `/privacy/`.
+**The site is V3**, in `app/(v3)/`, served at the root. All eleven routes of the
+live site are built: `/`, `/about/`, `/revyve-ai/`, `/for-practices/`,
+`/sell-your-firm/`, `/team/`, `/press/`, `/press/why-we-built-revyve/`,
+`/careers/`, `/contact/`, `/privacy/`.
 
 The two earlier versions are kept for reference at `/v1/` and `/v2/`. Old `/v3/...`
 links redirect to the same page at the root. They are static pages with a meta
