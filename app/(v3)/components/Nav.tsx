@@ -77,7 +77,7 @@ export default function Nav() {
         .join(" ")}
     >
       <div className="nav__inner">
-        <Link href="/v3/" className="nav__brand" aria-label="Revyve, home">
+        <Link href="/" className="nav__brand" aria-label="Revyve, home">
           <img
             src="/brand/revyve-wordmark.png"
             alt=""

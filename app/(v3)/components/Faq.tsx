@@ -8,10 +8,9 @@ import { HOME } from "../../content/home";
  * Common questions.
  *
  * An accordion: each question is a button, its answer folds open beneath
- * it. The first starts open so the section never reads as a wall of
- * closed rows, and more than one can be open at once — closing what the
- * reader just opened to show them something else is a trick, not a
- * courtesy.
+ * it. One answer is open at a time: opening a question closes the one
+ * before it. The first starts open so the section never reads as a wall
+ * of closed rows.
  *
  * The fold is a grid row going from 0fr to 1fr, which is the one way to
  * animate to an unknown height smoothly without measuring it. The mark on
@@ -58,12 +57,12 @@ export default function Faq({
 } = {}) {
 
   const [armed, setArmed] = useState(false);
-  const [open, setOpen] = useState<number[]>([0]);
+  const [open, setOpen] = useState<number | null>(0);
 
   useEffect(() => setArmed(true), []);
 
-  const toggle = (i: number) =>
-    setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i]));
+  /* Opening one closes the other; clicking the open one closes it. */
+  const toggle = (i: number) => setOpen((o) => (o === i ? null : i));
 
   return (
     <section
@@ -77,7 +76,7 @@ export default function Faq({
 
         <dl className="faq__list">
           {items.map((it, i) => {
-            const isOpen = !armed || open.includes(i);
+            const isOpen = !armed || open === i;
             return (
               <div
                 className={isOpen ? "faq__item is-open" : "faq__item"}

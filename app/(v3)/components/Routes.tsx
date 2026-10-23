@@ -39,7 +39,7 @@ const INK = {
 };
 
 /** One mark per door, each from the sentence beside it. */
-function DoorMark({ i, className }: { i: number; className?: string }) {
+export function DoorMark({ i, className }: { i: number; className?: string }) {
   return (
     <svg
       className={className}

@@ -3,7 +3,14 @@
 A rebuild of `revyveholdings.com` with a new visual identity. Every word of Revyve's
 copy is reused verbatim; only the design changed.
 
-**Built so far: the home page.** The other ten routes are not built yet.
+**The site is V3**, in `app/(v3)/`, served at the root. Built: `/`, `/about/`,
+`/revyve-ai/`, `/for-practices/`, `/sell-your-firm/`, `/careers/`, `/contact/`.
+Not built yet: `/team/`, `/press/`, `/press/why-we-built-revyve/`, `/privacy/`.
+
+The two earlier versions are kept for reference at `/v1/` and `/v2/`. Old `/v3/...`
+links redirect to the root (see `vercel.json`).
+
+All copy lives in `app/content/`, transcribed verbatim from revyveholdings.com.
 
 ## Running it
 

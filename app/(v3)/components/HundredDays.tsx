@@ -265,6 +265,7 @@ export default function HundredDays() {
 
   return (
     <section
+      id="hundred"
       className={pinned ? "days days--pinned" : "days"}
       aria-labelledby="days-title"
       style={{ ["--count" as string]: stages.length }}

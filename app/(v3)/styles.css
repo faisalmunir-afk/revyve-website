@@ -3741,6 +3741,205 @@
   }
 }
 
+/* =========================================================================
+   Sell your firm — built on the For practices pieces, plus these
+   ========================================================================= */
+
+.v3 .sy__h2 {
+  max-width: 16ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.v3 .sy__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+.v3 .sy__tileText {
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgb(220 230 255 / 0.82);
+}
+
+/* One statement on the brand. */
+.v3 .sy__people {
+  padding-block: clamp(5rem, 11vw, 9rem);
+  background:
+    radial-gradient(70% 90% at 80% 20%, rgb(100 32 212 / 0.45) 0%, transparent 70%),
+    linear-gradient(160deg, #2a0f63 0%, #190e40 52%, #0f0829 100%);
+}
+.v3 .sy__peopleGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.v3 .sy__statement {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+  color: var(--ice);
+  text-wrap: pretty;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .sy__peopleGrid {
+      view-timeline-name: --sypeople;
+      animation: viewFade 1ms linear both;
+      animation-timeline: --sypeople;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+/* How it goes: the steps are whole sentences, so they read at body size. */
+.v3 .rp__flow .rp__stepDetail {
+  max-width: 22ch;
+}
+
+@media (max-width: 1100px) {
+  .v3 .sy__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 960px) {
+  .v3 .sy__peopleGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 620px) {
+  .v3 .sy__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================================================================
+   Careers and Contact — built on the For practices pieces, plus these
+   ========================================================================= */
+
+/* The address and its copy button. */
+.v3 .cp {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+.v3 .cp__email {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.375rem, 1rem + 1.3vw, 2.1rem);
+  letter-spacing: -0.015em;
+  color: var(--ice);
+  border-bottom: 1px solid rgb(220 230 255 / 0.25);
+  padding-bottom: 0.12em;
+  overflow-wrap: anywhere;
+  transition: color 200ms ease, border-color 200ms ease;
+}
+.v3 .cp__email:hover {
+  color: var(--lilac);
+  border-bottom-color: var(--lilac);
+}
+.v3 .cp__copy {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 38px;
+  padding-inline: 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgb(182 137 248 / 0.4);
+  background: transparent;
+  color: var(--lilac);
+  font: inherit;
+  font-size: var(--t-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+.v3 .cp__copy:hover {
+  background: rgb(182 137 248 / 0.12);
+  color: var(--ice);
+}
+.v3 .cp__copy.is-done {
+  border-color: var(--signal, #6fe3d6);
+  color: #6fe3d6;
+}
+.v3 .cp__ico {
+  width: 15px;
+  height: 15px;
+  max-width: none;
+}
+.v3 .cp--hero {
+  margin-top: 0.5rem;
+}
+
+/* Careers: two roles, two large cards. */
+.v3 .cr__roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+.v3 .cr__role {
+  padding: clamp(2rem, 3.6vw, 3rem);
+}
+.v3 .cr__roleTitle {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(1.75rem, 1rem + 1.8vw, 2.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--ice);
+}
+.v3 .cr__roleBody {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.76);
+  max-width: 36ch;
+}
+.v3 .cr__write {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgb(220 230 255 / 0.12);
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+}
+.v3 .cr__writeText {
+  font-size: var(--t-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 44ch;
+}
+
+/* Contact: the four cards. */
+.v3 .ct__mark {
+  color: var(--lilac);
+}
+.v3 .ct__title {
+  font-size: clamp(1.5rem, 1rem + 1vw, 2rem);
+}
+.v3 .ct__legal {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  font-size: var(--t-sm);
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .v3 .cr__roles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---- The living field ---------------------------------------------------
    Two drifting mesh gradients in the brand's violets. They sit furthest
    back, behind the veil, and replace the drawn streak once mounted. */

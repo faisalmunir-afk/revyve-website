@@ -26,7 +26,7 @@ export default function Footer() {
 
       <div className="foot__inner">
         <div className="foot__say">
-          <Link href="/v3/" className="foot__brand" aria-label="Revyve, home">
+          <Link href="/" className="foot__brand" aria-label="Revyve, home">
             <img
               src="/brand/revyve-wordmark.png"
               alt=""
