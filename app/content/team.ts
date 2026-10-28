@@ -1,10 +1,10 @@
 /**
- * Revyve — /team/, /press/, /press/why-we-built-revyve/ and /privacy/,
- * transcribed verbatim from revyveholdings.com.
+ * Revyve — /team/ and /privacy/, transcribed verbatim from
+ * revyveholdings.com. (Insights, which was Press, is in insights.ts.)
  *
  * Every string is Revyve's own wording, character for character. The Team
- * page uses curly apostrophes (Pakistan’s, specialty’s); the letter uses
- * straight ones (healthcare's, don't). Both are kept as the site has them.
+ * page uses curly apostrophes (Pakistan’s, specialty’s), kept as the site
+ * has them.
  */
 
 type Linked = { phrase: string; href: string };
@@ -37,67 +37,10 @@ export const TEAM = {
   ],
   readNext: {
     lead: "Read next: ",
-    text: "Work with us; why we built Revyve.",
-    /** The live page sends "why we built Revyve" to /about/, so it does here. */
+    text: "Work with us; our thesis.",
     links: [
       { phrase: "Work with us", href: "/careers/" },
-      { phrase: "why we built Revyve", href: "/about/" },
-    ] as Linked[],
-  },
-} as const;
-
-export const PRESS = {
-  eyebrow: "Press",
-  heading: "Press.",
-  items: [
-    {
-      title: "Why we built Revyve",
-      href: "/press/why-we-built-revyve/",
-      date: "October 2026",
-      dateTime: "2026-10",
-      excerpt: "Most of the value AI creates in healthcare will not go to the companies that make the models.",
-    },
-  ],
-} as const;
-
-export const LETTER = {
-  /** Rendered as a way back to /press/ with the date, not as a label. */
-  eyebrow: "Press · October 2026",
-  section: "Press",
-  date: "October 2026",
-  dateTime: "2026-10",
-  heading: "Revyve is an AI-native holding company for healthcare services.",
-  paragraphs: [
-    {
-      text: "Most of the value AI creates in healthcare will not go to the companies that make the models. It will go to whoever changes how the work actually gets done.",
-    },
-    {
-      text: "The businesses that run healthcare's back office have what no model can generate: customers who have stayed for decades, people who know the payer rules by heart, and systems that money already flows through. They also run on email, spreadsheets and one person's memory. That gap is the opportunity.",
-    },
-    {
-      text: "Revyve buys established healthcare services businesses and runs them. We bring capital, engineers and operators, and we take responsibility for the result. Our first business is a 29-year-old medical billing company serving independent physician practices.",
-    },
-    {
-      text: "We don't sell these companies software. We own them, so we can change who does the work, which steps still need a person, and what the customer is promised. Our engineers sit with billers and managers, map the work as it really happens, and rebuild it. Agents take the repetitive, checkable tasks. People keep judgment, exceptions and relationships.",
-    },
-    {
-      text: "Everything we learn goes into Revyve AI: the data model, the agents, the workflow rules, the connectors, and the way we take over a business without losing a customer. Every company we own runs on it, and every deployment makes the next one faster and safer.",
-      links: [{ phrase: "Revyve AI", href: "/revyve-ai/" }] as Linked[],
-    },
-    {
-      text: "The people who built each business keep running it. We measure ourselves on their customers staying, their collections holding, and the work costing less end to end.",
-    },
-    {
-      text: "We only do healthcare. Two of our four founders are physicians. Revyve is based in San Francisco, with operations in St. Louis.",
-    },
-  ],
-  readNext: {
-    lead: "Read next: ",
-    text: "About, the short version; Sell your firm; For practices.",
-    links: [
-      { phrase: "About", href: "/about/" },
-      { phrase: "Sell your firm", href: "/sell-your-firm/" },
-      { phrase: "For practices", href: "/for-practices/" },
+      { phrase: "our thesis", href: "/insights/our-thesis/" },
     ] as Linked[],
   },
 } as const;

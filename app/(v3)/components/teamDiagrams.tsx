@@ -1,15 +1,18 @@
 import { Mark } from "./aiDiagrams";
 
 /**
- * Drawings for /team/, the letter at /press/why-we-built-revyve/ and
- * /privacy/, in the same hand as the rest.
+ * Drawings for /team/, the Insights pages and /privacy/, in the same hand
+ * as the rest.
  *
  *   FourFounders   team hero: two who have built and run companies, two who
  *                  practiced medicine, all four sitting with the billing
  *                  team inside the first business
- *   TheGap         the letter: what no model can generate on one side,
+ *   TheGap         Our Thesis: what no model can generate on one side,
  *                  email, spreadsheets and one person's memory on the
  *                  other, and the gap between them bridged
+ *   TheLoop        Why We Buy Businesses: the five things ownership gives,
+ *                  in the essay's order, as one ring ("These five only work
+ *                  together"), with "The loop is the asset." at its centre
  *   UnderAgreement privacy: patient data inside the agreements that govern
  *                  it, and the path to general-purpose models stopped
  *
@@ -224,6 +227,76 @@ export function TheGap({ className }: { className?: string }) {
       ))}
       <g data-stay="" style={beat(2000)}>
         <Label x={300} y={262} live>That gap is the opportunity.</Label>
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Why We Buy Businesses: the loop ---------------------------------- */
+
+export function TheLoop({ className }: { className?: string }) {
+  const cx = 300;
+  const cy = 140;
+  const rx = 200;
+  const ry = 100;
+  const at = (deg: number) => {
+    const r = (deg * Math.PI) / 180;
+    return { x: cx + rx * Math.cos(r), y: cy + ry * Math.sin(r) };
+  };
+  /* The five, in the order the essay gives them, clockwise from the top. */
+  const NODES: { label: string; deg: number; w: number }[] = [
+    { label: "Access", deg: -90, w: 76 },
+    { label: "Ground truth", deg: -18, w: 112 },
+    { label: "Aligned incentives", deg: 54, w: 146 },
+    { label: "Trust", deg: 126, w: 66 },
+    { label: "Scale", deg: 198, w: 66 },
+  ];
+  /* One chevron midway along each leg, pointing the way the loop turns. */
+  const CHEVRONS = [-54, 18, 90, 162, 234].map((deg) => {
+    const p = at(deg);
+    const r = (deg * Math.PI) / 180;
+    const angle = (Math.atan2(ry * Math.cos(r), -rx * Math.sin(r)) * 180) / Math.PI;
+    return { ...p, angle };
+  });
+  return (
+    <svg className={className} viewBox="0 0 600 290" aria-hidden="true" focusable="false">
+      {/* The ring. */}
+      <ellipse data-draw="" pathLength={1} style={beat(0)} {...INK} cx={cx} cy={cy} rx={rx} ry={ry} stroke={C.signal} strokeOpacity="0.7" strokeWidth="1.6" />
+      {CHEVRONS.map((c, i) => (
+        <path
+          key={i}
+          data-pop=""
+          style={beat(700 + i * 120)}
+          {...INK}
+          stroke={C.signal}
+          strokeWidth="1.8"
+          d="M-4 -5L2 0L-4 5"
+          transform={`translate(${c.x} ${c.y}) rotate(${c.angle})`}
+        />
+      ))}
+
+      {/* The five. */}
+      {NODES.map((n, i) => {
+        const p = at(n.deg);
+        return (
+          <g key={n.label} data-pop="" style={beat(400 + i * 160)}>
+            <rect x={p.x - n.w / 2} y={p.y - 15} width={n.w} height={30} rx="15" fill={i === 0 ? C.plate : C.deep} stroke={C.lilac} strokeOpacity={i === 0 ? 0.8 : 0.5} strokeWidth="1.2" />
+            <Label x={p.x} y={p.y + 4}>
+              {n.label}
+            </Label>
+          </g>
+        );
+      })}
+
+      {/* The loop is the asset. */}
+      <g data-stay="" style={beat(1400)}>
+        <circle cx={cx} cy={cy - 14} r={5} fill={C.signal} />
+        <Label x={cx} y={cy + 10} live>
+          The loop is the asset.
+        </Label>
+      </g>
+      <g data-stay="" style={beat(1600)}>
+        <Label x={cx} y={276}>These five only work together.</Label>
       </g>
     </svg>
   );

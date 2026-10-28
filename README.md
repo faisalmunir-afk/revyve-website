@@ -3,16 +3,24 @@
 A rebuild of `revyveholdings.com` with a new visual identity. Every word of Revyve's
 copy is reused verbatim; only the design changed.
 
-**The site is V3**, in `app/(v3)/`, served at the root. All eleven routes of the
-live site are built: `/`, `/about/`, `/revyve-ai/`, `/for-practices/`,
-`/sell-your-firm/`, `/team/`, `/press/`, `/press/why-we-built-revyve/`,
-`/careers/`, `/contact/`, `/privacy/`.
+**The site is V3**, in `app/(v3)/`, served at the root. Every route of the live
+site is built: `/`, `/about/`, `/revyve-ai/`, `/for-practices/`,
+`/sell-your-firm/`, `/team/`, `/insights/`, `/insights/our-thesis/`,
+`/insights/why-we-buy-businesses/`, `/careers/`, `/contact/`, `/privacy/`.
 
-The two earlier versions are kept for reference at `/v1/` and `/v2/`. Old `/v3/...`
-links redirect to the same page at the root. They are static pages with a meta
-refresh, in `app/v3/[[...slug]]/`, so they work on any host with no config.
+Type is the live site's own: Manrope (variable, 200–800) and IBM Plex Mono,
+self-hosted in `public/fonts/live/`. The footer carries Revyve's facet field from
+the live site (`app/(v3)/components/FacetField.tsx`).
 
-All copy lives in `app/content/`, transcribed verbatim from revyveholdings.com.
+The two earlier versions are kept for reference at `/v1/` and `/v2/`. Old links
+redirect to their new homes: `/v3/...` to the same page at the root
+(`app/v3/[[...slug]]/`), and `/press/` and `/press/why-we-built-revyve/` to
+`/insights/` and `/insights/our-thesis/` (`app/press/[[...slug]]/`), as the live
+site's 301s do. They are static pages with a meta refresh, so they work on any
+host with no config.
+
+All copy lives in `app/content/`, transcribed verbatim from revyveholdings.com
+(re-checked against the live site on 28 October 2026).
 
 ## Running it
 

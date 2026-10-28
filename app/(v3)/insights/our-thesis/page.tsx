@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LETTER } from "../../../content/team";
+import { THESIS } from "../../../content/insights";
 import { META } from "../../../content/site";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
@@ -9,23 +9,23 @@ import MarkStep from "../../components/MarkStep";
 import { TheGap } from "../../components/teamDiagrams";
 
 export const metadata: Metadata = {
-  title: META["/press/why-we-built-revyve/"].title,
-  description: META["/press/why-we-built-revyve/"].description,
+  title: META["/insights/our-thesis/"].title,
+  description: META["/insights/our-thesis/"].description,
 };
 
 /**
- * Why we built Revyve — the letter.
+ * Our Thesis (it was "Why we built Revyve", under Press).
  *
- * The claim on the dark ground, with the way back to Press and the date
+ * The claim on the dark ground, with the way back to Insights and the date
  * above it (the eyebrow's own words, made useful). Then the letter on
  * paper, in one reading column: the first paragraph set as its lead, and
  * after the paragraph that names the gap, the gap drawn on a dark plate
  * wider than the column. Read next closes it on the dark ground.
  *
- * Every string comes from app/content/team.ts, verbatim.
+ * Every string comes from app/content/insights.ts, verbatim.
  */
-export default function LetterPage() {
-  const { section, date, dateTime, heading, paragraphs, readNext } = LETTER;
+export default function ThesisPage() {
+  const { section, date, dateTime, heading, paragraphs, readNext } = THESIS;
   const [first, ...rest] = paragraphs;
 
   return (
@@ -39,7 +39,7 @@ export default function LetterPage() {
           <header className="lt__hero">
             <div className="fp__inner lt__heroInner">
               <p className="lt__meta">
-                <Link href="/press/" className="lt__back">
+                <Link href="/insights/" className="lt__back">
                   {section}
                 </Link>
                 {" · "}

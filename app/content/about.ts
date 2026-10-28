@@ -63,6 +63,11 @@ export const ABOUT = {
         {
           text: "The people who built each business keep running it. We measure ourselves on their customers staying, their collections holding, and the work costing less end to end.",
         },
+        /* Added by the client, October 2026. */
+        {
+          text: "Read the essay: Why We Buy Businesses.",
+          links: [{ phrase: "Why We Buy Businesses", href: "/insights/why-we-buy-businesses/" }],
+        },
       ],
     },
     {
@@ -125,9 +130,9 @@ export const ABOUT = {
   readNext: {
     lead: "Read next: ",
     /** The sentence after the lead, with its four links, in order. */
-    text: "Why we built Revyve, the longer argument; the first hundred days, how we take a business over; Revyve AI, the platform under every company we own; and the team.",
+    text: "Our thesis, in a nutshell; the first hundred days, how we take a business over; Revyve AI, the platform under every company we own; and the team.",
     links: [
-      { phrase: "Why we built Revyve", href: "/press/why-we-built-revyve/" },
+      { phrase: "Our thesis", href: "/insights/our-thesis/" },
       { phrase: "the first hundred days", href: "/#hundred" },
       { phrase: "Revyve AI", href: "/revyve-ai/" },
       { phrase: "the team", href: "/team/" },

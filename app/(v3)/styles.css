@@ -10,52 +10,36 @@
    highlight so the ribbon has somewhere to go and the page is not a
    monochrome wash.
 
-   Type is a high-contrast display serif against a plain grotesque: two
-   families, clearly distinct, neither of them the neutral sans this kind of
-   page usually defaults to.
+   Type is the live site's: Manrope throughout, set light and large for
+   display and plain for reading, with IBM Plex Mono for the odd technical
+   mark.
 
    Scoped under .v3 so v1 and v2 can never reach it.
 --------------------------------------------------------------------------- */
 
+/* The live site's own faces, from revyveholdings.com (October 2026):
+   Manrope for everything, IBM Plex Mono for the few small technical marks.
+   The Manrope file is variable across 200 to 800, so the light weights this
+   design uses are real, not synthesised. */
 @font-face {
-  font-family: "Sentient";
-  src: url("/fonts/v3/Sentient-300.woff2") format("woff2");
-  font-weight: 300;
+  font-family: "Manrope";
+  src: url("/fonts/live/Manrope-Variable.woff2") format("woff2-variations"),
+    url("/fonts/live/Manrope-Variable.woff2") format("woff2");
+  font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Sentient";
-  src: url("/fonts/v3/Sentient-400.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/live/IBMPlexMono-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Switzer";
-  src: url("/fonts/v3/Switzer-300.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Switzer";
-  src: url("/fonts/v3/Switzer-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Switzer";
-  src: url("/fonts/v3/Switzer-500.woff2") format("woff2");
+  font-family: "IBM Plex Mono";
+  src: url("/fonts/live/IBMPlexMono-Medium.woff2") format("woff2");
   font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Switzer";
-  src: url("/fonts/v3/Switzer-600.woff2") format("woff2");
-  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
@@ -69,8 +53,10 @@
   --ice: #dce6ff; /* the cool edge of the ribbon, and the text */
   --muted: #8d85ac;
 
-  --display: "Sentient", ui-serif, Georgia, serif;
-  --text: "Switzer", ui-sans-serif, system-ui, sans-serif;
+  /* One family, as the live site has it. */
+  --display: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --text: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   /* A scale with real jumps in it, not nine near-equal steps. */
   --t-sm: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
@@ -103,7 +89,7 @@
 .v3 h3 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: -0.015em;
   line-height: 1.02;
 }
@@ -404,9 +390,9 @@
 /* The sentence. Set large, in one face, with no word picked out. */
 .v3 .hero__title {
   font-size: var(--t-display);
-  font-weight: 300;
+  font-weight: 500;
   line-height: 0.98;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.03em;
   max-width: min(19ch, 100%);
   text-wrap: balance;
   margin-bottom: clamp(1.25rem, 2.4vw, 1.9rem);
@@ -958,7 +944,7 @@
 
 .v3 .days--pinned .days__name {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: var(--t-display);
   letter-spacing: -0.022em;
   line-height: 1.06;
@@ -976,7 +962,7 @@
   color: rgb(220 230 255 / 0.76);
   max-width: 40ch;
   /* The light cut: at this size the regular reads heavy on the dark. */
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* ---- The drawings --------------------------------------------------------
@@ -1196,7 +1182,7 @@
 
 .v3 .judge__line {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.75rem, 1rem + 3.1vw, 4rem);
   line-height: 1.14;
   letter-spacing: -0.02em;
@@ -1644,7 +1630,7 @@
 .v3 .rai__closeText {
   max-width: 44ch;
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.25rem, 0.95rem + 1.25vw, 2rem);
   line-height: 1.26;
   letter-spacing: -0.015em;
@@ -2169,7 +2155,7 @@
 
 .v3 .faq__qText {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.5rem, 1.1rem + 1.5vw, 2.375rem);
   line-height: 1.12;
   letter-spacing: -0.018em;
@@ -2383,7 +2369,7 @@
 /* The one thing a footer is for. */
 .v3 .foot__mail {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   /* Sized to hold one line in its column at every width the columns
      exist; it never breaks inside the address. */
   font-size: clamp(1.4rem, 0.55rem + 2.3vw, 2.75rem);
@@ -2547,6 +2533,85 @@
   }
 }
 
+/* ---- The facets -----------------------------------------------------------
+   Revyve's own facet field (FacetField.tsx, from the live site), set back
+   behind the footer's right side: larger than the band so it runs off the
+   edge, faded toward the words so the links stay clear. On a narrow screen
+   the band version sits under everything instead. */
+.v3 .foot__inner {
+  position: relative;
+  z-index: 1;
+}
+.v3 .foot__facets {
+  position: absolute;
+  top: 50%;
+  right: clamp(-140px, -6vw, -40px);
+  height: 155%;
+  aspect-ratio: 720 / 520;
+  translate: 0 -50%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.34;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 50%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 50%);
+}
+.v3 .foot__facets .facets {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+.v3 .foot__band {
+  display: none;
+}
+@media (max-width: 760px) {
+  .v3 .foot__facets {
+    display: none;
+  }
+  .v3 .foot__band {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    margin-top: clamp(1.5rem, 6vw, 2.5rem);
+    opacity: 0.5;
+  }
+}
+
+/* The field drifts a few pixels and each facet breathes, as on the live
+   site, a third of them at a time. */
+@media (prefers-reduced-motion: no-preference) {
+  .v3 .facets__drift {
+    animation: facetDrift 18s ease-in-out infinite alternate;
+  }
+  .v3 .facets__drift polygon {
+    animation: facetBreathe 9s ease-in-out infinite;
+  }
+  .v3 .facets__drift polygon:nth-child(3n + 1) {
+    animation-delay: 3s;
+  }
+  .v3 .facets__drift polygon:nth-child(3n + 2) {
+    animation-delay: 6s;
+  }
+}
+@keyframes facetDrift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(6px, -4px);
+  }
+}
+@keyframes facetBreathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 /* =========================================================================
    About
 
@@ -2641,14 +2706,16 @@
 }
 .v3 .about__word {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(3rem, 1.5rem + 6vw, 6.5rem);
   line-height: 1;
   letter-spacing: -0.03em;
   color: var(--paper-ink);
 }
+/* The pronunciation in mono, as the live site sets it. */
 .v3 .about__ipa {
-  font-size: var(--t-lead);
+  font-family: var(--mono);
+  font-size: var(--t-body);
   color: var(--paper-muted);
 }
 .v3 .about__pos {
@@ -2660,7 +2727,7 @@
 
 .v3 .about__sense {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
   line-height: 1.22;
   letter-spacing: -0.015em;
@@ -2914,7 +2981,7 @@
   display: grid;
   gap: 1.1em;
   font-size: var(--t-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.62;
   color: rgb(220 230 255 / 0.78);
   max-width: 54ch;
@@ -3043,8 +3110,10 @@
   gap: clamp(2.5rem, 6vw, 6rem);
   align-items: start;
 }
+/* Sized for Manrope, which runs wider than the serif it replaced: the
+   long claim holds about four lines in its column. */
 .v3 .rp__title {
-  font-size: clamp(2.5rem, 1rem + 4.6vw, 4.8rem);
+  font-size: clamp(2.25rem, 0.9rem + 3.3vw, 3.6rem);
   line-height: 1.04;
   letter-spacing: -0.024em;
   text-wrap: balance;
@@ -3060,7 +3129,7 @@
 }
 .v3 .rp__lead {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.8);
   max-width: 44ch;
@@ -3068,7 +3137,7 @@
 }
 .v3 .rp__claim {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -3154,7 +3223,7 @@
 }
 .v3 .rp__coreName {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.5rem, 1rem + 1.4vw, 2.1rem);
   letter-spacing: -0.015em;
   color: var(--ice);
@@ -3169,7 +3238,7 @@
   margin-top: clamp(2rem, 4vw, 3rem);
   text-align: center;
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.375rem, 1rem + 1.3vw, 2rem);
   letter-spacing: -0.015em;
   color: var(--ice);
@@ -3210,7 +3279,7 @@
 }
 .v3 .rp__headLead {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.76);
   max-width: 40ch;
@@ -3278,7 +3347,7 @@
 
 .v3 .rp__cardName {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
   line-height: 1.1;
   letter-spacing: -0.018em;
@@ -3288,7 +3357,7 @@
 }
 .v3 .rp__cardText {
   font-size: var(--t-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.62;
   color: rgb(220 230 255 / 0.72);
   max-width: 52ch;
@@ -3392,7 +3461,7 @@
 }
 .v3 .rp__stepDetail {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -3407,7 +3476,7 @@
 }
 .v3 .rp__closing {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
   line-height: 1.2;
   letter-spacing: -0.015em;
@@ -3534,7 +3603,7 @@
 }
 .v3 .fp__lead {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.8);
   max-width: 44ch;
@@ -3627,7 +3696,7 @@
 }
 .v3 .fp__tileTitle {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.375rem, 1rem + 0.9vw, 1.75rem);
   line-height: 1.14;
   letter-spacing: -0.016em;
@@ -3636,7 +3705,7 @@
 }
 .v3 .fp__tileBody {
   font-size: var(--t-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: rgb(220 230 255 / 0.72);
 }
@@ -3676,7 +3745,7 @@
 }
 .v3 .fp__startBody {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--paper-ink-2);
   max-width: 42ch;
@@ -3764,7 +3833,7 @@
 }
 .v3 .sy__tileText {
   font-size: var(--t-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.6;
   color: rgb(220 230 255 / 0.82);
 }
@@ -3784,7 +3853,7 @@
 }
 .v3 .sy__statement {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
   line-height: 1.3;
   letter-spacing: -0.012em;
@@ -3836,7 +3905,7 @@
 }
 .v3 .cp__email {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.375rem, 1rem + 1.3vw, 2.1rem);
   letter-spacing: -0.015em;
   color: var(--ice);
@@ -3897,7 +3966,7 @@
 }
 .v3 .cr__roleTitle {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.75rem, 1rem + 1.8vw, 2.75rem);
   line-height: 1.06;
   letter-spacing: -0.02em;
@@ -3905,7 +3974,7 @@
 }
 .v3 .cr__roleBody {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.76);
   max-width: 36ch;
@@ -3920,7 +3989,7 @@
 }
 .v3 .cr__writeText {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.8);
   max-width: 44ch;
@@ -3993,17 +4062,17 @@
   }
 }
 @supports not (animation-timeline: view()) {
-  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure) .sd--armed [data-draw] {
+  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure, .pr__cover) .sd--armed [data-draw] {
     stroke-dashoffset: 0;
   }
-  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure) .sd--armed :is([data-stay], [data-pop]) {
+  .v3 :is(.rp__card, .aboutb__plate, .fp__startArt, .lt__figure, .pr__cover) .sd--armed :is([data-stay], [data-pop]) {
     opacity: 1;
     scale: 1;
   }
 }
 
 /* =========================================================================
-   Team, Press, the letter and Privacy. Built on the For practices,
+   Team, Insights (was Press), its pieces and Privacy. Built on the For practices,
    Revyve AI and About pieces, plus these.
    ========================================================================= */
 
@@ -4064,7 +4133,7 @@
 }
 .v3 .tm__name {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(1.75rem, 1rem + 1.6vw, 2.5rem);
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -4078,7 +4147,7 @@
 }
 .v3 .tm__body {
   font-size: var(--t-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.65;
   color: rgb(220 230 255 / 0.72);
   max-width: 54ch;
@@ -4100,7 +4169,7 @@
   }
 }
 
-/* ---- Press ----------------------------------------------------------------- */
+/* ---- Insights (was Press) ------------------------------------------------- */
 .v3 .pr__hero {
   padding-block: clamp(8rem, 18vh, 11rem) clamp(2.5rem, 5vw, 4rem);
 }
@@ -4153,7 +4222,7 @@
 }
 .v3 .pr__name {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 500;
   font-size: clamp(2rem, 1rem + 3vw, 3.75rem);
   line-height: 1.04;
   letter-spacing: -0.022em;
@@ -4162,7 +4231,7 @@
 }
 .v3 .pr__excerpt {
   font-size: var(--t-lead);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5;
   color: rgb(220 230 255 / 0.78);
   max-width: 34ch;
@@ -4249,7 +4318,7 @@
 }
 .v3 .lt__lead {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(1.5rem, 1rem + 1.6vw, 2.25rem);
   line-height: 1.3;
   letter-spacing: -0.012em;
@@ -4482,4 +4551,70 @@
 .v3 .fxbar__btn[aria-pressed="true"] {
   background: var(--violet);
   color: #fff;
+}
+
+/* =========================================================================
+   Insights: the covers draw on as their card comes up, and the essay's
+   own pieces (the line under its title, its section headings)
+   ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .v3 .pr__cover {
+      view-timeline-name: --prcover;
+    }
+    .v3 .pr__cover .sd--armed [data-draw] {
+      animation: sdDraw 1ms linear both;
+      animation-timeline: --prcover;
+      animation-range: cover calc(8% + var(--d, 0ms) / 100ms * 1%) cover calc(26% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .pr__cover .sd--armed [data-stay] {
+      animation: sdIn 1ms linear both;
+      animation-timeline: --prcover;
+      animation-range: cover calc(6% + var(--d, 0ms) / 100ms * 1%) cover calc(16% + var(--d, 0ms) / 100ms * 1%);
+    }
+    .v3 .pr__cover .sd--armed [data-pop] {
+      animation: sdPop 1ms linear both;
+      animation-timeline: --prcover;
+      animation-range: cover calc(8% + var(--d, 0ms) / 100ms * 1%) cover calc(18% + var(--d, 0ms) / 100ms * 1%);
+    }
+  }
+}
+
+.v3 .lt__title--essay {
+  max-width: 22ch;
+}
+.v3 .lt__dek {
+  font-size: var(--t-lead);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgb(220 230 255 / 0.78);
+  max-width: 44ch;
+}
+
+/* The essay runs long, so its rhythm is set on the flow itself: a steady
+   gap between paragraphs, more room above each section, a little less
+   above each part. */
+.v3 .lt__prose > .lt__p + .lt__p {
+  margin-top: 1.25em;
+}
+.v3 .lt__h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.625rem, 1.1rem + 1.5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--paper-ink);
+  margin-top: clamp(2.75rem, 5vw, 3.75rem);
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+.v3 .lt__h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--paper-ink);
+  margin-top: clamp(1.75rem, 3vw, 2.25rem);
+  margin-bottom: 0.6rem;
 }

@@ -24,14 +24,14 @@ export const NAV: Link[] = [
   { label: "Contact", href: "/contact/" },
 ];
 
-/** The footer navigation, which adds Team, Press and Privacy. */
+/** The footer navigation, which adds Team, Insights and Privacy. */
 export const FOOTER_NAV: Link[] = [
   { label: "About", href: "/about/" },
   { label: "Revyve AI", href: "/revyve-ai/" },
   { label: "For practices", href: "/for-practices/" },
   { label: "Sell your firm", href: "/sell-your-firm/" },
   { label: "Team", href: "/team/" },
-  { label: "Press", href: "/press/" },
+  { label: "Insights", href: "/insights/" },
   { label: "Careers", href: "/careers/" },
   { label: "Contact", href: "/contact/" },
   { label: "Privacy", href: "/privacy/" },
@@ -74,14 +74,19 @@ export const META: Record<string, { title: string; description: string }> = {
     description:
       "Operators, engineers and physicians. The same four people, all full-time, all with money in the first business.",
   },
-  "/press/": {
-    title: "Press | Revyve",
+  "/insights/": {
+    title: "Insights | Revyve",
     description: "Letters and announcements from Revyve.",
   },
-  "/press/why-we-built-revyve/": {
-    title: "Why we built Revyve",
+  "/insights/our-thesis/": {
+    title: "Our Thesis | Revyve",
     description:
       "Most of the value AI creates in healthcare will not go to the companies that make the models. It will go to whoever changes how the work actually gets done.",
+  },
+  "/insights/why-we-buy-businesses/": {
+    title: "Why We Buy Businesses | Revyve",
+    description:
+      "Intelligence is getting cheap fast. Every few months the frontier models get better and cheaper at the same time, and I don’t see a reason for that to stop.",
   },
   "/careers/": {
     title: "Careers at Revyve | Engineers and operators",
