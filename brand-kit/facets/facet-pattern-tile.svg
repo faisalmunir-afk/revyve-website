@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="104" viewBox="0 0 120 104" role="img" aria-labelledby="t">
+<title id="t">Facet pattern tile (repeat as a background)</title>
+<polygon points="0,52 30,0 60,52" fill="#B878F8" opacity="0.10"/>
+<polygon points="60,52 90,0 120,52" fill="#6420D4" opacity="0.10"/>
+<polygon points="30,104 60,52 90,104" fill="#7028E8" opacity="0.10"/>
+<polygon points="90,104 120,52 150,104" fill="#B878F8" opacity="0.10"/>
+</svg>
