@@ -7,8 +7,8 @@ import FacetField from "../(v3)/components/FacetField";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Faq from "./components/Faq";
-import GlassFilter from "./components/GlassFilter";
-import GlassPanel from "./components/GlassPanel";
+import Arrow from "./components/Arrow";
+import { v4 } from "./components/links";
 import HeroArt from "./components/HeroArt";
 import HeroFacets3D from "./components/HeroFacets3D";
 import { ModelsArt, LayerArt, OwnershipArt, SystemsArt } from "./components/CardArt";
@@ -56,10 +56,10 @@ export default function V4Home() {
               <p className="hx__lede">{hero.more}</p>
               <p className="hx__tag">{hero.tagline}</p>
               <div className="hx__actions">
-                <Link href={hero.primary.href} className="btn btn--solid">
+                <Link href={v4(hero.primary.href)} className="btn btn--solid">
                   {hero.primary.label}
                 </Link>
-                <Link href={hero.secondary.href} className="btn btn--ghost">
+                <Link href={v4(hero.secondary.href)} className="btn btn--ghost">
                   {hero.secondary.label}
                   <Arrow />
                 </Link>
@@ -146,7 +146,7 @@ export default function V4Home() {
                 <div className="card__text">
                   <p className="card__statement">{revyveAI.close}</p>
                 </div>
-                <Link href={revyveAI.closeLink.href} className="btn btn--onlit">
+                <Link href={v4(revyveAI.closeLink.href)} className="btn btn--onlit">
                   {revyveAI.closeLink.label}
                   <Arrow />
                 </Link>
@@ -256,19 +256,7 @@ export default function V4Home() {
       </main>
 
       <Footer />
-
-      {/* The glass, drawn from app/v4/glass.json, and its tuning panel (dev only). */}
-      <GlassFilter />
-      <GlassPanel />
     </>
-  );
-}
-
-function Arrow() {
-  return (
-    <svg viewBox="0 0 20 20" className="arrow" aria-hidden="true">
-      <path d="M4 10h11M11 5.5 15.5 10 11 14.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
 

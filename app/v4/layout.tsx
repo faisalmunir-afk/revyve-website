@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { META } from "../content/site";
+import GlassFilter from "./components/GlassFilter";
+import GlassPanel from "./components/GlassPanel";
 import "./styles.css";
 
 export const metadata: Metadata = {
@@ -15,5 +17,12 @@ export const metadata: Metadata = {
  * scoped and nothing in V3 can reach in, or out.
  */
 export default function V4Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <div className="v4">{children}</div>;
+  return (
+    <div className="v4">
+      {children}
+      {/* The glass, drawn from app/v4/glass.json, and its tuning panel (dev only). */}
+      <GlassFilter />
+      <GlassPanel />
+    </div>
+  );
 }

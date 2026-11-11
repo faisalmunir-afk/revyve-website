@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CONTACT, FOOTER_NAV } from "../../content/site";
 import { HOME } from "../../content/home";
+import { v4 } from "./links";
 
 /**
  * The footer, as in the reference: one block in the brand's violet, the
@@ -27,7 +28,7 @@ export default function Footer() {
             <ul key={i} className="ft__col">
               {c.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="ft__link">
+                  <Link href={v4(l.href)} className="ft__link">
                     {l.label}
                   </Link>
                 </li>

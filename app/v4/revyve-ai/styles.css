@@ -1,0 +1,899 @@
+/* =========================================================================
+   V4 — Revyve AI. Builds on app/v4/styles.css (tokens, hero, cards, glass);
+   only what this page adds lives here, all under .v4.
+   ========================================================================= */
+
+/* ---- Hero ---------------------------------------------------------------- */
+.v4 .rx-hero__title {
+  font-size: clamp(2.4rem, 1rem + 3.4vw, 3.9rem);
+  max-width: 15ch;
+}
+
+/* The action log. */
+.v4 .rl {
+  position: relative;
+  width: min(100%, 540px);
+  margin-inline: auto;
+  padding: 2.5rem 1.5rem 3.5rem 0;
+}
+.v4 .rl__win {
+  position: relative;
+  border-radius: 24px;
+  padding: 0.9rem 1rem 1.1rem;
+}
+.v4 .rl__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.2rem 0.3rem 0.9rem;
+}
+.v4 .rl__bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgb(20 13 45 / 0.12);
+}
+.v4 .rl__barSkel {
+  margin-left: 0.6rem;
+  width: 110px;
+  height: 7px;
+  border-radius: 4px;
+  background: rgb(20 13 45 / 0.08);
+}
+.v4 .rl__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+.v4 .rl__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto 20px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(20 13 45 / 0.05);
+  isolation: isolate;
+}
+.v4 .rl__row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(100 32 212 / 0.12), rgb(100 32 212 / 0.03));
+  box-shadow: inset 0 0 0 1px rgb(100 32 212 / 0.25);
+  opacity: 0;
+}
+.v4 .rl__ico {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1ecff;
+  color: var(--violet);
+}
+.v4 .rl__ico .ico {
+  width: 18px;
+  height: 18px;
+}
+.v4 .rl__txt {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.v4 .rl__ev {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+}
+.v4 .rl__clip {
+  width: 13px;
+  height: 13px;
+}
+.v4 .rl__skel {
+  height: 6px;
+  border-radius: 3px;
+  background: rgb(20 13 45 / 0.1);
+}
+.v4 .rl__ok {
+  width: 20px;
+  height: 20px;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.v4 .rl__ok circle {
+  fill: var(--violet);
+}
+.v4 .rl__ok path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.v4 .rl__report {
+  position: absolute;
+  right: 0;
+  bottom: 0.4rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 18px;
+}
+.v4 .rl__reportIco {
+  width: 18px;
+  height: 18px;
+  color: var(--violet);
+  align-self: flex-start;
+}
+.v4 .rl__bars {
+  width: 108px;
+  height: auto;
+}
+.v4 .rl__bars rect {
+  fill: var(--violet);
+  opacity: 0.75;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+.v4 .rl__bars rect:nth-child(even) {
+  fill: var(--lilac);
+}
+.v4 .rl__chip {
+  position: absolute;
+  left: -1.2rem;
+  top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.v4 .rl__chipIco {
+  width: 15px;
+  height: 15px;
+  color: var(--violet);
+}
+
+/* ---- The architecture band ------------------------------------------------ */
+.v4 .rx-arch {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(5rem, 11vw, 8.5rem);
+  background: var(--lit);
+  color: #fff;
+}
+.v4 .rx-arch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 70% at 50% 45%, rgb(255 255 255 / 0.16), transparent 70%),
+    radial-gradient(35% 60% at 8% 95%, rgb(40 10 120 / 0.35), transparent 70%);
+}
+.v4 .rx-arch__facets {
+  position: absolute;
+  right: -80px;
+  top: -60px;
+  width: 520px;
+  z-index: -1;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.v4 .rx-arch__facets .facets {
+  width: 100%;
+  height: auto;
+}
+.v4 .rx-arch__title {
+  color: #fff;
+  max-width: 22ch;
+  text-align: center;
+  margin-inline: auto;
+}
+.v4 .rx-arch__outcome {
+  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
+  max-width: 52ch;
+  text-align: center;
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.92);
+}
+
+/* The flow: a fixed 1200 x 400 grid, so the wires meet the pills exactly. */
+.v4 .rx-flow {
+  position: relative;
+  margin-top: clamp(5rem, 9vw, 6.5rem);
+  aspect-ratio: 1200 / 400;
+  display: grid;
+  grid-template-columns: 380fr 90fr 260fr 90fr 380fr;
+}
+.v4 .rx-flow__wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.v4 .rx-wire {
+  fill: none;
+  stroke: rgb(255 255 255 / 0.45);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 5;
+  vector-effect: non-scaling-stroke;
+}
+.v4 .rx-pulse {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.5 99.5;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+.v4 .rx-flow__col {
+  position: relative;
+  min-width: 0;
+}
+.v4 .rx-flow__col--in { grid-column: 1; }
+.v4 .rx-flow__col--out { grid-column: 5; }
+.v4 .rx-flow__head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 1.1rem);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgb(255 255 255 / 0.8);
+}
+.v4 .rx-flow__col--out .rx-flow__head {
+  text-align: right;
+}
+.v4 .rx-flow__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.v4 .rx-pill {
+  height: 16%;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0 1rem 0 0.55rem;
+  border-radius: 999px;
+  font-size: clamp(0.85rem, 0.7rem + 0.3vw, 1rem);
+  font-weight: 600;
+  color: #fff;
+  --g-fill: 0.1;
+  --g-sheen: 0.22;
+}
+.v4 .rx-pill__ico {
+  flex: none;
+  height: 72%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+}
+.v4 .rx-pill__ico .ico {
+  width: 50%;
+  height: 50%;
+}
+.v4 .rx-flow__col--out .rx-pill {
+  flex-direction: row-reverse;
+  padding: 0 0.55rem 0 1rem;
+  text-align: right;
+}
+
+/* The core. */
+.v4 .rx-core {
+  grid-column: 3;
+  align-self: center;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 1.6rem 1.1rem 1.4rem;
+  border-radius: 28px;
+  background: #fff;
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 30px 60px -28px rgb(20 6 70 / 0.6);
+}
+.v4 .rx-core__ring {
+  position: absolute;
+  inset: -12px;
+  border-radius: 38px;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  pointer-events: none;
+}
+/* The logo file carries the wordmark under the V; show the V alone. */
+.v4 .rx-core__mark {
+  width: 58px;
+  height: 46px;
+  overflow: hidden;
+}
+.v4 .rx-core__mark img {
+  width: 120px;
+  max-width: none;
+  height: auto;
+  margin: -3px 0 0 -34px;
+}
+.v4 .rx-core__name {
+  font-size: clamp(1.25rem, 1rem + 0.6vw, 1.55rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.v4 .rx-core__parts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+.v4 .rx-core__parts li {
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: #f1ecff;
+  color: var(--violet-2);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.v4 .rx-core__parts li::first-letter {
+  text-transform: uppercase;
+}
+
+/* ---- What runs today, and what comes next --------------------------------- */
+.v4 .rx-scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.v4 .rx-now__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.v4 .rx-live {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+}
+.v4 .rx-live::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+  opacity: 0;
+}
+.v4 .rx-list {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.v4 .rx-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 56px;
+  padding: 0.6rem 1rem;
+  border-radius: 18px;
+  font-weight: 600;
+}
+.v4 .rx-now .rx-list__item {
+  color: #fff;
+  --g-fill: 0.1;
+  --g-sheen: 0.22;
+}
+.v4 .rx-tick {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+.v4 .rx-tick circle {
+  fill: #fff;
+}
+.v4 .rx-tick path {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.v4 .rx-list--later .rx-list__item {
+  background: var(--bg);
+  border: 1px dashed rgb(100 32 212 / 0.25);
+  color: var(--ink-2);
+}
+.v4 .rx-ring {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px dashed rgb(100 32 212 / 0.45);
+}
+.v4 .rx-note {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  padding: 1.1rem 1.3rem;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.v4 .rx-note__ico {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--violet);
+}
+
+/* ---- How capabilities are released ---------------------------------------- */
+.v4 .rx-rel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.v4 .rx-rel__say {
+  display: grid;
+  gap: 1.25rem;
+}
+.v4 .rx-rel__note {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  margin-top: 0.5rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.v4 .rx-rel__noteIco {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #f1ecff;
+  color: var(--violet);
+}
+.v4 .rx-rel__noteIco .ico {
+  width: 20px;
+  height: 20px;
+}
+.v4 .rx-rel__card {
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  justify-content: center;
+  min-height: 380px;
+}
+
+/* The gates. */
+.v4 .rg {
+  position: relative;
+  padding-left: 44px;
+}
+.v4 .rg__spine {
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.28);
+}
+.v4 .rg__token {
+  position: absolute;
+  left: 8px;
+  top: 21px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 5px rgb(255 255 255 / 0.22);
+}
+.v4 .rg__gates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.v4 .rg__gate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 58px;
+  padding: 0.4rem 0.8rem 0.4rem 1.1rem;
+  font-size: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+  border-radius: 18px;
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow: hidden;
+  isolation: isolate;
+  --g-fill: 0.1;
+  --g-sheen: 0.22;
+}
+.v4 .rg__lit {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(255 255 255 / 0.2);
+  opacity: 0;
+}
+.v4 .rg__txt {
+  flex: 1;
+  min-width: 0;
+}
+.v4 .rg__txt::first-letter {
+  text-transform: uppercase;
+}
+.v4 .rg__ok {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.v4 .rg__ok circle {
+  fill: #fff;
+}
+.v4 .rg__ok path {
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- Read next ------------------------------------------------------------- */
+.v4 .rx-next__title {
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+.v4 .rx-next {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.v4 .rx-go {
+  min-height: 230px;
+  justify-content: space-between;
+  transition: translate 250ms ease, box-shadow 250ms ease;
+}
+.v4 .rx-go:hover {
+  translate: 0 -4px;
+  box-shadow: 0 24px 40px -24px rgb(52 24 120 / 0.35);
+}
+.v4 .rx-go__ico {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #f1ecff;
+  color: var(--violet);
+}
+.v4 .card--lit .rx-go__ico {
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+.v4 .rx-go__ico .ico {
+  width: 24px;
+  height: 24px;
+}
+.v4 .rx-go__t {
+  font-size: clamp(1.3rem, 1rem + 0.8vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+}
+.v4 .rx-go__t::first-letter {
+  text-transform: uppercase;
+}
+.v4 .rx-go__arrow {
+  position: absolute;
+  top: clamp(1.6rem, 3vw, 2.25rem);
+  right: clamp(1.6rem, 3vw, 2.25rem);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgb(20 13 45 / 0.15);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.v4 .card--lit .rx-go__arrow {
+  border-color: rgb(255 255 255 / 0.5);
+}
+.v4 .rx-go:hover .rx-go__arrow {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+.v4 .card--lit.rx-go:hover .rx-go__arrow {
+  background: #fff;
+  color: var(--violet);
+  border-color: #fff;
+}
+.v4 .rx-go__arrow .arrow {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---- Narrow screens -------------------------------------------------------- */
+@media (max-width: 960px) {
+  .v4 .rx-flow {
+    aspect-ratio: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.75rem;
+    margin-top: 2.5rem;
+  }
+  .v4 .rx-flow__wires {
+    display: none;
+  }
+  .v4 .rx-flow__col--in,
+  .v4 .rx-flow__col--out,
+  .v4 .rx-core {
+    grid-column: 1;
+  }
+  .v4 .rx-flow__head {
+    position: static;
+    margin-bottom: 0.8rem;
+  }
+  .v4 .rx-flow__col--out .rx-flow__head {
+    text-align: left;
+  }
+  .v4 .rx-flow__list {
+    height: auto;
+    gap: 0.6rem;
+  }
+  .v4 .rx-pill {
+    height: 54px;
+  }
+  .v4 .rx-flow__col--out .rx-pill {
+    flex-direction: row;
+    padding: 0 1rem 0 0.55rem;
+    text-align: left;
+  }
+  /* A short line from each group into the core and out again. */
+  .v4 .rx-core::before,
+  .v4 .rx-core::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 2.75rem;
+    background: rgb(255 255 255 / 0.4);
+  }
+  .v4 .rx-core::before { bottom: 100%; }
+  .v4 .rx-core::after { top: 100%; }
+  .v4 .rx-core__ring { display: none; }
+  .v4 .rx-scope,
+  .v4 .rx-rel,
+  .v4 .rx-next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4 .rx-go {
+    min-height: 180px;
+  }
+}
+@media (max-width: 560px) {
+  .v4 .rl {
+    padding-right: 0;
+  }
+  .v4 .rl__chip {
+    left: 0;
+  }
+  .v4 .rl__ev {
+    display: none;
+  }
+  .v4 .rl__report {
+    right: -0.25rem;
+  }
+}
+
+/* ---- Motion ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .v4 .rl__bars rect {
+    animation: rlBar 3.2s ease-in-out infinite;
+  }
+  .v4 .rx-pulse {
+    animation: rxPulse 2.6s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  }
+  .v4 .rx-live::after {
+    animation: rxLive 2.4s ease-out infinite;
+  }
+  .v4 .rg__token {
+    animation: rgToken 6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+  .v4 .rl__chip {
+    animation: gaFloat 6s ease-in-out infinite;
+  }
+  .v4 .rl__report {
+    animation: gaFloat 7s ease-in-out -2s infinite;
+  }
+  .v4 .rl__row--0::before { animation: rlRow0 7.5s ease-in-out infinite; }
+  .v4 .rl__ok--0 { animation: rlOk0 7.5s ease-out infinite; }
+  .v4 .rl__row--1::before { animation: rlRow1 7.5s ease-in-out infinite; }
+  .v4 .rl__ok--1 { animation: rlOk1 7.5s ease-out infinite; }
+  .v4 .rl__row--2::before { animation: rlRow2 7.5s ease-in-out infinite; }
+  .v4 .rl__ok--2 { animation: rlOk2 7.5s ease-out infinite; }
+  .v4 .rl__row--3::before { animation: rlRow3 7.5s ease-in-out infinite; }
+  .v4 .rl__ok--3 { animation: rlOk3 7.5s ease-out infinite; }
+  .v4 .rl__row--4::before { animation: rlRow4 7.5s ease-in-out infinite; }
+  .v4 .rl__ok--4 { animation: rlOk4 7.5s ease-out infinite; }
+  .v4 .rg__gate--0 .rg__lit { animation: rgLit0 6s ease-in-out infinite; }
+  .v4 .rg__ok--0 { animation: rgOk0 6s ease-out infinite; }
+  .v4 .rg__gate--1 .rg__lit { animation: rgLit1 6s ease-in-out infinite; }
+  .v4 .rg__ok--1 { animation: rgOk1 6s ease-out infinite; }
+  .v4 .rg__gate--2 .rg__lit { animation: rgLit2 6s ease-in-out infinite; }
+  .v4 .rg__ok--2 { animation: rgOk2 6s ease-out infinite; }
+  .v4 .rg__gate--3 .rg__lit { animation: rgLit3 6s ease-in-out infinite; }
+  .v4 .rg__ok--3 { animation: rgOk3 6s ease-out infinite; }
+}
+@keyframes rlBar {
+  0%, 100% { scale: 1 1; }
+  50% { scale: 1 0.7; }
+}
+@keyframes rxPulse {
+  0% { stroke-dashoffset: 100; opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes rxLive {
+  0% { opacity: 0.9; scale: 0.6; }
+  100% { opacity: 0; scale: 1.4; }
+}
+/* The token stops at each gate: 58px pills, 14px apart. */
+@keyframes rgToken {
+  0%, 4% { translate: 0 0; opacity: 0; }
+  8% { opacity: 1; }
+  14%, 22% { translate: 0 0; }
+  30%, 42% { translate: 0 72px; }
+  50%, 62% { translate: 0 144px; }
+  70%, 88% { translate: 0 216px; }
+  96%, 100% { translate: 0 216px; opacity: 0; }
+}
+@keyframes rlRow0 {
+  0%, 0% { opacity: 0; }
+  3%, 16% { opacity: 1; }
+  20%, 100% { opacity: 0; }
+}
+@keyframes rlOk0 {
+  0%, 4% { opacity: 0; scale: 0.5; }
+  9% { opacity: 1; scale: 1.1; }
+  12%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rlRow1 {
+  0%, 20% { opacity: 0; }
+  23%, 36% { opacity: 1; }
+  40%, 100% { opacity: 0; }
+}
+@keyframes rlOk1 {
+  0%, 24% { opacity: 0; scale: 0.5; }
+  29% { opacity: 1; scale: 1.1; }
+  32%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rlRow2 {
+  0%, 40% { opacity: 0; }
+  43%, 56% { opacity: 1; }
+  60%, 100% { opacity: 0; }
+}
+@keyframes rlOk2 {
+  0%, 44% { opacity: 0; scale: 0.5; }
+  49% { opacity: 1; scale: 1.1; }
+  52%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rlRow3 {
+  0%, 60% { opacity: 0; }
+  63%, 76% { opacity: 1; }
+  80%, 100% { opacity: 0; }
+}
+@keyframes rlOk3 {
+  0%, 64% { opacity: 0; scale: 0.5; }
+  69% { opacity: 1; scale: 1.1; }
+  72%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rlRow4 {
+  0%, 80% { opacity: 0; }
+  83%, 96% { opacity: 1; }
+  100%, 100% { opacity: 0; }
+}
+@keyframes rlOk4 {
+  0%, 84% { opacity: 0; scale: 0.5; }
+  89% { opacity: 1; scale: 1.1; }
+  92%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rgLit0 {
+  0%, 12% { opacity: 0; }
+  15%, 22% { opacity: 1; }
+  28%, 100% { opacity: 0; }
+}
+@keyframes rgOk0 {
+  0%, 14% { opacity: 0; scale: 0.5; }
+  18% { opacity: 1; scale: 1.1; }
+  21%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rgLit1 {
+  0%, 28% { opacity: 0; }
+  31%, 42% { opacity: 1; }
+  48%, 100% { opacity: 0; }
+}
+@keyframes rgOk1 {
+  0%, 30% { opacity: 0; scale: 0.5; }
+  34% { opacity: 1; scale: 1.1; }
+  37%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rgLit2 {
+  0%, 48% { opacity: 0; }
+  51%, 62% { opacity: 1; }
+  68%, 100% { opacity: 0; }
+}
+@keyframes rgOk2 {
+  0%, 50% { opacity: 0; scale: 0.5; }
+  54% { opacity: 1; scale: 1.1; }
+  57%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+@keyframes rgLit3 {
+  0%, 68% { opacity: 0; }
+  71%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
+@keyframes rgOk3 {
+  0%, 70% { opacity: 0; scale: 0.5; }
+  74% { opacity: 1; scale: 1.1; }
+  77%, 94% { opacity: 1; scale: 1; }
+  98%, 100% { opacity: 0; scale: 1; }
+}
+

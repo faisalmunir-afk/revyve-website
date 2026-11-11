@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NAV } from "../../content/site";
+import { v4 } from "./links";
 
 /**
  * The header: the wordmark left, the six routes in one glass pill in the
@@ -8,7 +9,7 @@ import { NAV } from "../../content/site";
  * folds into a menu button (a native <details>, so it works without
  * script).
  */
-export default function Header() {
+export default function Header({ current }: { current?: string }) {
   return (
     <header className="hd">
       <div className="hd__in">
@@ -18,7 +19,7 @@ export default function Header() {
 
         <nav className="hd__nav glass" aria-label="Main">
           {NAV.filter((l) => l.href !== "/contact/").map((l) => (
-            <Link key={l.href} href={l.href} className="hd__link">
+            <Link key={l.href} href={v4(l.href)} className="hd__link" aria-current={l.href === current ? "page" : undefined}>
               {l.label}
             </Link>
           ))}
@@ -32,7 +33,7 @@ export default function Header() {
           <summary className="glass hd__toggle">Menu</summary>
           <div className="glass hd__sheet">
             {NAV.map((l) => (
-              <Link key={l.href} href={l.href} className="hd__sheetLink">
+              <Link key={l.href} href={v4(l.href)} className="hd__sheetLink" aria-current={l.href === current ? "page" : undefined}>
                 {l.label}
               </Link>
             ))}

@@ -1,0 +1,614 @@
+/* =========================================================================
+   V4 — For practices and Sell your firm. Builds on app/v4/styles.css and
+   app/v4/revyve-ai/styles.css (hero, log rows, gates); all under .v4.
+   ========================================================================= */
+
+/* ---- Shared: an icon tile at the top of a card ----------------------------- */
+.v4 .pr-why__ico {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  background: #f1ecff;
+  color: var(--violet);
+}
+.v4 .card--lit .pr-why__ico {
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+.v4 .pr-why__ico .ico {
+  width: 22px;
+  height: 22px;
+}
+
+/* ---- For practices: the aged-claim picture --------------------------------- */
+.v4 .ac {
+  position: relative;
+  width: min(100%, 520px);
+  margin-inline: auto;
+  padding: 0 1rem 2.5rem 0;
+  display: grid;
+  gap: 1rem;
+}
+.v4 .ac__axis {
+  border-radius: 20px;
+  padding: 2.4rem 1.2rem 1.2rem;
+}
+.v4 .ac__track {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: rgb(20 13 45 / 0.07);
+}
+/* Past the line: the part of the line where claims get worked. */
+.v4 .ac__late {
+  position: absolute;
+  left: 66%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(90deg, rgb(100 32 212 / 0.35), rgb(100 32 212 / 0.15));
+}
+.v4 .ac__line {
+  position: absolute;
+  left: 66%;
+  top: -14px;
+  bottom: -8px;
+  width: 2px;
+  background: var(--violet);
+  border-radius: 2px;
+}
+.v4 .ac__tag {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--violet);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.v4 .ac__dot {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--lilac);
+  opacity: 0;
+}
+.v4 .ac__dot:nth-child(2) { left: 18%; opacity: 1; }
+.v4 .ac__dot:nth-child(3) { left: 40%; opacity: 1; }
+.v4 .ac__dot:nth-child(4) { left: 58%; opacity: 1; }
+.v4 .ac__dot:nth-child(5) { left: 80%; opacity: 1; border-color: var(--violet); background: var(--violet); }
+.v4 .ac__card {
+  border-radius: 22px;
+  padding: 0.9rem 1rem 1.1rem;
+}
+.v4 .ac__card .rl__row,
+.v4 .bz .rl__row {
+  grid-template-columns: 34px minmax(0, 1fr) 0 20px;
+}
+.v4 .ac__card .rl__txt::first-letter,
+.v4 .bz .rl__txt::first-letter {
+  text-transform: uppercase;
+}
+.v4 .ac__chip {
+  position: absolute;
+  right: -0.5rem;
+  bottom: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.v4 .ac__chipText::first-letter {
+  text-transform: uppercase;
+}
+
+/* ---- For practices: the reasons -------------------------------------------- */
+.v4 .pr-why {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+}
+.v4 .pr-why__card {
+  grid-column: span 2;
+  min-height: 300px;
+  justify-content: space-between;
+}
+.v4 .pr-why__card--3,
+.v4 .pr-why__card--4 {
+  grid-column: span 3;
+  min-height: 240px;
+}
+.v4 .pr-why__big {
+  font-size: clamp(3rem, 1.6rem + 3.4vw, 4.8rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  margin-top: auto;
+}
+.v4 .pr-why__card .card__title {
+  font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+}
+
+/* ---- For practices: how to start -------------------------------------------- */
+.v4 .pr-start__fast {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-weight: 600;
+}
+.v4 .pr-start__fastIco {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--violet);
+}
+.v4 .pr-start__note {
+  color: var(--ink-2);
+}
+
+/* ---- Sell: the business ------------------------------------------------------ */
+.v4 .bz {
+  position: relative;
+  width: min(100%, 520px);
+  margin-inline: auto;
+  padding: 0 1.5rem 3rem 0;
+}
+.v4 .bz__win {
+  border-radius: 24px;
+  padding: 0.9rem 1rem 1.1rem;
+}
+.v4 .bz__head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.3rem 0.3rem 1rem;
+}
+.v4 .bz__mark {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--lit);
+  color: #fff;
+}
+.v4 .bz__mark .ico {
+  width: 22px;
+  height: 22px;
+}
+.v4 .bz__title {
+  font-size: 1.25rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.v4 .bz__title::first-letter {
+  text-transform: uppercase;
+}
+.v4 .bz__rows .rl__row {
+  padding-block: 0.75rem;
+}
+.v4 .bz__rows .rl__txt {
+  white-space: normal;
+  line-height: 1.35;
+}
+.v4 .bz__chip {
+  position: absolute;
+  right: 0;
+  bottom: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem 0.55rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+.v4 .bz__seal {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--violet);
+  color: #fff;
+}
+.v4 .bz__seal .ico {
+  width: 17px;
+  height: 17px;
+}
+
+/* ---- Sell: what we look for ------------------------------------------------- */
+.v4 .sl-look {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+.v4 .sl-look__title {
+  position: sticky;
+  top: 7rem;
+}
+.v4 .sl-look__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.v4 .sl-look__card {
+  min-height: 250px;
+}
+.v4 .sl-look__text {
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.v4 .sl-look__text strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  font-size: clamp(1.1rem, 1rem + 0.35vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+/* ---- Sell: the people band ------------------------------------------------ */
+.v4 .sl-people {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(5rem, 11vw, 8.5rem);
+  background: var(--lit);
+  color: #fff;
+}
+.v4 .sl-people::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 70% at 80% 30%, rgb(255 255 255 / 0.18), transparent 70%),
+    radial-gradient(35% 60% at 8% 95%, rgb(40 10 120 / 0.35), transparent 70%);
+}
+.v4 .sl-people__facets {
+  position: absolute;
+  left: -90px;
+  bottom: -80px;
+  width: 520px;
+  z-index: -1;
+  opacity: 0.32;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.v4 .sl-people__facets .facets {
+  width: 100%;
+  height: auto;
+}
+.v4 .sl-people__in {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.v4 .sl-people__say {
+  display: grid;
+  gap: 1.25rem;
+}
+.v4 .sl-people__title {
+  color: #fff;
+}
+.v4 .sl-people__body {
+  font-size: clamp(1.05rem, 0.98rem + 0.3vw, 1.2rem);
+  color: rgb(255 255 255 / 0.88);
+  max-width: 48ch;
+}
+.v4 .sl-people__pledge {
+  margin: 0;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border-radius: var(--radius);
+  --g-fill: 0.1;
+  --g-sheen: 0.22;
+}
+.v4 .sl-people__pledge p {
+  font-size: clamp(1.35rem, 1rem + 1.2vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.022em;
+  color: #fff;
+}
+
+/* ---- Sell: the loop -------------------------------------------------------- */
+.v4 .sl-adds__card {
+  min-height: 0;
+}
+.v4 .lp {
+  display: grid;
+  gap: 0;
+  justify-items: stretch;
+}
+.v4 .lp__node {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 650;
+  box-shadow: 0 20px 40px -24px rgb(20 6 70 / 0.55);
+}
+.v4 .lp__mark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: #f1ecff;
+  color: var(--violet);
+  overflow: hidden;
+}
+.v4 .lp__mark .ico {
+  width: 22px;
+  height: 22px;
+}
+/* The logo file carries the wordmark under the V; show the V alone. */
+.v4 .lp__mark--logo {
+  display: block;
+}
+.v4 .lp__mark--logo img {
+  width: 70px;
+  max-width: none;
+  height: auto;
+  margin: 7px 0 0 -15px;
+}
+.v4 .lp__lanes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0 0 0 1.4rem;
+}
+.v4 .lp__lane {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  padding-block: 1.1rem;
+}
+.v4 .lp__wire {
+  position: relative;
+  align-self: stretch;
+  justify-self: center;
+  width: 2px;
+  min-height: 140px;
+  background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.55) 0 4px, transparent 4px 9px);
+}
+.v4 .lp__wire i {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgb(255 255 255 / 0.2);
+}
+.v4 .lp__lane--up .lp__wire i {
+  top: auto;
+  bottom: 0;
+}
+.v4 .lp__chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+.v4 .lp__chips li {
+  padding: 0.45rem 0.85rem;
+  border-radius: 14px;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  --g-fill: 0.1;
+  --g-sheen: 0.22;
+}
+.v4 .lp__chips li::first-letter {
+  text-transform: uppercase;
+}
+
+/* ---- Sell: how it goes ----------------------------------------------------- */
+.v4 .hw {
+  position: relative;
+}
+.v4 .hw__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+.v4 .hw__rail {
+  position: absolute;
+  left: 12.5%;
+  right: 12.5%;
+  top: 0;
+  height: 2px;
+  background: var(--soft-2);
+  border-radius: 2px;
+}
+.v4 .hw__rail i {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--violet);
+  box-shadow: 0 0 0 5px rgb(100 32 212 / 0.15);
+}
+.v4 .hw__step {
+  margin-top: 2.25rem;
+  min-height: 240px;
+}
+.v4 .hw__dot {
+  position: absolute;
+  top: -2.25rem;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -6px 0 0 -7px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--violet);
+}
+.v4 .hw__step {
+  overflow: visible;
+}
+.v4 .hw__text {
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  margin-top: auto;
+}
+.v4 .hw__go {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- Narrow screens -------------------------------------------------------- */
+@media (max-width: 960px) {
+  .v4 .pr-why {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4 .pr-why__card,
+  .v4 .pr-why__card--3,
+  .v4 .pr-why__card--4 {
+    grid-column: auto;
+    min-height: 0;
+  }
+  .v4 .sl-look,
+  .v4 .sl-people__in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4 .sl-look__title {
+    position: static;
+  }
+  .v4 .hw__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .v4 .hw__rail,
+  .v4 .hw__dot {
+    display: none;
+  }
+  .v4 .hw__step {
+    margin-top: 0;
+    min-height: 200px;
+  }
+}
+@media (max-width: 600px) {
+  .v4 .sl-look__grid,
+  .v4 .hw__list,
+  .v4 .lp__lanes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .v4 .lp__lanes {
+    padding-left: 0.6rem;
+    gap: 0;
+  }
+  .v4 .lp__wire {
+    min-height: 90px;
+  }
+  .v4 .sl-look__card,
+  .v4 .hw__step {
+    min-height: 0;
+  }
+  .v4 .ac,
+  .v4 .bz {
+    padding-right: 0;
+  }
+  .v4 .ac__chip,
+  .v4 .bz__chip {
+    right: 0;
+  }
+}
+
+/* ---- Motion ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .v4 .ac__dot {
+    animation: acMove 7s linear infinite;
+  }
+  .v4 .ac__chip,
+  .v4 .bz__chip {
+    animation: gaFloat 6s ease-in-out infinite;
+  }
+  .v4 .lp__lane--down .lp__wire i {
+    animation: lpDown 2.8s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+  }
+  .v4 .lp__lane--up .lp__wire i {
+    animation: lpUp 2.8s cubic-bezier(0.45, 0, 0.25, 1) 1.4s infinite;
+  }
+  .v4 .hw__rail i {
+    animation: hwRun 8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+}
+/* A claim ages along the line; past 120 days it turns violet: it is being worked. */
+@keyframes acMove {
+  0% { left: 2%; opacity: 0; background: #fff; border-color: var(--lilac); }
+  6% { opacity: 1; }
+  64% { background: #fff; border-color: var(--lilac); }
+  68% { background: var(--violet); border-color: var(--violet); }
+  92% { opacity: 1; }
+  100% { left: 97%; opacity: 0; background: var(--violet); border-color: var(--violet); }
+}
+@keyframes lpDown {
+  0% { top: 0; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: calc(100% - 10px); opacity: 0; }
+}
+@keyframes lpUp {
+  0% { bottom: 0; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { bottom: calc(100% - 10px); opacity: 0; }
+}
+@keyframes hwRun {
+  0%, 6% { left: 0; }
+  22%, 30% { left: 33.333%; }
+  46%, 54% { left: 66.666%; }
+  70%, 94% { left: 100%; }
+  100% { left: 0; }
+}
