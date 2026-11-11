@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { HOME } from "../../content/home";
+import { HOME } from "../../content/archive/home-2026-10";
 import Accent from "./Accent";
 import {
   ShieldCheck,

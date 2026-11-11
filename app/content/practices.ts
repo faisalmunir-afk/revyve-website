@@ -1,6 +1,6 @@
 /**
  * Revyve — /for-practices/, transcribed verbatim from
- * revyveholdings.com/for-practices/.
+ * revyveholdings.com/for-practices/ (as revised by the client in November 2026).
  *
  * Every string is Revyve's own wording, character for character. Each of
  * the five reasons is split exactly where the original sets its bold lead:
@@ -12,7 +12,7 @@ import type { Linked } from "./about";
 export const PRACTICES = {
   eyebrow: "For practices",
   heading: "Every claim followed up. Every action visible.",
-  lead: "Independent practices lose money in the gap between a claim going out and someone chasing it. We close that gap. Agents check status, reconcile and queue the next step every day; experienced billers handle the exceptions; you can see every action and the evidence behind it.",
+  lead: "Independent practices lose money in the gap between a claim going out and someone chasing it. We close that gap inside the practice-management system you already use. Agents check status, update the work queue and produce the daily reports; experienced billers handle the exceptions and stay accountable for the result; you can see every action and the evidence behind it.",
 
   why: {
     heading: "Why practices move to us",
@@ -23,7 +23,7 @@ export const PRACTICES = {
       },
       {
         title: "You keep your practice-management system.",
-        body: "We work inside AdvancedMD today and add systems as practices need them.",
+        body: "We work inside AdvancedMD today; additional integrations are planned.",
       },
       {
         title: "Aged claims get worked, not parked.",
@@ -42,8 +42,8 @@ export const PRACTICES = {
 
   start: {
     heading: "How to start",
-    body: "Bring us your most frustrating unpaid claims. We will show you exactly what we would do with each one, which steps we automate, and where a person stays responsible. If you like what you see, onboarding takes days, not months, and your workflow does not change.",
-    action: { label: "Show us your unpaid claims", href: "/contact/" },
+    body: "We start with a free assessment of your existing billing records and identify areas of improvement, commit to the benchmarks before the contract is signed, and then deliver on them. Onboarding takes days, not months, and your workflow does not change.",
+    action: { label: "Get a billing assessment", href: "/contact/" },
     note: {
       text: "How the agents and billers work together: Revyve AI.",
       links: [{ phrase: "Revyve AI", href: "/revyve-ai/" }] as Linked[],
@@ -60,7 +60,7 @@ export const PRACTICES = {
       },
       {
         q: "Do we have to change our practice-management system?",
-        answer: "You keep your practice-management system. We work inside AdvancedMD today and add systems as practices need them.",
+        answer: "You keep your practice-management system. We work inside AdvancedMD today; additional integrations are planned.",
         link: null,
       },
       {
@@ -75,12 +75,12 @@ export const PRACTICES = {
       },
       {
         q: "How long does onboarding take?",
-        answer: "If you like what you see, onboarding takes days, not months, and your workflow does not change.",
+        answer: "Onboarding takes days, not months, and your workflow does not change.",
         link: null,
       },
       {
         q: "How do we start?",
-        answer: "Bring us your most frustrating unpaid claims. We will show you exactly what we would do with each one, which steps we automate, and where a person stays responsible.",
+        answer: "We start with a free audit of your existing billing records and identify areas of improvement, commit to the benchmarks before the contract is signed, and then deliver on them.",
         link: null,
       },
     ],

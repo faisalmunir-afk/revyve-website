@@ -4,7 +4,7 @@ import { INSIGHTS } from "../../content/insights";
 import { META } from "../../content/site";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import { TheGap, TheLoop } from "../components/teamDiagrams";
+import { FourSteps, TheGap, TheLoop } from "../components/teamDiagrams";
 
 export const metadata: Metadata = {
   title: META["/insights/"].title,
@@ -13,12 +13,13 @@ export const metadata: Metadata = {
 
 /** Each piece's cover is the drawing it carries inside. */
 const COVER: Record<string, (p: { className?: string }) => React.JSX.Element> = {
+  "/insights/our-strategy/": FourSteps,
   "/insights/why-we-buy-businesses/": TheLoop,
   "/insights/our-thesis/": TheGap,
 };
 
 /**
- * Insights (it was Press).
+ * Insights (it was Press). Three pieces as of November 2026.
  *
  * The word, set large, and the pieces beneath it, newest first. Each is a
  * whole-width card, its date, title and first line on one side and, as its

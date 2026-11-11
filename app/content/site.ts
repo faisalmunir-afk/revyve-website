@@ -14,11 +14,11 @@
 
 export type Link = { label: string; href: string };
 
-/** The primary navigation, in the order the original site lists it. */
+/** The primary navigation, in the order the live site lists it (November 2026). */
 export const NAV: Link[] = [
-  { label: "About", href: "/about/" },
   { label: "Revyve AI", href: "/revyve-ai/" },
   { label: "For practices", href: "/for-practices/" },
+  { label: "About", href: "/about/" },
   { label: "Sell your firm", href: "/sell-your-firm/" },
   { label: "Careers", href: "/careers/" },
   { label: "Contact", href: "/contact/" },
@@ -26,9 +26,9 @@ export const NAV: Link[] = [
 
 /** The footer navigation, which adds Team, Insights and Privacy. */
 export const FOOTER_NAV: Link[] = [
-  { label: "About", href: "/about/" },
   { label: "Revyve AI", href: "/revyve-ai/" },
   { label: "For practices", href: "/for-practices/" },
+  { label: "About", href: "/about/" },
   { label: "Sell your firm", href: "/sell-your-firm/" },
   { label: "Team", href: "/team/" },
   { label: "Insights", href: "/insights/" },
@@ -42,27 +42,32 @@ export const CONTACT = {
   legal: "Revyve, Inc. San Francisco and St. Louis.",
 };
 
-/** Per-route <title> and <meta name="description">, verbatim. */
+/** Per-route <title> and <meta name="description">, verbatim (generated from the live pages, November 2026). */
 export const META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Revyve | AI-native holding company for healthcare services",
+    title: "Revyve AI | Medical Billing and Practice Administration",
     description:
-      "Revyve owns and operates healthcare services companies, starting with medical billing. We keep the people and customers, and change how the work gets done.",
+      "Revyve builds AI agents for medical billing and practice administration, developed inside billing operations we own.",
   },
   "/about/": {
-    title: "About Revyve | Why we buy and run healthcare businesses",
+    title: "About Revyve | The AI back office for independent medicine",
     description:
-      "Revyve is an AI-native holding company for healthcare services. We only buy in healthcare, we buy to hold, and Revyve AI runs under every company we own.",
+      "Revyve builds AI that helps independent practices run their back office, developed inside the billing operation we own.",
   },
   "/revyve-ai/": {
-    title: "Revyve AI | AI platform for healthcare operations",
+    title: "Revyve AI | AI agents for medical billing",
     description:
-      "The AI platform connecting healthcare’s existing systems, data, and workflows. Every company we own runs on it.",
+      "AI agents for medical billing that work inside the existing systems practices already in use: claim-status checks, controlled work queues and daily reporting.",
+  },
+  "/revyve-ai/first-deployment/": {
+    title: "First deployment results | Revyve AI",
+    description:
+      "Results from the first supervised deployment of Revyve AI: one workflow, with the measurements and their limits.",
   },
   "/for-practices/": {
     title: "Medical billing for independent practices | Revyve",
     description:
-      "Every claim followed up. Every action visible. Agents check status, reconcile and queue the next step every day; experienced billers handle the exceptions.",
+      "Every claim followed up. Every action visible. Agents check status, update the work queue and produce daily reports; experienced billers handle the exceptions.",
   },
   "/sell-your-firm/": {
     title: "Sell your medical billing company to Revyve",
@@ -72,26 +77,32 @@ export const META: Record<string, { title: string; description: string }> = {
   "/team/": {
     title: "Team | The four founders of Revyve",
     description:
-      "Operators, engineers and physicians. The same four people, all full-time, all with money in the first business.",
+      "Four founders: operators, engineers and physicians. Two practiced medicine, two have built and run companies, and all of them work with the billing team.",
   },
   "/insights/": {
     title: "Insights | Revyve",
-    description: "Letters and announcements from Revyve.",
-  },
-  "/insights/our-thesis/": {
-    title: "Our Thesis | Revyve",
     description:
-      "Most of the value AI creates in healthcare will not go to the companies that make the models. It will go to whoever changes how the work actually gets done.",
+      "Letters and announcements from Revyve.",
+  },
+  "/insights/our-strategy/": {
+    title: "Our strategy | Revyve",
+    description:
+      "We are building the vertical AI platform that will revive the healthcare services industry. We acquire billing services and build it inside real operations.",
   },
   "/insights/why-we-buy-businesses/": {
     title: "Why We Buy Businesses | Revyve",
     description:
       "Intelligence is getting cheap fast. Every few months the frontier models get better and cheaper at the same time, and I don’t see a reason for that to stop.",
   },
+  "/insights/our-thesis/": {
+    title: "Our Thesis | Revyve",
+    description:
+      "Most of the value AI creates in healthcare will not go to the companies that make the models. It will go to whoever changes how the work actually gets done.",
+  },
   "/careers/": {
     title: "Careers at Revyve | Engineers and operators",
     description:
-      "We hire engineers who sit in a billing office in St. Louis before writing code, and operators who want to run a business, not a function.",
+      "We hire engineers who build reusable production workflows alongside the billing team in St. Louis, and operators who want to run a business, not a function.",
   },
   "/contact/": {
     title: "Contact Revyve",
@@ -100,7 +111,8 @@ export const META: Record<string, { title: string; description: string }> = {
   },
   "/privacy/": {
     title: "Privacy | Revyve",
-    description: "How Revyve handles data.",
+    description:
+      "How Revyve handles data.",
   },
 };
 

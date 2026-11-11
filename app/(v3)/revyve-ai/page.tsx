@@ -7,37 +7,32 @@ import Footer from "../components/Footer";
 import Linked from "../components/Linked";
 import MarkStep from "../components/MarkStep";
 import { G, Mark } from "../components/aiDiagrams";
-import { AgentsWithOwners, OneRecord, TeamTools, WorkMoves } from "../components/systemCards";
+import { ReleaseGate } from "../components/teamDiagrams";
 
 export const metadata: Metadata = {
   title: META["/revyve-ai/"].title,
   description: META["/revyve-ai/"].description,
 };
 
-/** One drawing per card, each made from its own sentence. */
-const CARD_DRAWINGS = [OneRecord, AgentsWithOwners, WorkMoves, TeamTools];
-
 /** A glyph for each of the systems and the workers the page names. */
-const SYS: (keyof typeof G)[] = ["ledger", "calendar", "doc", "inbox", "folder"];
-const WORK: (keyof typeof G)[] = ["bars", "checklist", "form", "shield"];
+const SYS: (keyof typeof G)[] = ["ledger", "inbox", "folder", "doc"];
+const WORK: (keyof typeof G)[] = ["checklist", "inbox", "bars", "shield"];
 
 /**
  * Revyve AI.
  *
- * The product page, built as the argument the copy makes: what it is, how
- * it sits between the systems and the workers (the architecture, drawn as
- * the copy lays it out, left to right), what it does, and the first work
- * it is doing. The architecture is real HTML so its words stay words; the
- * flow is a drawn trace that draws on as it comes up the screen.
+ * The product page, built as the argument the copy makes: what it does
+ * today; how it sits between the systems a practice runs and what does the
+ * work (the architecture, drawn left to right as the copy lays it out);
+ * what runs today against what comes next, as two lists side by side; and
+ * how a capability earns release, on paper with its drawing.
  *
- * The four RCM steps are an ordered list; the numerals the original prints
- * are in the copy and not rendered. The eyebrow is in the copy and not
- * rendered either.
+ * The eyebrow is in the copy and not rendered.
  *
  * Every string comes from app/content/revyveAi.ts, verbatim.
  */
 export default function RevyveAiPage() {
-  const { heading, leads, claim, action, arch, system, rcm, readNext } = REVYVE_AI;
+  const { heading, lead, claim, actions, arch, scope, release, readNext } = REVYVE_AI;
 
   return (
     <>
@@ -55,15 +50,16 @@ export default function RevyveAiPage() {
               </h1>
             </div>
             <div className="rp__heroSay">
-              {leads.map((l, i) => (
-                <p className="rp__lead" key={i}>
-                  {l}
-                </p>
-              ))}
+              <p className="rp__lead">{lead}</p>
               <p className="rp__claim">{claim}</p>
-              <Link href={action.href} className="hero__go rp__go">
-                {action.label}
-              </Link>
+              <div className="rp__actions">
+                <Link href={actions[0].href} className="hero__go rp__go">
+                  {actions[0].label}
+                </Link>
+                <Link href={actions[1].href} className="hero__alt rp__go">
+                  {actions[1].label}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -118,62 +114,61 @@ export default function RevyveAiPage() {
           </div>
         </section>
 
-        {/* ---- One system ---------------------------------------------- */}
-        <section className="rp__system" aria-labelledby="rp-system">
+        {/* ---- Today, and next ------------------------------------------ */}
+        <section className="rp__system" aria-labelledby="rp-scope">
           <div className="rp__inner">
             <header className="rp__head">
-              <h2 className="rp__h2" id="rp-system">
-                {system.heading}
+              <h2 className="rp__h2" id="rp-scope">
+                {scope.heading}
               </h2>
-              <p className="rp__headLead">{system.lead}</p>
             </header>
 
-            {/* Four large cards, two by two, each with its own drawing. */}
-            <ul className="rp__cards">
-              {system.points.map((p, i) => {
-                const Drawing = CARD_DRAWINGS[i];
-                return (
-                  <li className="rp__card" key={p.title}>
-                    <div className="rp__cardArt">
-                      <Drawing className="rp__cardDraw sd sd--armed" />
-                    </div>
-                    <h3 className="rp__cardName">{p.title}</h3>
-                    <p className="rp__cardText">{p.body}</p>
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="rp__scope">
+              <div className="rp__scopeCard rp__scopeCard--now">
+                <h3 className="rp__scopeH">{scope.current.heading}</h3>
+                <ul className="rp__scopeList">
+                  {scope.current.items.map((it) => (
+                    <li key={it}>
+                      <svg viewBox="0 0 20 20" className="rp__scopeIco" aria-hidden="true">
+                        <circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+                        <path d="M6 10.3l2.6 2.6L14 7.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rp__scopeCard rp__scopeCard--next">
+                <h3 className="rp__scopeH">{scope.planned.heading}</h3>
+                <ul className="rp__scopeList">
+                  {scope.planned.items.map((it) => (
+                    <li key={it}>
+                      <svg viewBox="0 0 20 20" className="rp__scopeIco" aria-hidden="true">
+                        <circle cx="10" cy="10" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="3 3" />
+                      </svg>
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
-            <p className="rp__note">{system.note}</p>
+            <p className="rp__note">{scope.note}</p>
           </div>
         </section>
 
-        {/* ---- Revenue cycle ------------------------------------------- */}
-        <section className="rp__rcm" data-tone="light" aria-labelledby="rp-rcm">
-          <div className="rp__inner">
-            <header className="rp__head">
-              <h2 className="rp__h2" id="rp-rcm">
-                {rcm.heading}
+        {/* ---- How capabilities are released, on paper ------------------- */}
+        <section className="fp__start" data-tone="light" aria-labelledby="rp-release">
+          <div className="rp__inner fp__startGrid">
+            <div className="fp__startSay">
+              <h2 className="fp__h2 rp__releaseH" id="rp-release">
+                {release.heading}
               </h2>
-              <p className="rp__headLead">{rcm.lead}</p>
-            </header>
-
-            {/* The four steps as one trace, drawn on in order. */}
-            <ol className="rp__flow">
-              {rcm.steps.map((s, i) => (
-                <li className="rp__step" key={s.label} style={{ ["--i" as string]: i }}>
-                  <span className="rp__stepNode" aria-hidden="true" />
-                  <span className="rp__stepLabel">{s.label}</span>
-                  <h3 className="rp__stepDetail">{s.detail}</h3>
-                </li>
-              ))}
-            </ol>
-
-            <div className="rp__close">
-              <p className="rp__closing">{rcm.closing}</p>
-              <Link href={rcm.action.href} className="hero__go rp__go">
-                {rcm.action.label}
-              </Link>
+              <p className="fp__startBody">{release.body}</p>
+              <p className="fp__note">{release.note}</p>
+            </div>
+            <div className="fp__startArt">
+              <ReleaseGate className="fp__startDraw sd sd--armed" />
             </div>
           </div>
         </section>

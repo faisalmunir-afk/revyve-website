@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { HOME } from "../../content/home";
+import { HOME } from "../../content/archive/home-2026-10";
 import Backbone from "./Backbone";
 import Accent from "./Accent";
 import FacetField from "./FacetField";

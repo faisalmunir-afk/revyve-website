@@ -1732,8 +1732,9 @@
   grid-template-rows: auto auto 1fr auto;
   padding: clamp(2rem, 3.6vw, 3.25rem);
   /* Fixed, not min: the row must never grow when one door narrows and
-     its text rewraps. The corner marks fold away to make the room. */
-  height: clamp(28rem, 6rem + 29vw, 34rem);
+     its text rewraps. The corner marks fold away to make the room. Sized
+     for the November copy, whose longer door runs to three sentences. */
+  height: clamp(39rem, 10rem + 33vw, 42rem);
   background: var(--paper-2);
   border-radius: 4px;
   overflow: clip;
@@ -1780,6 +1781,8 @@
   }
   .v3 .doors__door--main:is(:hover, :focus-within) .doors__body {
     color: rgb(220 230 255 / 0.84);
+    /* Clear of the large mark that draws in on the right. */
+    max-width: min(40ch, calc(100% - clamp(150px, 18vw, 250px) - 1.5rem));
   }
   .v3 .doors__door--main:is(:hover, :focus-within) .doors__go {
     background: #fff;
@@ -1900,8 +1903,7 @@
   transition: color 420ms ease;
 }
 .v3 .doors__door--main .doors__title {
-  /* Sized so the longer of the two titles holds one line at rest. */
-  font-size: clamp(2rem, 1.1rem + 2.5vw, 3.25rem);
+  font-size: clamp(1.75rem, 1rem + 2vw, 2.75rem);
   max-width: 100%;
 }
 .v3 .doors__door--side .doors__title {
@@ -1917,8 +1919,8 @@
   transition: color 420ms ease;
 }
 .v3 .doors__door--main .doors__body {
-  font-size: var(--t-lead);
-  max-width: 26ch;
+  font-size: var(--t-body);
+  max-width: 40ch;
   align-self: start;
 }
 .v3 .doors__door--side .doors__body {
@@ -4617,4 +4619,441 @@
   color: var(--paper-ink);
   margin-top: clamp(1.75rem, 3vw, 2.25rem);
   margin-bottom: 0.6rem;
+}
+
+/* =========================================================================
+   November 2026: the client's rewrite. New pieces only; everything else
+   reuses what the pages already had.
+   ========================================================================= */
+
+/* ---- Home: the hero's second paragraph and its bold line ------------------ */
+.v3 .hero__say .hero__lede + .hero__lede {
+  margin-top: -0.4rem;
+}
+.v3 .hero__tagline {
+  font-size: clamp(1.0625rem, 0.92rem + 0.6vw, 1.3125rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ice);
+  max-width: min(46ch, 100%);
+}
+
+/* ---- Home: the evidence, on paper ------------------------------------------ */
+.v3 .ev {
+  --paper: #f5f4fb;
+  --paper-ink: #140d2d;
+  --paper-ink-2: #3c3459;
+  --paper-muted: #6b6389;
+  background: var(--paper);
+  color: var(--paper-ink);
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.v3 .ev__title {
+  font-size: clamp(2rem, 1rem + 3vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.022em;
+  max-width: 18ch;
+  text-wrap: balance;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.v3 .ev__stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+.v3 .ev__stat {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: clamp(1.75rem, 3.4vw, 2.75rem);
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgb(20 13 45 / 0.1);
+}
+.v3 .ev__fig {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2rem, 1rem + 2.6vw, 3.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--paper-ink);
+  text-wrap: balance;
+}
+.v3 .ev__cap {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--paper-ink-2);
+  max-width: 44ch;
+}
+.v3 .ev__note {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  font-size: var(--t-sm);
+  line-height: 1.6;
+  color: var(--paper-muted);
+  max-width: 68ch;
+}
+.v3 .ev__link {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-weight: 500;
+  color: #5a1ccc;
+  border-bottom: 1px solid rgb(90 28 204 / 0.35);
+  padding-bottom: 2px;
+  transition: border-color 180ms ease;
+}
+.v3 .ev__link:hover {
+  border-bottom-color: #5a1ccc;
+}
+
+/* ---- Home: built inside operations, on the brand --------------------------- */
+.v3 .op__say {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+.v3 .op__title {
+  max-width: 19ch;
+}
+.v3 .op__lead {
+  font-size: var(--t-lead);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--ice);
+  max-width: 30ch;
+}
+.v3 .op__prose {
+  display: grid;
+  gap: 1.1em;
+  font-size: var(--t-body);
+  line-height: 1.65;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 60ch;
+}
+.v3 .op__note {
+  color: rgb(220 230 255 / 0.66);
+}
+
+/* ---- Home: the team band ---------------------------------------------------- */
+.v3 .tb {
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.v3 .tb__head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.v3 .tb__title {
+  max-width: 16ch;
+}
+.v3 .tb__body {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 44ch;
+}
+.v3 .tb__link {
+  display: inline-block;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ---- Home: the Investors door's demo, and its inline link ------------------- */
+.v3 .doors__inline {
+  color: #5a1ccc;
+  border-bottom: 1px solid rgb(90 28 204 / 0.35);
+}
+.v3 .doors__demo {
+  margin-top: 0.75rem;
+}
+.v3 .doors .demo__open {
+  color: var(--paper-ink, #140d2d);
+  border-color: rgb(20 13 45 / 0.24);
+}
+.v3 .doors .demo__open:hover {
+  border-color: rgb(20 13 45 / 0.5);
+  background: rgb(20 13 45 / 0.04);
+}
+.v3 .doors .demo__note {
+  color: var(--paper-muted, #6b6389);
+}
+
+/* ---- About: the intro under the heading ------------------------------------- */
+.v3 .aboutb__intro {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 60ch;
+}
+.v3 .aboutb__lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+}
+.v3 .aboutb__tagline {
+  font-size: var(--t-lead);
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ice);
+}
+
+/* ---- Revyve AI: the two actions, today and next, the release ----------------- */
+.v3 .rp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1rem;
+  margin-top: 0.4rem;
+}
+.v3 .rp__scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+}
+.v3 .rp__scopeCard {
+  padding: clamp(1.75rem, 3.4vw, 2.75rem);
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1b0f47 0%, #120a33 55%, #0c0726 100%);
+  border: 1px solid rgb(182 137 248 / 0.16);
+}
+.v3 .rp__scopeCard--next {
+  background: transparent;
+  border-style: dashed;
+  border-color: rgb(182 137 248 / 0.26);
+}
+.v3 .rp__scopeH {
+  font-size: clamp(1.375rem, 1rem + 0.9vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.v3 .rp__scopeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+  font-size: var(--t-body);
+  line-height: 1.45;
+  color: rgb(220 230 255 / 0.84);
+}
+.v3 .rp__scopeList li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: start;
+}
+.v3 .rp__scopeIco {
+  width: 20px;
+  height: 20px;
+  margin-top: 0.15em;
+  color: #6fe3d6;
+}
+.v3 .rp__scopeCard--next .rp__scopeIco {
+  color: var(--lilac);
+}
+.v3 .rp__scopeCard--next .rp__scopeList {
+  color: rgb(220 230 255 / 0.66);
+}
+.v3 .rp__releaseH {
+  max-width: 14ch;
+}
+.v3 .rp__next {
+  padding-top: clamp(4rem, 8vw, 6rem);
+}
+
+/* ---- First deployment: the four figures --------------------------------------- */
+.v3 .dp__first:first-child {
+  margin-top: 0;
+}
+.v3 .dp__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0 0;
+}
+.v3 .dp__fig {
+  padding: 1.5rem 1.6rem;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgb(20 13 45 / 0.1);
+}
+.v3 .dp__term {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: #5a1ccc;
+  margin-bottom: 0.5rem;
+}
+.v3 .dp__detail {
+  margin: 0;
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--paper-ink);
+}
+.v3 .dp__note {
+  margin-top: 2.5rem;
+  font-size: var(--t-sm);
+  color: #6b6389;
+}
+
+/* ---- Insights pieces: the header notes ----------------------------------------- */
+.v3 .lt__notes {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  max-width: 64ch;
+}
+.v3 .lt__noteLine {
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  color: rgb(220 230 255 / 0.66);
+}
+.v3 .lt__noteLine--editor {
+  font-style: italic;
+}
+
+/* ---- Sell your firm: what joining adds ------------------------------------------ */
+.v3 .sy__adds {
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+.v3 .sy__addsBody {
+  font-size: var(--t-lead);
+  line-height: 1.55;
+  color: rgb(220 230 255 / 0.82);
+  max-width: 52ch;
+}
+
+/* ---- Team: the hiring line ---------------------------------------------------------- */
+.v3 .tm__hiring {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: rgb(220 230 255 / 0.8);
+  max-width: 52ch;
+}
+
+/* ---- The product demo ------------------------------------------------------------- */
+.v3 .demo {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+}
+.v3 .demo__open {
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--t-body);
+  gap: 0.6rem;
+  background: transparent;
+}
+.v3 .demo__play {
+  width: 20px;
+  height: 20px;
+  max-width: none;
+}
+.v3 .demo__note {
+  font-size: var(--t-sm);
+  color: var(--muted);
+}
+.v3 .ct__demo {
+  margin-top: 1rem;
+}
+.v3 .demo__dialog {
+  /* The reset zeroes margins; a modal dialog centres on auto margins. */
+  margin: auto;
+  width: min(100% - 2rem, 980px);
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 1px solid rgb(182 137 248 / 0.24);
+  border-radius: 16px;
+  background: #0d0828;
+  color: var(--ice);
+  overflow: auto;
+}
+.v3 .demo__dialog::backdrop {
+  background: rgb(4 2 16 / 0.78);
+}
+.v3 .demo__panel {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.v3 .demo__x {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(220 230 255 / 0.2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ice);
+  cursor: pointer;
+}
+.v3 .demo__x svg {
+  width: 18px;
+  height: 18px;
+}
+.v3 .demo__x:hover {
+  background: rgb(220 230 255 / 0.08);
+}
+.v3 .demo__title {
+  font-size: clamp(1.375rem, 1rem + 1vw, 1.875rem);
+  font-weight: 500;
+  line-height: 1.15;
+  padding-right: 3rem;
+}
+.v3 .demo__desc {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: rgb(220 230 255 / 0.76);
+  max-width: 70ch;
+}
+.v3 .demo__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  border-radius: 10px;
+  background: #000;
+}
+.v3 .demo__disclaimers {
+  display: grid;
+  gap: 0.6rem;
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  color: rgb(220 230 255 / 0.7);
+}
+.v3 .demo__noteHead {
+  font-weight: 600;
+  color: var(--ice);
+}
+.v3 .demo__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.v3 .demo__close {
+  justify-self: start;
+  cursor: pointer;
+  font: inherit;
+  background: transparent;
+}
+
+@media (max-width: 960px) {
+  .v3 .tb__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .v3 .ev__stats,
+  .v3 .rp__scope,
+  .v3 .dp__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

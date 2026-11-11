@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import CopyEmail from "../components/CopyEmail";
 import { DoorMark } from "../components/Routes";
 import { OneAddress } from "../components/peopleDiagrams";
+import DemoDialog from "../components/DemoDialog";
 
 export const metadata: Metadata = {
   title: META["/contact/"].title,
@@ -65,6 +66,8 @@ export default function ContactPage() {
                   <DoorMark i={MARK[i]} className="fp__mark ct__mark" />
                   <h2 className="cr__roleTitle ct__title">{c.title}</h2>
                   <p className="fp__tileBody">{c.body}</p>
+                  {/* The Investors card carries the product demo, as on the live site. */}
+                  {i === 3 && <DemoDialog className="ct__demo" />}
                 </li>
               ))}
             </ul>

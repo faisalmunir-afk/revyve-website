@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { HOME } from "../../content/home";
+import Linked from "./Linked";
+import DemoDialog from "./DemoDialog";
 
 /**
  * The four routes.
  *
  * Four audiences, four doors — and they are not the same size, because the
- * audiences are not. "Sell your firm" and "Move your billing" are the two
- * things the whole page exists to make happen, so they are the two large
- * doors. "Work with us" and "Investors" are real but secondary, and sit
+ * audiences are not. Practices and owners selling a billing company are the
+ * two things the whole page exists to make happen, so they are the two
+ * large doors. "Work with us" and "Investors" are real but secondary, and sit
  * beneath as a quieter pair. Four equal cards would say the page has no
  * idea who it is for.
  *
@@ -17,9 +19,10 @@ import { HOME } from "../../content/home";
  * markup — small at rest in the corner, large for the hover — so neither
  * has to move or rescale and the draw-on is a plain stroke offset.
  *
- * Each door carries a mark drawn for it from its own sentence: a firm with
- * its door lit, claims on the move, a seat at a desk in the billing office,
- * a letter. Nothing is a product or a logo.
+ * Each door carries a mark drawn for it from its own sentence: claims on the
+ * move, a firm with its door lit, a seat at a desk in the billing office, a
+ * letter. Nothing is a product or a logo. The Investors door has no button:
+ * its link sits inside its sentence, and the product demo sits under it.
  *
  * The whole door is the link, through a stretched pseudo-element on the
  * action, so the link's accessible name is its label and not the whole
@@ -131,17 +134,19 @@ export default function Routes() {
               className="doors__door doors__door--main"
               style={{ ["--i" as string]: i }}
             >
-              <DoorMark i={i} className="doors__mark" />
+              <DoorMark i={r.mark} className="doors__mark" />
               <h2 className="doors__title">{r.title}</h2>
               <p className="doors__body">{r.body}</p>
-              <Link href={r.link.href} className="doors__go">
-                {r.link.label}
-                <span className="doors__arrow" aria-hidden="true">
-                  →
-                </span>
-              </Link>
+              {r.link && (
+                <Link href={r.link.href} className="doors__go">
+                  {r.link.label}
+                  <span className="doors__arrow" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              )}
               {/* Drawn large into the room the hover opens. */}
-              <DoorMark i={i} className="doors__big" />
+              <DoorMark i={r.mark} className="doors__big" />
             </article>
           ))}
         </div>
@@ -154,15 +159,20 @@ export default function Routes() {
               className="doors__door doors__door--side"
               style={{ ["--i" as string]: i + 2 }}
             >
-              <DoorMark i={i + 2} className="doors__mark" />
+              <DoorMark i={r.mark} className="doors__mark" />
               <h2 className="doors__title">{r.title}</h2>
-              <p className="doors__body">{r.body}</p>
-              <Link href={r.link.href} className="doors__go">
-                {r.link.label}
-                <span className="doors__arrow" aria-hidden="true">
-                  →
-                </span>
-              </Link>
+              <p className="doors__body">
+                <Linked text={r.body} links={r.bodyLinks} className="doors__inline" />
+              </p>
+              {r.link && (
+                <Link href={r.link.href} className="doors__go">
+                  {r.link.label}
+                  <span className="doors__arrow" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              )}
+              {r.demo && <DemoDialog className="doors__demo" />}
             </li>
           ))}
         </ul>

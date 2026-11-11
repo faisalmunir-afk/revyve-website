@@ -4,7 +4,7 @@ import { Mark } from "./aiDiagrams";
  * Drawings for /careers/ and /contact/, in the same hand as the rest.
  *
  *   TwoRoles    careers: the two lanes. Engineers start with the billing
- *               team, map a workflow, then build the agents and screens.
+ *               team, map a workflow, then build the agents, integrations and evaluation tools.
  *               Operators run a business — its customers, its team, its
  *               numbers — and make it better every week.
  *   RoleMark    one mark per role: an engineer at a screen; an operator
@@ -77,7 +77,7 @@ export function TwoRoles({ className }: { className?: string }) {
         <Mark kind="checklist" cx={366} cy={E} size={24} tone="lit" />
         <rect x={390} y={E - 10} width={78} height={5} rx="2.5" fill={C.ice} fillOpacity="0.6" />
         <rect x={390} y={E + 2} width={54} height={5} rx="2.5" fill={C.ice} fillOpacity="0.35" />
-        <Label x={410} y={E + 50}>the agents and screens</Label>
+        <Label x={410} y={E + 50}>evaluation tools</Label>
       </g>
 
       {/* Operators. */}

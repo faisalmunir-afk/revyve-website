@@ -302,6 +302,108 @@ export function TheLoop({ className }: { className?: string }) {
   );
 }
 
+/* ---- Our strategy: the four steps, in order ------------------------------ */
+
+/**
+ * The essay's four steps as one rising line, each step a node labelled
+ * above (clear of the line, which only runs below and beside it), and its
+ * own last word on them underneath: "The sequence is the strategy."
+ */
+export function FourSteps({ className }: { className?: string }) {
+  const STEPS = [
+    { x: 92, y: 196, label: "buy billing services" },
+    { x: 232, y: 156, label: "rebuild from inside" },
+    { x: 372, y: 116, label: "earn the right to productize" },
+    { x: 512, y: 76, label: "sell the platform to the industry" },
+  ];
+  return (
+    <svg className={className} viewBox="0 0 600 290" aria-hidden="true" focusable="false">
+      <path
+        data-draw=""
+        pathLength={1}
+        style={beat(0)}
+        {...INK}
+        stroke={C.signal}
+        strokeOpacity="0.75"
+        strokeWidth="1.8"
+        d={`M40 ${STEPS[0].y + 20}H${STEPS[0].x}V${STEPS[0].y}H${STEPS[1].x}V${STEPS[1].y}H${STEPS[2].x}V${STEPS[2].y}H${STEPS[3].x}V${STEPS[3].y}H566`}
+      />
+      {STEPS.map((s, i) => (
+        <g key={s.label}>
+          <g data-pop="" style={beat(500 + i * 260)}>
+            <circle cx={s.x} cy={s.y} r={15} fill={i === 3 ? C.plate : C.deep} stroke={i === 3 ? C.signal : C.lilac} strokeOpacity={i === 3 ? 0.9 : 0.6} strokeWidth="1.4" />
+            <circle cx={s.x} cy={s.y} r={4.5} fill={i === 3 ? C.signal : C.lilac} />
+          </g>
+          <g data-stay="" style={beat(650 + i * 260)}>
+            <Label x={s.x} y={s.y - 26} live={i === 3}>
+              {s.label}
+            </Label>
+          </g>
+        </g>
+      ))}
+      <g data-stay="" style={beat(1800)}>
+        <Label x={300} y={276} live>
+          The sequence is the strategy.
+        </Label>
+      </g>
+    </svg>
+  );
+}
+
+/* ---- Revyve AI: how capabilities are released --------------------------- */
+
+/**
+ * Workflow by workflow: one workflow at a time passes the four measures the
+ * paragraph names, and only then is released. Labels are its own phrases.
+ */
+export function ReleaseGate({ className }: { className?: string }) {
+  const CHECKS = ["measured coverage", "error severity", "review requirements", "consistent performance"];
+  return (
+    <svg className={className} viewBox="0 0 504 240" aria-hidden="true" focusable="false">
+      {/* Workflows waiting, one at a time. */}
+      {[0, 1, 2].map((i) => (
+        <g key={i} data-stay="" style={beat(i * 120)}>
+          <rect x={20} y={70 + i * 40} width={88} height={28} rx="14" fill={i === 0 ? C.plate : C.deep} stroke={C.lilac} strokeOpacity={i === 0 ? 0.7 : 0.3} strokeWidth="1.2" />
+          <rect x={36} y={81.5 + i * 40} width={[52, 40, 46][i]} height={5} rx="2.5" fill={C.ice} fillOpacity={i === 0 ? 0.7 : 0.3} />
+        </g>
+      ))}
+      <g data-stay="" style={beat(300)}>
+        <Label x={64} y={210}>workflow by workflow</Label>
+      </g>
+
+      {/* The four measures it has to pass. */}
+      <path data-draw="" pathLength={1} style={beat(400)} {...INK} stroke={C.ice} strokeOpacity="0.5" strokeWidth="1.4" d="M108 84H150" />
+      <g data-stay="" style={beat(500)}>
+        <rect x={150} y={24} width={210} height={192} rx="14" fill={C.deep} stroke={C.lilac} strokeOpacity="0.4" strokeWidth="1.2" />
+      </g>
+      {CHECKS.map((c, i) => (
+        <g key={c}>
+          <g data-pop="" style={beat(800 + i * 220)}>
+            <circle cx={176} cy={60 + i * 42} r={10} fill={C.deep} stroke={C.signal} strokeWidth="1.4" />
+            <path {...INK} stroke={C.signal} strokeWidth="1.8" d={`M171 ${60 + i * 42}l3.5 3.5 6.5-7`} />
+          </g>
+          <g data-stay="" style={beat(700 + i * 220)}>
+            <Label x={196} y={64 + i * 42} anchor="start">
+              {c}
+            </Label>
+          </g>
+        </g>
+      ))}
+
+      {/* Then, and only then, released. */}
+      <path data-draw="" pathLength={1} style={beat(1800)} {...INK} stroke={C.signal} strokeWidth="2" d="M360 120H430" />
+      <path data-pop="" style={beat(2100)} {...INK} stroke={C.signal} strokeWidth="2" d="M422 112l8 8-8 8" />
+      <g data-pop="" style={beat(2200)}>
+        <rect x={436} y={104} width={52} height={32} rx="16" fill={C.plate} stroke={C.signal} strokeOpacity="0.8" strokeWidth="1.3" />
+        <circle cx={462} cy={120} r={5} fill={C.signal} />
+      </g>
+      <g data-stay="" style={beat(2300)}>
+        <Label x={462} y={160} live>released</Label>
+      </g>
+    </svg>
+  );
+}
+
 /* ---- Privacy: under the agreements ------------------------------------ */
 
 export function UnderAgreement({ className }: { className?: string }) {

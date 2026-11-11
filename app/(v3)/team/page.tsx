@@ -26,7 +26,7 @@ export const metadata: Metadata = {
  * Every string comes from app/content/team.ts and site.ts, verbatim.
  */
 export default function TeamPage() {
-  const { heading, lead, founders, readNext } = TEAM;
+  const { heading, lead, founders, hiring, readNext } = TEAM;
 
   return (
     <>
@@ -67,6 +67,7 @@ export default function TeamPage() {
                 </li>
               ))}
             </ul>
+            <p className="tm__hiring">{hiring}</p>
           </div>
         </section>
 

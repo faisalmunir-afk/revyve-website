@@ -29,7 +29,7 @@ export const metadata: Metadata = {
  * Every string comes from app/content/sell.ts, verbatim.
  */
 export default function SellPage() {
-  const { heading, lead, action, lookFor, people, how, faq } = SELL;
+  const { heading, lead, action, lookFor, people, adds, how, faq } = SELL;
   const steps = how.body.split(/(?<=\.) /);
 
   return (
@@ -86,6 +86,16 @@ export default function SellPage() {
               {people.heading}
             </h2>
             <p className="sy__statement">{people.body}</p>
+          </div>
+        </section>
+
+        {/* ---- What joining Revyve adds ---------------------------------- */}
+        <section className="sy__adds" aria-labelledby="sy-adds">
+          <div className="fp__inner sy__peopleGrid">
+            <h2 className="fp__h2" id="sy-adds">
+              {adds.heading}
+            </h2>
+            <p className="sy__addsBody">{adds.body}</p>
           </div>
         </section>
 

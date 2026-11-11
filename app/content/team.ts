@@ -16,8 +16,8 @@ export const TEAM = {
   founders: [
     {
       name: "Talal Gondal",
-      role: "Founder and CEO. Product, technology and capital.",
-      body: "Leads product, engineering, capital and acquisitions, and built the first agent workflows himself: the orchestration, the payer connectors, the claim-event log. Previously founded TAG, Pakistan’s first digital bank (YC S21), and worked in venture at Lunar Ventures and Edison and in senior roles at Amazon.",
+      role: "Founder and CEO. Product and technology.",
+      body: "Leads product and built the first agent workflows himself: the claim-status checks, the work queues, the evidence log. Previously founded TAG, Pakistan’s first digital bank (YC S21), and worked in venture at Lunar Ventures and Edison and in senior roles at Amazon.",
     },
     {
       name: "Ali Afzal",
@@ -31,15 +31,18 @@ export const TEAM = {
     },
     {
       name: "Sai Devana, MD",
-      role: "Co-founder. Practice implementation and customer success.",
+      role: "Co-founder. Onboarding, customer success and specialty requirements.",
       body: "Orthopedic surgeon. Runs practice onboarding and customer success, and defines what each specialty’s workflow needs from the agents.",
     },
   ],
+  /** Under the four cards. Added by the client, November 2026. */
+  hiring: "We are hiring engineers to build reusable production workflows with the billing team.",
   readNext: {
     lead: "Read next: ",
-    text: "Work with us; our thesis.",
+    text: "Work with us; the first deployment results; our thesis.",
     links: [
       { phrase: "Work with us", href: "/careers/" },
+      { phrase: "the first deployment results", href: "/revyve-ai/first-deployment/" },
       { phrase: "our thesis", href: "/insights/our-thesis/" },
     ] as Linked[],
   },

@@ -1,6 +1,7 @@
 /**
  * Revyve — /careers/ and /contact/, transcribed verbatim from
- * revyveholdings.com/careers/ and revyveholdings.com/contact/.
+ * revyveholdings.com/careers/ and revyveholdings.com/contact/ (as revised by the
+ * client in November 2026). The Investors card's demo is in demo.ts.
  *
  * Every string is Revyve's own wording, character for character.
  */
@@ -8,13 +9,13 @@
 export const CAREERS = {
   eyebrow: "Careers",
   heading: "Work with us.",
-  lead: "We hire engineers who will sit in a billing office in St. Louis before they write a line of code, and operators who want to run a business, not a function.",
+  lead: "We hire engineers who build reusable production workflows alongside the billing team in St. Louis, and operators who want to run a business, not a function.",
   roles: {
     heading: "Open roles",
     items: [
       {
         title: "Engineers",
-        body: "You start in St. Louis with the billing team, mapping a workflow as it really happens, before you build the agents and screens that change it.",
+        body: "You start with the billing team, mapping a workflow as it really happens, then build the agents, integrations and evaluation tools that change it, designed to be installed in the next operation we own.",
       },
       {
         title: "Operators",
@@ -37,7 +38,7 @@ export const CONTACT_PAGE = {
   cards: [
     {
       title: "Move your billing.",
-      body: "Bring us your most frustrating unpaid claims. We will show you exactly what we would do with each one, which steps we automate, and where a person stays responsible.",
+      body: "We start with a free assessment of your existing billing records, commit to benchmarks before a contract is signed, and then deliver on them.",
     },
     {
       title: "Sell your firm.",
@@ -45,11 +46,11 @@ export const CONTACT_PAGE = {
     },
     {
       title: "Work with us.",
-      body: "Engineers who will sit with the billing team first, and operators who want to run a business. Send what you have built or run.",
+      body: "Engineers who build reusable production workflows with the billing team, and operators who want to run a business. Send what you have built or run.",
     },
     {
       title: "Investors.",
-      body: "We are not raising a priced round. If you back owner-operators in healthcare, write to us.",
+      body: "We're building the AI platform for healthcare administration, starting inside billing operations we own. For investment inquiries, contact us.",
     },
   ],
   legal: "Revyve, Inc. San Francisco and St. Louis.",

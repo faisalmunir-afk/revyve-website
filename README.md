@@ -4,9 +4,17 @@ A rebuild of `revyveholdings.com` with a new visual identity. Every word of Revy
 copy is reused verbatim; only the design changed.
 
 **The site is V3**, in `app/(v3)/`, served at the root. Every route of the live
-site is built: `/`, `/about/`, `/revyve-ai/`, `/for-practices/`,
-`/sell-your-firm/`, `/team/`, `/insights/`, `/insights/our-thesis/`,
-`/insights/why-we-buy-businesses/`, `/careers/`, `/contact/`, `/privacy/`.
+site is built: `/`, `/about/`, `/revyve-ai/`, `/revyve-ai/first-deployment/`,
+`/for-practices/`, `/sell-your-firm/`, `/team/`, `/insights/`,
+`/insights/our-strategy/`, `/insights/why-we-buy-businesses/`,
+`/insights/our-thesis/`, `/careers/`, `/contact/`, `/privacy/`.
+
+The copy follows the client's November 2026 rewrite of revyveholdings.com
+(re-checked against the live site on 11 November 2026). The home page no longer
+carries the first hundred days, so that pinned section is retired from the page;
+its component stays in `app/(v3)/components/HundredDays.tsx`, reading the October
+copy kept in `app/content/archive/home-2026-10.ts` (which `/v2/` also uses). The
+product demo video and poster are the client's own, in `public/video/`.
 
 Type is the live site's own: Manrope (variable, 200–800) and IBM Plex Mono,
 self-hosted in `public/fonts/live/`. The footer carries Revyve's facet field from
@@ -20,7 +28,7 @@ site's 301s do. They are static pages with a meta refresh, so they work on any
 host with no config.
 
 All copy lives in `app/content/`, transcribed verbatim from revyveholdings.com
-(re-checked against the live site on 28 October 2026).
+(re-checked against the live site on 11 November 2026).
 
 ## Running it
 

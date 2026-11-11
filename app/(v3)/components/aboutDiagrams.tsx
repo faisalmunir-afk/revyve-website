@@ -261,6 +261,60 @@ export function Platform({ className }: { className?: string }) {
   );
 }
 
+/* ---- What the platform does ------------------------------------------ */
+
+/**
+ * The existing systems on the left feed the four things the platform does
+ * today, and what needs a person goes on to the billers. Labels are the
+ * paragraph's own phrases.
+ */
+export function Does({ className }: { className?: string }) {
+  const ROWS: { y: number; label: string; g: keyof typeof G }[] = [
+    { y: 40, label: "checks claim status", g: "clock" },
+    { y: 84, label: "controlled work queues", g: "checklist" },
+    { y: 128, label: "daily aging and revenue reports", g: "bars" },
+    { y: 172, label: "records every action", g: "doc" },
+  ];
+  return (
+    <svg className={className} viewBox="0 0 504 220" aria-hidden="true" focusable="false">
+      {/* The systems practices already use. */}
+      <g data-pop="" style={beat(0)}>
+        <Block x={16} y={78} w={78} h={60} lit />
+        <Mark kind="ledger" cx={55} cy={108} size={24} tone="lit" />
+        <Label x={55} y={160}>existing systems</Label>
+      </g>
+
+      {ROWS.map((r, i) => (
+        <g key={r.label}>
+          <path data-draw="" pathLength={1} style={beat(300 + i * 120)} {...INK} stroke={C.ice} strokeOpacity="0.45" strokeWidth="1.3" d={`M94 108C114 108 112 ${r.y} 132 ${r.y}`} />
+          <g data-pop="" style={beat(600 + i * 140)}>
+            <rect x={132} y={r.y - 15} width={210} height={30} rx="15" fill="#1b0f45" stroke={C.lilac} strokeOpacity="0.4" strokeWidth="1.2" />
+            <Mark kind={r.g} cx={150} cy={r.y} size={14} tone="base" />
+            <Label x={164} y={r.y + 4} anchor="start">
+              {r.label}
+            </Label>
+          </g>
+        </g>
+      ))}
+
+      {/* What needs a person goes to the billers. */}
+      <path data-draw="" pathLength={1} style={beat(1300)} {...INK} stroke={C.signal} strokeWidth="1.8" d="M342 84C380 84 388 104 424 104" />
+      <g data-pop="" style={beat(1600)}>
+        <circle cx={448} cy={104} r={24} fill="#1b0f45" stroke={C.signal} strokeOpacity="0.8" strokeWidth="1.4" />
+        <g {...INK} stroke={C.signal} strokeWidth="1.4">
+          <circle cx={448} cy={97} r={5} />
+          <path d="M439 113c0-5 4-9 9-9s9 4 9 9" />
+        </g>
+      </g>
+      <g data-stay="" style={beat(1800)}>
+        <Label x={496} y={150} anchor="end" live>
+          Billers review exceptions
+        </Label>
+      </g>
+    </svg>
+  );
+}
+
 /* ---- Where we are ---------------------------------------------------- */
 
 export function Where({ className }: { className?: string }) {

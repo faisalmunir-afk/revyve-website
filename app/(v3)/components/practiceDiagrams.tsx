@@ -5,7 +5,7 @@ import { Mark } from "./aiDiagrams";
  *
  *   ClaimGap    the lead: a claim goes out and the line after it would be
  *               a gap; instead it is worked every day — status checked,
- *               reconciled, the next step queued — the exceptions go to a
+ *               the work queue updated, the daily reports produced — the exceptions go to a
  *               biller, and the evidence sits at the end for the practice
  *               to see
  *   ReasonMark  one mark per reason: a share of what is collected; the
@@ -61,8 +61,8 @@ export function ClaimGap({ className }: { className?: string }) {
   const ticks = [128, 158, 188, 218, 248, 278, 308, 338];
   const groups = [
     { x: 143, label: "check status" },
-    { x: 233, label: "reconcile" },
-    { x: 323, label: "queue the next step" },
+    { x: 233, label: "the work queue" },
+    { x: 323, label: "daily reports" },
   ];
   return (
     <svg className={className} viewBox="0 0 504 260" aria-hidden="true" focusable="false">

@@ -1,64 +1,44 @@
 /**
- * Revyve — home page content, transcribed verbatim from revyveholdings.com.
- * See ./site.ts for the rules. Do not reword anything in this file.
+ * Revyve — home page content, transcribed verbatim from revyveholdings.com
+ * (as rewritten by the client in November 2026). See ./site.ts for the
+ * rules. Do not reword anything in this file.
+ *
+ * The October copy, including the first hundred days, is kept in
+ * ./archive/home-2026-10.ts; the live site no longer carries it.
  */
+
+type Linked = { phrase: string; href: string };
 
 export const HOME = {
   hero: {
-    headline: "We buy good healthcare businesses and make them run better.",
-    lede: "Revyve owns and operates healthcare services companies, starting with medical billing. We keep the people and customers that made each business good, and we change how the work gets done.",
-    primary: { label: "Move your billing to Revyve", href: "/for-practices/" },
-    secondary: { label: "Sell us your firm", href: "/sell-your-firm/" },
-    tertiary: { label: "Why we built Revyve", href: "/about/" },
+    /** The original site's small label above the heading. */
+    eyebrow: "Revyve AI",
+    headline: "AI agents for the back office of independent medicine.",
+    lede: "Starting with medical billing, Revyve AI works inside the systems practices already use. Agents handle claim-status checks and reporting, while experienced billers review exceptions and stay accountable for the result.",
+    more: "We acquired our first billing company to build and improve the platform alongside the people doing the work.",
+    /** Set bold on the original. */
+    tagline: "We are building the vertical AI platform that will revive the healthcare services industry.",
+    primary: { label: "Explore Revyve AI", href: "/revyve-ai/" },
+    secondary: { label: "Get a billing assessment", href: "/for-practices/" },
   },
 
-  hundredDays: {
-    /** The original site's small label above the heading. */
-    eyebrow: "When we take over a business",
-    heading: "The first hundred days.",
-    lede: "Taking over a business is the moment it is easiest to lose a customer. So the first thing we do is nothing that could.",
-    /** `index` is the original site's printed numeral; a design may ignore it. */
-    stages: [
+  /** The client's own figures, always shown with the limits they state. */
+  evidence: {
+    heading: "Already working inside a real billing operation.",
+    stats: [
+      { figure: "70+ practices", caption: "Served by our acquired billing operation." },
       {
-        index: "01",
-        title: "Keep what works.",
-        body: "For the first two weeks we change nothing structural. We confirm cash controls, payer access and customer authorizations, keep the manager who knows the business, name a deputy, and write down how everything performs today.",
-      },
-      {
-        index: "02",
-        title: "Map the work.",
-        body: "We sit with the team and trace one workflow from start to finish, every handoff, every wait, every system. The people doing the work tell us which parts they would gladly never do again.",
-      },
-      {
-        index: "03",
-        title: "Prove one thing.",
-        body: "One workflow goes live with agents doing the repetitive steps and billers reviewing the results, measured against the baseline we wrote down. If quality holds and the work costs less end to end, it earns the next step. If not, it stops.",
-      },
-      {
-        index: "04",
-        title: "Make it repeatable.",
-        body: "What worked becomes a package: the data, the agents, the rules, the screens, the training. The manager owns improvement from here, and the next business starts from the package instead of from zero.",
+        figure: "Approximately 40% lower workflow cost",
+        caption: "Preliminary measurement for the first workflow, including human review, models and tools.",
       },
     ],
-    close:
-      "We judge the first hundred days by customers kept, collections held, and a team that trusts the tools. Not by how many agents we shipped.",
-    /**
-     * Phrases inside `close` to set in the brand's ink — the three things
-     * the hundred days are actually judged by. The sentence above is never
-     * edited; the component splits that exact string on these, so what is
-     * rendered is always the original wording.
-     */
-    closeMarks: [
-      "customers kept",
-      "collections held",
-      "a team that trusts the tools",
-    ],
+    note: "Initial results cover one supervised workflow during its initial deployment period. They do not represent automation or cost reduction across the entire billing operation.",
+    link: { label: "Read the first deployment results", href: "/revyve-ai/first-deployment/" },
   },
 
   revyveAI: {
     eyebrow: "Revyve AI",
-    heading:
-      "The AI platform connecting healthcare’s existing systems, data, and workflows.",
+    heading: "The AI platform connecting healthcare’s existing systems, data, and workflows.",
     lede: "We’re building Revyve AI to connect leading AI models with the existing and legacy systems healthcare businesses run on, and with the workflows between them. Forward-deployed engineers sit with the billing team, map the work as it really happens, and build the models and agents into it.",
     points: [
       {
@@ -75,33 +55,70 @@ export const HOME = {
       },
     ],
     close:
-      "It is the platform under every company we own, not a product we sell. It brings those systems, their data, and everyday workflows together to help teams resolve claims, clear backlogs, and handle more work.",
+      "It is the platform under every company we own. It brings those systems, their data, and everyday workflows together to help teams resolve claims, clear backlogs, and handle more work.",
     closeLink: { label: "More about Revyve AI", href: "/revyve-ai/" },
   },
 
-  /** The four routes the original home page offers, in its own order. */
+  operations: {
+    heading: "Built inside operations. Designed to serve the wider industry.",
+    lead: "We are building the vertical AI platform that will revive the healthcare services industry.",
+    paragraphs: [
+      "Owning our first billing business gives us customers, operating context and outcomes we can measure. Our team builds alongside experienced billers, learning from payer responses, reviewed exceptions and completed work.",
+      "Each workflow contributes reusable agents, integrations and evaluation tools. As those capabilities prove reliable across operations, we plan to offer them to healthcare businesses beyond those we own.",
+      "We acquire for two things. Data to train the agents: payer outcomes, reviewed exceptions, workflow decisions and the corrections billers make, handled only under the agreements that govern it. And distribution: practices that already rely on the business, and the referral networks around them.",
+    ],
+    note: {
+      text: "How ownership works: About Revyve.",
+      links: [{ phrase: "About Revyve", href: "/about/" }] as Linked[],
+    },
+  },
+
+  team: {
+    heading: "Built by operators, engineers and physicians.",
+    body: "Revyve is run by four founders. Two practiced medicine, two have built and run companies, and all of them work with the billing team.",
+    link: { label: "Meet the team", href: "/team/" },
+  },
+
+  /**
+   * The four routes, in the live site's order. `mark` picks the door's
+   * drawing (0 a firm, 1 claims, 2 a desk, 3 a letter). The Investors door
+   * has no button: its link is inside its sentence, and the product demo
+   * sits under it.
+   */
   routes: [
     {
-      title: "Sell your firm.",
-      body: "Built a healthcare services business you are proud of? Tell us about it.",
-      link: { label: "Start the conversation", href: "/contact/" },
+      title: "For independent practices",
+      body: "Every claim followed up, every action visible, inside the practice-management system you already use. We start with a free assessment of your existing billing records and commit to benchmarks before a contract is signed.",
+      link: { label: "Get a billing assessment", href: "/for-practices/" },
+      mark: 1,
     },
     {
-      title: "Move your billing.",
-      body: "Bring us your unpaid claims and we will show you what we would do with them.",
-      link: { label: "Show us your claims", href: "/for-practices/" },
+      title: "Sell your billing company",
+      body: "We buy established medical billing businesses and keep the people and customers that made them good. Joining Revyve gives your team the platform's tools and gives the platform another real operation to learn from. Each acquisition brings the data that trains the agents and the distribution that puts them to work.",
+      link: { label: "Sell your firm", href: "/sell-your-firm/" },
+      mark: 0,
     },
     {
       title: "Work with us.",
-      body: "We hire engineers who will sit in a billing office in St. Louis before they write a line of code, and operators who want to run a business, not a function.",
+      body: "Engineers who build reusable production workflows alongside billers, and operators who want to run a business.",
       link: { label: "Open roles", href: "/careers/" },
+      mark: 2,
     },
     {
       title: "Investors.",
-      body: "We are not raising a priced round. If you back owner-operators in healthcare, write to us.",
-      link: { label: "Write to us", href: "/contact/" },
+      body: "We're building the AI platform for healthcare administration, starting inside billing operations we own. For investment inquiries, contact us.",
+      bodyLinks: [{ phrase: "contact us", href: "/contact/" }] as Linked[],
+      demo: true,
+      mark: 3,
     },
-  ],
+  ] as {
+    title: string;
+    body: string;
+    link?: { label: string; href: string };
+    bodyLinks?: Linked[];
+    demo?: boolean;
+    mark: number;
+  }[],
 
   faq: {
     heading: "Common questions",
@@ -114,20 +131,14 @@ export const HOME = {
       {
         q: "What is Revyve?",
         answer:
-          "Revyve is an AI-native holding company for healthcare services. Revyve buys established healthcare services businesses and runs them. We bring capital, engineers and operators, and we take responsibility for the result.",
+          "Revyve is building the vertical AI platform that will revive the healthcare services industry. Revyve builds an AI platform that automates medical billing and, over time, the back office of independent physician practices. We own billing businesses for two reasons: the data to train the agents, and the distribution to put them to work. Our first company is a 29-year-old medical billing firm in St. Louis serving independent physician practices.",
         link: null,
       },
       {
-        q: "Does Revyve sell software?",
+        q: "Does Revyve sell its software to other companies?",
         answer:
-          "We don't sell these companies software. We own them, so we can change who does the work, which steps still need a person, and what the customer is promised. It is the platform under every company we own, not a product we sell.",
+          "Not yet. The businesses we own provide customers, distribution, workflow context and measured outcomes; the platform turns that learning into reusable technology. Offering it to healthcare businesses beyond those we own is a planned expansion, subject to demonstrated performance.",
         link: null,
-      },
-      {
-        q: "Why only healthcare?",
-        answer:
-          "We only buy in healthcare. The data rules, the payer behavior and the clinical judgment involved are specific enough that a general platform does not fit, and two of our four founders practiced medicine.",
-        link: { phrase: "two of our four founders practiced medicine", href: "/team/" },
       },
       {
         q: "Where is Revyve based?",
@@ -138,8 +149,8 @@ export const HOME = {
       {
         q: "Is Revyve raising money?",
         answer:
-          "We are not raising a priced round. If you back owner-operators in healthcare, write to us.",
-        link: { phrase: "write to us", href: "/contact/" },
+          "We're building the AI platform for healthcare administration, starting inside billing operations we own. For investment inquiries, contact us.",
+        link: { phrase: "contact us", href: "/contact/" },
       },
     ],
   },

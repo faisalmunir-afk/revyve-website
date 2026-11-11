@@ -6,14 +6,15 @@ import HeroFx from "./HeroFx";
 /**
  * The hero.
  *
- * One centred column: the claim, the paragraph under it, the two actions.
+ * One centred column: the claim, the two paragraphs under it and the line
+ * set in bold, then the two actions.
  * Nothing else. The light field behind it is the only picture, so the
  * sentence is what the first screen is about.
  *
  * Every string comes from app/content/home.ts, verbatim.
  */
 export default function Hero() {
-  const { headline, lede, primary, secondary, tertiary } = HOME.hero;
+  const { headline, lede, more, tagline, primary, secondary } = HOME.hero;
 
   return (
     <section className="hero">
@@ -26,6 +27,8 @@ export default function Hero() {
         <div className="hero__say">
           <h1 className="hero__title">{headline}</h1>
           <p className="hero__lede">{lede}</p>
+          <p className="hero__lede">{more}</p>
+          <p className="hero__tagline">{tagline}</p>
 
           <div className="hero__actions">
             <Link href={primary.href} className="hero__go">
@@ -35,10 +38,6 @@ export default function Hero() {
               {secondary.label}
             </Link>
           </div>
-
-          <p className="hero__more">
-            <Link href={tertiary.href}>{tertiary.label}</Link>
-          </p>
         </div>
       </div>
 

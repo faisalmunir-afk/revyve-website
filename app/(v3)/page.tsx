@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
-import HundredDays from "./components/HundredDays";
+import Hero from "./components/Hero";
+import { Evidence, Operations, TeamBand } from "./components/HomeSections";
 import RevyveAI from "./components/RevyveAI";
 import Routes from "./components/Routes";
 import Faq from "./components/Faq";
@@ -13,8 +14,12 @@ import Footer from "./components/Footer";
  * That current is the only loud thing; the sentence beneath it is set in a
  * high-contrast serif and left to carry itself.
  *
- * Built section by section. The hero lives inside HundredDays now: it is
- * the base layer the hundred days close over.
+ * In the order of the client's November 2026 home page: the claim, the
+ * evidence, Revyve AI, how it is built inside operations, the team, the
+ * four doors, the questions. The first hundred days left the live site, so
+ * the pinned HundredDays section is retired from the page; its component
+ * stays in components/ (reading the October copy in
+ * content/archive/home-2026-10.ts) so it can return.
  *
  * All copy comes from app/content/, verbatim.
  */
@@ -26,8 +31,11 @@ export default function V3Home() {
       </a>
       <Nav />
       <main id="main">
-        <HundredDays />
+        <Hero />
+        <Evidence />
         <RevyveAI />
+        <Operations />
+        <TeamBand />
         <Routes />
         <Faq />
       </main>

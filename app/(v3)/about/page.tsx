@@ -5,14 +5,22 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Linked from "../components/Linked";
 import MarkStep from "../components/MarkStep";
-import { Healthcare, Opportunity, Own, Platform, Where } from "../components/aboutDiagrams";
+import { Does, Healthcare, Opportunity, Own, Platform, Where } from "../components/aboutDiagrams";
 
 export const metadata: Metadata = {
   title: META["/about/"].title,
   description: META["/about/"].description,
 };
 
-const DRAWINGS = [Opportunity, Own, Healthcare, Platform, Where];
+/** Each essay's drawing, by its id, so a new essay never shifts the rest. */
+const DRAWINGS: Record<string, typeof Where> = {
+  platform: Does,
+  opportunity: Opportunity,
+  own: Own,
+  healthcare: Healthcare,
+  ai: Platform,
+  where: Where,
+};
 
 /**
  * About.
@@ -32,7 +40,7 @@ const DRAWINGS = [Opportunity, Own, Healthcare, Platform, Where];
  * Every string comes from app/content/about.ts, verbatim.
  */
 export default function AboutPage() {
-  const { heading, glance, sections, entry, footnotes, readNext } = ABOUT;
+  const { heading, intro, tagline, glance, sections, entry, footnotes, readNext } = ABOUT;
 
   return (
     <>
@@ -47,6 +55,14 @@ export default function AboutPage() {
             <h1 className="aboutb__title" id="about-title">
               {heading}
             </h1>
+            <div className="aboutb__intro">
+              {intro.map((p) => (
+                <p key={p} className="aboutb__lead">
+                  {p}
+                </p>
+              ))}
+              <p className="aboutb__tagline">{tagline}</p>
+            </div>
           </div>
         </section>
 
@@ -73,7 +89,7 @@ export default function AboutPage() {
         {/* ---- The essays, as plates ----------------------------------- */}
         <div className="aboutb__plates">
           {sections.map((s, i) => {
-            const Drawing = DRAWINGS[i];
+            const Drawing = DRAWINGS[s.id] ?? Where;
             return (
               <section
                 className={`aboutb__plate ${i % 2 ? "aboutb__plate--left" : "aboutb__plate--right"}`}

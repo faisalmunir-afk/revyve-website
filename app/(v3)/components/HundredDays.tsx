@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HOME } from "../../content/home";
+import { HOME } from "../../content/archive/home-2026-10";
 import Hero from "./Hero";
 import Judgement from "./Judgement";
 import MarkStep from "./MarkStep";
