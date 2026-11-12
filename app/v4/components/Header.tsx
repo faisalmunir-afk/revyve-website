@@ -25,7 +25,7 @@ export default function Header({ current }: { current?: string }) {
           ))}
         </nav>
 
-        <Link href="/contact/" className="btn btn--solid hd__cta">
+        <Link href={v4("/contact/")} className="btn btn--solid hd__cta" aria-current={current === "/contact/" ? "page" : undefined}>
           Contact
         </Link>
 
