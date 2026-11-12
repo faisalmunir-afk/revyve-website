@@ -9,6 +9,8 @@
  * styles.css stops all of it and leaves each picture finished.
  */
 
+import { Icon, type IconName } from "./AiArt";
+
 const ICON = {
   ledger: "M4 5h16v14H4zM4 10h16M4 15h16M10 5v14",
   calendar: "M4 6h16v14H4zM4 11h16M9 3v5M15 3v5",
@@ -195,54 +197,83 @@ export function LayerArt({ className }: { className?: string }) {
 
 /* ---- Built inside operations ------------------------------------------- */
 
+/**
+ * What an acquisition brings, in the paragraph's own words: the data that
+ * trains the agents (four sources, checked in turn), flowing into Revyve,
+ * and out through distribution (the practices and the referral networks).
+ */
+const OWN_DATA: { t: string; icon: IconName }[] = [
+  { t: "payer outcomes", icon: "chart" },
+  { t: "reviewed exceptions", icon: "person" },
+  { t: "workflow decisions", icon: "branch" },
+  { t: "the corrections billers make", icon: "pencil" },
+];
+const OWN_DIST: { t: string; icon: IconName }[] = [
+  { t: "practices that already rely on the business", icon: "clinic" },
+  { t: "the referral networks around them", icon: "network" },
+];
+
 export function OwnershipArt({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 360 460" aria-hidden="true">
-      <defs>
-        <linearGradient id="gaPanel" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity="0.3" />
-          <stop offset="1" stopColor="#fff" stopOpacity="0.08" />
-        </linearGradient>
-        <radialGradient id="gaOwnCore" cx="0.35" cy="0.3" r="0.8">
-          <stop offset="0" stopColor="#fff" />
-          <stop offset="1" stopColor="#e9e2ff" />
-        </radialGradient>
-      </defs>
+    <div className={`ow ${className ?? ""}`} aria-hidden="true">
+      <div className="ow__panel glass">
+        <p className="ow__head">
+          <span className="ow__headIco">
+            <Icon name="ledger" />
+          </span>
+          Data to train the agents
+        </p>
+        <ul className="ow__rows">
+          {OWN_DATA.map((d, i) => (
+            <li key={d.t} className={`ow__row ow__row--${i}`}>
+              <span className="ow__ico">
+                <Icon name={d.icon} />
+              </span>
+              <span className="ow__txt">{d.t}</span>
+              <svg viewBox="0 0 20 20" className={`ow__tick ow__tick--${i}`}>
+                <circle cx="10" cy="10" r="9" className="ow__tickRing" />
+                <circle cx="10" cy="10" r="10" className="ow__tickFill" />
+                <path d="M5.5 10.5l3 3 6-6.5" className="ow__tickMark" />
+              </svg>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <g className="ga__float">
-        <rect x="40" y="36" width="280" height="132" rx="24" fill="url(#gaPanel)" className="ga__panelEdge" />
-        <text x="64" y="76" className="ga__labelLg">Data to train the agents</text>
-        {["payer outcomes", "reviewed exceptions", "corrections"].map((t, i) => (
-          <g key={t} className="ga__item" style={{ animationDelay: `${i * 0.4}s` }}>
-            <rect x="64" y={92 + i * 22} width="16" height="16" rx="5" className="ga__itemBox" />
-            <text x="90" y={104.5 + i * 22} className="ga__labelSm">
-              {t}
-            </text>
-          </g>
-        ))}
-      </g>
+      <span className="ow__wire">
+        <i />
+      </span>
+      <div className="ow__core">
+        <span className="ow__ring" />
+        <span className="ow__ring ow__ring--2" />
+        <span className="ow__mark">
+          <span className="ow__v">
+            <img src="/brand/revyve-logo.png" alt="" width={600} height={359} />
+          </span>
+        </span>
+      </div>
+      <span className="ow__wire ow__wire--out">
+        <i />
+      </span>
 
-      <g className="ga__float" style={{ animationDelay: "-3s" }}>
-        <rect x="40" y="292" width="280" height="132" rx="24" fill="url(#gaPanel)" className="ga__panelEdge" />
-        <text x="64" y="332" className="ga__labelLg">distribution</text>
-        {["practices", "referral networks"].map((t, i) => (
-          <g key={t} className="ga__item" style={{ animationDelay: `${1.2 + i * 0.4}s` }}>
-            <rect x="64" y={350 + i * 24} width="16" height="16" rx="5" className="ga__itemBox" />
-            <text x="90" y={362.5 + i * 24} className="ga__labelSm">
-              {t}
-            </text>
-          </g>
-        ))}
-      </g>
-
-      {/* Both feed the agents. */}
-      <path d="M180 168V198" className="ga__wire ga__wire--solid" />
-      <path d="M180 292V262" className="ga__wire ga__wire--solid" />
-      <path d="M180 168V198" pathLength={100} className="ga__comet" />
-      <path d="M180 292V262" pathLength={100} className="ga__comet" style={{ animationDelay: "0.8s" }} />
-      <circle cx="180" cy="230" r="32" className="ga__pulse" />
-      <circle cx="180" cy="230" r="32" fill="url(#gaOwnCore)" className="ga__coreShadow" />
-      <path d="M168 231l8 8 17-18" className="ga__coreMark ga__coreMark--sm" />
-    </svg>
+      <div className="ow__panel glass">
+        <p className="ow__head">
+          <span className="ow__headIco">
+            <Icon name="network" />
+          </span>
+          <span className="ow__cap">distribution</span>
+        </p>
+        <ul className="ow__dist">
+          {OWN_DIST.map((d, i) => (
+            <li key={d.t} className={`ow__out ow__out--${i}`}>
+              <span className="ow__ico">
+                <Icon name={d.icon} />
+              </span>
+              <span className="ow__txt">{d.t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

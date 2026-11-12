@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { META } from "../content/site";
 import GlassFilter from "./components/GlassFilter";
-import GlassPanel from "./components/GlassPanel";
+import RevealOnScroll from "./components/RevealOnScroll";
+import BackToTop from "./components/BackToTop";
 import "./styles.css";
 
 export const metadata: Metadata = {
@@ -20,9 +21,10 @@ export default function V4Layout({ children }: Readonly<{ children: React.ReactN
   return (
     <div className="v4">
       {children}
-      {/* The glass, drawn from app/v4/glass.json, and its tuning panel (dev only). */}
+      {/* The glass, drawn from app/v4/glass.json. */}
       <GlassFilter />
-      <GlassPanel />
+      <RevealOnScroll />
+      <BackToTop />
     </div>
   );
 }

@@ -173,7 +173,8 @@
 .v4 .rx-arch {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* clip, not hidden: hidden would make this a scroll container and stop the scroll reveal inside it */
+  overflow: clip;
   padding-block: clamp(5rem, 11vw, 8.5rem);
   background: var(--lit);
   color: #fff;

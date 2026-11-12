@@ -1,16 +1,9 @@
-"use client";
-
-import { useSyncExternalStore } from "react";
 import SAVED from "../glass.json";
 
 /**
- * The site's glass setting, shared by the filter that draws it and the
- * panel that tunes it.
- *
- * The saved setting lives in app/v4/glass.json (written by the panel's
- * Save, through scripts/glass-save.mjs). While tuning, the working values
- * are kept in this tab's localStorage so a reload does not lose them;
- * "Reset" goes back to what is saved.
+ * The site's glass setting, saved in app/v4/glass.json (light angle and
+ * strength, refraction, depth, dispersion, frost, splay). GlassFilter draws
+ * every `.glass` element from it. To change the look, edit that file.
  */
 
 export type Glass = {
@@ -31,63 +24,7 @@ export type Glass = {
 };
 
 export const SAVED_GLASS: Glass = { ...(SAVED as Glass) };
-export const KEYS: (keyof Glass)[] = ["angle", "light", "refraction", "depth", "dispersion", "frost", "splay"];
-const LS = "revyve-glass-working";
-
-const clamp = (k: keyof Glass, v: number) => (k === "angle" ? Math.max(-180, Math.min(180, v)) : Math.max(0, Math.min(100, v)));
-
-let state: Glass = SAVED_GLASS;
-let loaded = false;
-const subs = new Set<() => void>();
-
-function load() {
-  if (loaded || typeof window === "undefined") return;
-  loaded = true;
-  try {
-    const raw = localStorage.getItem(LS);
-    if (raw) {
-      const o = JSON.parse(raw);
-      const next = { ...SAVED_GLASS };
-      for (const k of KEYS) if (typeof o[k] === "number") next[k] = clamp(k, o[k]);
-      state = next;
-    }
-  } catch {
-    /* No storage: work from the saved setting. */
-  }
-}
-
-export function setGlass(patch: Partial<Glass>) {
-  const next = { ...state };
-  for (const k of KEYS) if (typeof patch[k] === "number" && !Number.isNaN(patch[k])) next[k] = clamp(k, patch[k] as number);
-  state = next;
-  try {
-    localStorage.setItem(LS, JSON.stringify(state));
-  } catch {
-    /* Not stored; still applied. */
-  }
-  subs.forEach((f) => f());
-}
-
-export function resetGlass(to: Glass = SAVED_GLASS) {
-  try {
-    localStorage.removeItem(LS);
-  } catch {}
-  state = { ...to };
-  subs.forEach((f) => f());
-}
 
 export function useGlass(): Glass {
-  return useSyncExternalStore(
-    (f) => {
-      load();
-      subs.add(f);
-      f();
-      return () => subs.delete(f);
-    },
-    () => {
-      load();
-      return state;
-    },
-    () => SAVED_GLASS,
-  );
+  return SAVED_GLASS;
 }

@@ -1,9 +1,9 @@
 {
-  "angle": -45,
+  "angle": -41,
   "light": 80,
-  "refraction": 80,
-  "depth": 20,
-  "dispersion": 50,
-  "frost": 4,
-  "splay": 0
+  "refraction": 86,
+  "depth": 66,
+  "dispersion": 0,
+  "frost": 0,
+  "splay": 24
 }

@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import Faq from "./components/Faq";
 import Arrow from "./components/Arrow";
 import { v4 } from "./components/links";
-import HeroArt from "./components/HeroArt";
+import HeroStory from "./components/HeroStory";
 import HeroFacets3D from "./components/HeroFacets3D";
 import { ModelsArt, LayerArt, OwnershipArt, SystemsArt } from "./components/CardArt";
 import DoorScene from "./components/DoorScene";
@@ -34,6 +34,14 @@ export default function V4Home() {
   const [practices, sell, work, investors] = routes;
   /* The headline's last two words carry the brand's ink, as the live site sets them. */
   const cut = hero.headline.lastIndexOf("independent medicine.");
+  /* The hero picture's five scenes, each named by a phrase of the lede, in order. */
+  const story = [
+    "works inside the systems practices already use",
+    "claim-status checks",
+    "reporting",
+    "experienced billers review exceptions",
+    "stay accountable for the result",
+  ].filter((p) => hero.lede.includes(p));
 
   return (
     <>
@@ -69,7 +77,7 @@ export default function V4Home() {
               <div className="hx__facets" aria-hidden="true">
                 <HeroFacets3D className="hx__canvas" />
               </div>
-              <HeroArt />
+              <HeroStory steps={story} />
             </div>
           </div>
 

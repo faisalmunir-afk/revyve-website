@@ -257,7 +257,8 @@
 .v4 .ab-glance {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* clip, not hidden: hidden would make this a scroll container and stop the scroll reveal inside it */
+  overflow: clip;
   padding-block: clamp(4rem, 8vw, 6rem);
   background: var(--lit);
   color: #fff;
